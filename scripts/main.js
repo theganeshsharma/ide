@@ -4,12 +4,35 @@
 
 $(document).ready(function () {
     var URL = "http://judge.cb.lk/api/";
+
     $('#submit').click(function () {
         var lang = "c";
-        var editor = ace.edit("editor");
-        var source = editor.getValue();
+        var source = ace.edit("editor").getValue();
+        source = window.btoa(source);
+        var testcases = ''; //hardcoded for now
+        var expected = '';
+        for (var i = 0; i < expected.length; ++i) {
+            testcases[i] = window.btoa(testcases[i]);
+            expected[i] = window.btoa(expected[i]);
+        }
+        var wait = true;
         console.log('source - ' + source);
-        // axios.post('/');
+        axios.post(URL + 'submission', {
+            lang: lang,
+            source: source,
+            test_count: 1, //Always 1 for the IDE
+            "testcases[0]": testcases,
+            "expected[0]": expected,
+            get_output: true, //Always true for the IDE
+            wait: true //Always true for the one hosted at GitHub Pages
+        }).then(function (response) {
+            console.log(JSON.stringify(response));
+            var output = response.data.data.testcases[0].output;
+            output = window.atob(output);
+            $('#program-output').text(output);
+        }).catch(function (error) {
+            console.log(error);
+        });
     });
     
     $('#clear').click(function () {
