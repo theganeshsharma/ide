@@ -5,7 +5,10 @@
 $(document).ready(function () {
     var URL = "http://judge.cb.lk/api/";
 
-    $('#submit').click(function () {
+    var runButton = $('#submit');
+    runButton.click(function () {
+        // runButton.addClass('loading disabled');
+        runButton.button('loading');
         var lang = "c";
         var source = ace.edit("editor").getValue();
         source = window.btoa(source);
@@ -30,6 +33,8 @@ $(document).ready(function () {
             var output = response.data.data.testcases[0].output;
             output = window.atob(output);
             $('#program-output').text(output);
+            // runButton.removeClass('loading disabled');
+            runButton.button('reset');
         }).catch(function (error) {
             console.log(error);
         });

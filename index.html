@@ -5,6 +5,7 @@
         <!-- Bootstrap -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/stylesheet.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style type="text/css" media="screen">
             #editor {
                 position: relative;
@@ -38,7 +39,8 @@ void main() {
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button id="submit" type="button" class="btn btn-primary">Run</button>
+                    <button id="submit" type="button" class="btn btn-primary loading"
+                            data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run</button>
                     <button id="clear" type="button" class="btn btn-danger">Clear All</button>
                 </div>
             </div>
