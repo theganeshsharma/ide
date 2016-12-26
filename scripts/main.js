@@ -7,7 +7,6 @@ $(document).ready(function () {
 
     var runButton = $('#submit');
     runButton.click(function () {
-        // runButton.addClass('loading disabled');
         runButton.button('loading');
         var lang = "c";
         var source = ace.edit("editor").getValue();
@@ -30,11 +29,17 @@ $(document).ready(function () {
             wait: true //Always true for the one hosted at GitHub Pages
         }).then(function (response) {
             console.log(JSON.stringify(response));
-            var output = response.data.data.testcases[0].output;
-            output = window.atob(output);
-            $('#program-output').text(output);
-            // runButton.removeClass('loading disabled');
             runButton.button('reset');
+            var data = response.data;
+            if (data.result == "compile_error") {
+                var output = data.error;
+                output = window.atob(output);
+                $('#output').text(output);
+            } else {
+                var output = response.data.data.testcases[0].output;
+                output = window.atob(output);
+                $('#output').text(output);
+            }
         }).catch(function (error) {
             console.log(error);
         });
