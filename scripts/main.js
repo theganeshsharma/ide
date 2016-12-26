@@ -11,4 +11,8 @@ $(document).ready(function () {
         console.log('source - ' + source);
         // axios.post('/');
     });
+    
+    $('#clear').click(function () {
+        ace.edit("editor").setValue('');
+    });
 });
