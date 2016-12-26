@@ -28,12 +28,37 @@
                     <li><a href="#">Java</a></li>
                 </ul>
             </nav>
-            <pre id="editor">#include &lt;stdio.h&gt;
+
+            <div class="row">
+                <div class="col-md-12">
+                    <pre id="editor">#include &lt;stdio.h&gt;
 void main() {
     printf("Hello World!");
 }</pre>
-            <button id="submit" type="button" class="btn btn-primary">Submit</button>
-            <button id="clear" type="button" class="btn btn-danger">Clear All</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button id="submit" type="button" class="btn btn-primary">Submit</button>
+                    <button id="clear" type="button" class="btn btn-danger">Clear All</button>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Compilation Output</div>
+                        <div class="panel-body">Compilation successful.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Program Output</div>
+                        <div class="panel-body">Hello World!</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
