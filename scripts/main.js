@@ -2,18 +2,28 @@
  * Created by umair on 26/12/16.
  */
 
+var lang;
+var lang_sample;
+
+function init() {
+    /*
+    lang = window.location.hash.substr(1);
+    if (lang == '' || lang == undefined) {
+        window.location += '#c';
+        lang = 'c'; //Default language of the IDE
+    }*/
+    if (lang == undefined || lang == 'c') {
+        lang = 'c';
+    }
+    lang_sample = lang_samples[lang];
+    ace.edit("editor").setValue(lang_sample);
+    console.log("Language = " + lang);
+}
+
 $(document).ready(function () {
     var URL = "http://judge.cb.lk/api/";
-    var lang = 'c'; //default language of the IDE
 
-    var mode = window.location.hash.substr(1);
-    if (mode == '') {
-        window.location += '#c';
-    } else if (mode == 'cpp') {
-        lang = 'cpp';
-    }
-
-    console.log("Language = " + lang);
+    init();
 
     var runButton = $('#submit');
     runButton.click(function () {
@@ -51,8 +61,16 @@ $(document).ready(function () {
             console.log(error);
         });
     });
-    
+
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
+    });
+
+    $('.lang').click(function (event) {
+        event.preventDefault();
+        lang = $(this).attr('id');
+        $('ul li.active').removeClass('active');
+        $(this).closest('li').addClass('active');
+        init();
     });
 });
