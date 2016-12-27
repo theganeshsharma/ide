@@ -4,11 +4,20 @@
 
 $(document).ready(function () {
     var URL = "http://judge.cb.lk/api/";
+    var lang = 'c'; //default language of the IDE
+
+    var mode = window.location.hash.substr(1);
+    if (mode == '') {
+        window.location += '#c';
+    } else if (mode == 'cpp') {
+        lang = 'cpp';
+    }
+
+    console.log("Language = " + lang);
 
     var runButton = $('#submit');
     runButton.click(function () {
         runButton.button('loading');
-        var lang = "c";
         var source = ace.edit("editor").getValue();
         source = window.btoa(source);
         var testcases = ''; //hardcoded for now
@@ -18,17 +27,15 @@ $(document).ready(function () {
             expected[i] = window.btoa(expected[i]);
         }
         var wait = true;
-        console.log('source - ' + source);
         axios.post(URL + 'submission', {
             lang: lang,
             source: source,
             test_count: 1, //Always 1 for the IDE
-            "testcases[0]": testcases,
-            "expected[0]": expected,
+            "testcases[0]": testcases, //only one testcase required in IDE
+            "expected[0]": expected, //only one expected output required in IDE
             get_output: true, //Always true for the IDE
             wait: true //Always true for the one hosted at GitHub Pages
         }).then(function (response) {
-            console.log(JSON.stringify(response));
             runButton.button('reset');
             var data = response.data;
             if (data.result == "compile_error") {
@@ -36,7 +43,7 @@ $(document).ready(function () {
                 output = window.atob(output);
                 $('#output').text(output);
             } else {
-                var output = response.data.data.testcases[0].output;
+                var output = data.data.testcases[0].output;
                 output = window.atob(output);
                 $('#output').text(output);
             }
