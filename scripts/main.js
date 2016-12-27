@@ -6,12 +6,6 @@ var lang;
 var lang_sample;
 
 function init() {
-    /*
-    lang = window.location.hash.substr(1);
-    if (lang == '' || lang == undefined) {
-        window.location += '#c';
-        lang = 'c'; //Default language of the IDE
-    }*/
     if (lang == undefined || lang == 'c') {
         lang = 'c';
     }
