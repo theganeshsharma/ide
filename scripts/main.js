@@ -35,8 +35,8 @@ $(document).ready(function () {
             lang: lang,
             source: source,
             test_count: 1, //Always 1 for the IDE
-            "testcases[0]": testcases, //only one testcase required in IDE
-            "expected[0]": expected, //only one expected output required in IDE
+            input: [testcases], //only one testcase required in IDE
+            expected_output: [expected], //only one expected output required in IDE
             get_output: true, //Always true for the IDE
             wait: true //Always true for the one hosted at GitHub Pages
         }).then(function (response) {
