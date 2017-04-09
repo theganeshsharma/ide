@@ -30,7 +30,9 @@ $(document).ready(function () {
             testcases[i] = window.btoa(testcases[i]);
             expected[i] = window.btoa(expected[i]);
         }
-        var wait = true;
+        var config = {
+            headers: {'Access-Token': 'ebc4d4df1ddb9326ffb5e471fc12baa8a9835663a07c5c675bdb9ce616eecf15'}
+        };
         axios.post(URL + 'submission', {
             lang: lang,
             source: source,
@@ -39,7 +41,7 @@ $(document).ready(function () {
             expected_output: [expected], //only one expected output required in IDE
             get_output: true, //Always true for the IDE
             wait: true //Always true for the one hosted at GitHub Pages
-        }).then(function (response) {
+        }, config).then(function (response) {
             runButton.button('reset');
             var data = response.data;
             if (data.result == "compile_error") {
