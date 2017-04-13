@@ -15,7 +15,7 @@ function init() {
 }
 
 $(document).ready(function () {
-    var URL = "http://judge.cb.lk/api/";
+    var URL = "https://judge.cb.lk/api/";
 
     init();
 
