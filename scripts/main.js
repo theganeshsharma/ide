@@ -31,7 +31,7 @@ $(document).ready(function () {
             expected[i] = window.btoa(expected[i]);
         }
         var config = {
-            headers: {'Access-Token': 'ebc4d4df1ddb9326ffb5e471fc12baa8a9835663a07c5c675bdb9ce616eecf15'}
+            headers: {'Access-Token': '79f3c2f8301fc60565de003f4ac76a1d4e5242cb0836995ec2bd28fd083ce86f'}
         };
         axios.post(URL + 'submission', {
             lang: lang,
