@@ -1,72 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Coding Blocks IDE</title>
-        <!-- Bootstrap -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/stylesheet.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style type="text/css" media="screen">
-            #editor {
-                position: relative;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                height: 200px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-default">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Coding Blocks IDE</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li class="active" ><a class="lang" href="#" id="c">C</a></li>
-                    <li><a class="lang" href="#" id="cpp">C++</a></li>
-                    <li><a class="lang" href="#" id="java">Java</a></li>
-                    <li><a class="lang" href="#" id="py2">Python</a></li>
-                </ul>
-            </nav>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <pre id="editor"></pre>
+<head>
+    <title>Coding Blocks IDE</title>
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/stylesheet.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet"> 
+
+    <style type="text/css" media="screen">
+    #editor {
+        position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 400px;
+        border-radius: 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top" style="height:70px ">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img style="width: 130px " alt="Brand" src="cblogo.png">
+                </a>
+            </div>
+                <h2 style="font-family: 'Josefin Sans', sans-serif; color:#696969; ">
+                 Online IDE by Coding Blocks
+                </h2>
+        </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" style="margin-bottom:10px; ">
+                    <button type="button" class="btn btn-default lang" href="#" id="c">C</button>
+                    <button type="button" class="btn btn-default lang" href="#" id="cpp">C++</button>
+                    <button type="button" class="btn btn-default lang" href="#" id="java">Java</button>
+                    <button type="button" class="btn btn-default lang" href="#" id="py2">Python</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button id="submit" type="button" class="btn btn-primary loading"
-                            data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run</button>
-                    <button id="clear" type="button" class="btn btn-danger">Clear All</button>
-                </div>
+            <div class="col-md-12">
+                <pre id="editor"></pre>
             </div>
-            <div class="row top-buffer">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Output</div>
-                        <div class="panel-body"><pre id="output"></pre></div>
-                    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button id="submit" type="button" class="btn btn-primary loading" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run</button>
+                <button id="clear" type="button" class="btn btn-danger">Clear All</button>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Output</div>
+                    <div class="panel-body"><pre id="output"></pre></div>
                 </div>
             </div>
         </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/Dawn");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    editor.$blockScrolling = Infinity;
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="scripts/sample-source.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script>
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/c_cpp");
-            editor.$blockScrolling = Infinity;
-        </script>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="scripts/sample-source.js"></script>
-        <script src="scripts/main.js"></script>
-    </body>
 </html>
