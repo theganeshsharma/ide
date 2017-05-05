@@ -1,5 +1,8 @@
 /**
  * Created by umair on 26/12/16.
+
+
+
  */
 
 var lang;
@@ -13,6 +16,13 @@ function init() {
     ace.edit("editor").setValue(lang_sample);
     console.log("Language = " + lang);
 }
+
+    $('.changetheme').click(function (event) {
+        event.preventDefault();
+        var newtheme = $(this).attr('id');
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/"+newtheme); 
+    });
 
 $(document).ready(function () {
     var URL = "https://judge.cb.lk/api/";
