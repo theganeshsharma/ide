@@ -7,8 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet"> 
-
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <style type="text/css" media="screen">
     #editor {
         position: relative;
@@ -30,20 +29,37 @@
                     <img style="width: 130px " alt="Brand" src="cblogo.png">
                 </a>
             </div>
-                <h2 style="font-family: 'Josefin Sans', sans-serif; color:#696969; ">
-                 Online IDE by Coding Blocks
+            <h2 style="font-family: 'Josefin Sans', sans-serif; color:#696969; ">
+                 Online IDE by Coding Block
                 </h2>
         </nav>
         <div class="row">
             <div class="col-md-12">
-                <div class="btn-group" style="margin-bottom:10px; ">
-                    <button type="button" class="btn btn-default lang" href="#" id="c">C</button>
-                    <button type="button" class="btn btn-default lang" href="#" id="cpp">C++</button>
-                    <button type="button" class="btn btn-default lang" href="#" id="java">Java</button>
-                    <button type="button" class="btn btn-default lang" href="#" id="py2">Python</button>
+                <div class="panel panel-default" style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
+                    <div class="panel-heading" style="height:55px; border-bottom-width:0px; ">
+                        <!-- Single button -->
+                        <div class="btn-group" style="margin-left:25px; ">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Language <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="lang" id="c" href="#">C</a></li>
+                                <li><a class="lang" id="cpp" href="#">C++</a></li>
+                                <li><a class="lang" id="java" href="#">Java</a></li>
+                                <li><a class="lang" id="py2" href="#">Python</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Theme <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="changetheme" id="dawn" href="#">Dawn</a></li>
+                                <li><a class="changetheme" id="monokai" href="#">Monokai</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12">
                 <pre id="editor"></pre>
             </div>
         </div>
@@ -65,7 +81,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/Dawn");
+    editor.setTheme("ace/theme/dawn");
     editor.getSession().setMode("ace/mode/c_cpp");
     editor.$blockScrolling = Infinity;
     </script>
