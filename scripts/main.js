@@ -33,6 +33,21 @@ $(document).ready(function () {
     runButton.click(function () {
         runButton.button('loading');
         var source = ace.edit("editor").getValue();
+
+        if(lang === 'js') {
+            var jsWorker = new Worker('scripts/javascriptWebWorker.js');
+            var input = '';
+            jsWorker.postMessage( {source , input } );
+
+            jsWorker.onmessage = function (e) {
+                console.log(e.data);
+                runButton.button('reset');
+                $('#output').text(e.data.output.join('\n'));
+            };
+
+            return ;
+        }
+
         source = window.btoa(source);
         var testcases = ''; //hardcoded for now
         var expected = '';

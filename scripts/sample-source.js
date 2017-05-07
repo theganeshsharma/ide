@@ -25,9 +25,13 @@ var java_sample =
 var py2_sample =
         'print("Hello World!")';
 
+var js_sample =
+    `console.log('Hello World');`;
+
 var lang_samples = {
     c: c_sample,
     cpp: cpp_sample,
     java: java_sample,
-    py2: py2_sample
+    py2: py2_sample,
+    js : js_sample
 };
