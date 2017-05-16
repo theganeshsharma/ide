@@ -49,13 +49,10 @@ $(document).ready(function () {
         }
 
         source = window.btoa(source);
-        var testcases = $("#test-input").val().replace( /\n/g, " " ).split( " " ); // cusotm inputs
+        var testcases = $("#test-input").val(); // cusotm inputs
 		console.log(testcases); // logs custom inputs
         var expected = '';
-        for (var i = 0; i < expected.length; ++i) {
-            testcases[i] = window.btoa(testcases[i]);
-            expected[i] = window.btoa(expected[i]);
-        }
+        
         var config = {
             headers: {'Access-Token': '79f3c2f8301fc60565de003f4ac76a1d4e5242cb0836995ec2bd28fd083ce86f'}
         };
@@ -86,7 +83,7 @@ $(document).ready(function () {
 
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
-		document.getElementById('test-input').value = "";
+        document.getElementById('test-input').value = "";
     });
 
     $('.lang').click(function (event) {
