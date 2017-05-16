@@ -4,7 +4,7 @@
 <head>
     <title>Coding Blocks IDE</title>
     <!-- Bootstrap -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
@@ -62,8 +62,18 @@
                     </div>
                 </div>
                 <pre id="editor"></pre>
+				<div class="row">
+					<div class="col-md-12">
+					<br>
+						<textarea id="test-input" rows="2" style="width: 100%;" placeholder="  Write your custom inputs"></textarea>
+					</div>
+					<br>
+					<hr class="hr">
+					<br>
+				</div>
             </div>
         </div>
+		
         <div class="row">
             <div class="col-md-12">
                 <button id="submit" type="button" class="btn btn-primary loading" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run</button>
@@ -89,7 +99,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="scripts/sample-source.js"></script>
     <script src="scripts/main.js"></script>

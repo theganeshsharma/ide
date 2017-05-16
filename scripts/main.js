@@ -33,7 +33,7 @@ $(document).ready(function () {
     runButton.click(function () {
         runButton.button('loading');
         var source = ace.edit("editor").getValue();
-
+		
         if(lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
             var input = '';
@@ -49,7 +49,8 @@ $(document).ready(function () {
         }
 
         source = window.btoa(source);
-        var testcases = ''; //hardcoded for now
+        var testcases = $("#test-input").val().replace( /\n/g, " " ).split( " " ); // cusotm inputs
+		console.log(testcases); // logs custom inputs
         var expected = '';
         for (var i = 0; i < expected.length; ++i) {
             testcases[i] = window.btoa(testcases[i]);
@@ -85,6 +86,7 @@ $(document).ready(function () {
 
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
+		document.getElementById('test-input').value = "";
     });
 
     $('.lang').click(function (event) {
