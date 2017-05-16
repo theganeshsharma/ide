@@ -32,8 +32,7 @@ $(document).ready(function () {
     var runButton = $('#submit');
     runButton.click(function () {
         runButton.button('loading');
-        var source = ace.edit("editor").getValue();
-		
+        var source = ace.edit("editor").getValue();	
         if(lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
             var input = '';
