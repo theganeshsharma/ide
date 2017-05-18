@@ -49,7 +49,7 @@ $(document).ready(function () {
 
         source = window.btoa(source);
         var testcases = $("#test-input").val(); // cusotm inputs
-		console.log(testcases); // logs custom inputs
+		testcases = window.btoa(testcases);
         var expected = '';
         
         var config = {
