@@ -32,8 +32,7 @@ $(document).ready(function () {
     var runButton = $('#submit');
     runButton.click(function () {
         runButton.button('loading');
-        var source = ace.edit("editor").getValue();
-
+        var source = ace.edit("editor").getValue();	
         if(lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
             var input = '';
@@ -49,12 +48,10 @@ $(document).ready(function () {
         }
 
         source = window.btoa(source);
-        var testcases = ''; //hardcoded for now
+        var testcases = $("#test-input").val(); // cusotm inputs
+        testcases = window.btoa(testcases);
         var expected = '';
-        for (var i = 0; i < expected.length; ++i) {
-            testcases[i] = window.btoa(testcases[i]);
-            expected[i] = window.btoa(expected[i]);
-        }
+        
         var config = {
             headers: {'Access-Token': '79f3c2f8301fc60565de003f4ac76a1d4e5242cb0836995ec2bd28fd083ce86f'}
         };
@@ -85,6 +82,7 @@ $(document).ready(function () {
 
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
+        document.getElementById('test-input').value = "";
     });
 
     $('.lang').click(function (event) {
