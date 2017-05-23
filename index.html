@@ -4,8 +4,11 @@
 <head>
   <title>Coding Blocks IDE</title>
   <!-- Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/stylesheet.css" rel="stylesheet">
+  <link href="https://codingblocks.com/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+  <link href="https://codingblocks.com/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
   <style type="text/css" media="screen">
@@ -22,8 +25,61 @@
 </head>
 
 <body>
-  <div class="container">
+<nav>
+  <div class="nav-bar">
+    <div class="module left">
+      <a href="/">
+        <div class="vnu"><img class="logo logo-dark" alt="Foundry" src="cblogo.png"></div>
+      </a>
+    </div>
+    <h2 class="vnu">Online IDE</h2>
+    <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+      <i class="ti-menu"></i>
+    </div>
 
+    <div class="module-group right">
+      <div class="module left">
+        <ul class="menu">
+          <li><a href="https://blog.codingblocks.com">Blog</a></li>
+          <li><a href="https://lab.codingblocks.com">Labs</a></li>
+          <li><a href="https://bytecast.codingblocks.com/">Podcast</a></li>
+          <li><a title="Our Locations" href="/contactus">Contact Us</a></li>
+          <a class="btn btn-white btn-filled btn-lg" href="http://hackerblocks.com">HACKERBLOCKS</a>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        $('.mobile-toggle').click(function() {
+            $('.nav-bar').toggleClass('nav-open');
+            $(this).toggleClass('active');
+        });
+        $('.menu li').click(function(e) {
+            if (!e) e = window.event;
+            e.stopPropagation();
+            if ($(this).find('ul').length) {
+                $(this).toggleClass('toggle-sub');
+            } else {
+                $(this).parents('.toggle-sub').removeClass('toggle-sub');
+            }
+        });
+        $('.menu li a').click(function() {
+            if ($(this).hasClass('inner-link')){
+                $(this).closest('.nav-bar').removeClass('nav-open');
+            }
+        });
+        $('.module.widget-handle').click(function() {
+            $(this).toggleClass('toggle-widget-handle');
+        });
+        $('.search-widget-handle .search-form input').click(function(e){
+            if (!e) e = window.event;
+            e.stopPropagation();
+        });
+    </script>
+  </div>
+</nav>
+  <div class="container" style="margin-top: 20px;">
+    <!--
     <nav class="navbar-fixed-top">
       <div class="nav-bar">
         <div class="module left">
@@ -55,6 +111,33 @@
             </ul>
           </div>
         </div>
+        <script type="javascript">
+            $(".mobile-toggle").click(function() {
+                $('.nav-bar').toggleClass('nav-open');
+                $(this).toggleClass('active');
+            });
+            $('.menu li').click(function(e) {
+                if (!e) e = window.event;
+                e.stopPropagation();
+                if ($(this).find('ul').length) {
+                    $(this).toggleClass('toggle-sub');
+                } else {
+                    $(this).parents('.toggle-sub').removeClass('toggle-sub');
+                }
+            });
+            $('.menu li a').click(function() {
+                if ($(this).hasClass('inner-link')){
+                    $(this).closest('.nav-bar').removeClass('nav-open');
+                }
+            });
+            $('.module.widget-handle').click(function() {
+                $(this).toggleClass('toggle-widget-handle');
+            });
+            $('.search-widget-handle .search-form input').click(function(e){
+                if (!e) e = window.event;
+                e.stopPropagation();
+            });
+        </script>
       </div>
     </nav>
 
@@ -211,7 +294,6 @@
     editor.$blockScrolling = Infinity;
   </script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
