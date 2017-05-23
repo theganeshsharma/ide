@@ -106,6 +106,6 @@ $(document).ready(function () {
           ace.edit("editor").setValue(reader.result);
       }
       reader.readAsText(file);	
-});
+  });
   
 });
