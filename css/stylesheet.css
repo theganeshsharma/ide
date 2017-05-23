@@ -1608,3 +1608,35 @@ footer.bg-dark a {
 .fade-half {
   opacity: 0.5;
 }
+@media (max-width: 1024px){
+  .colw90 {
+    max-width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+    width: 100%!important;
+    font-size: 2em!important;
+  }
+  .container{
+    width: 100%;
+  }
+  .fcol{
+    display: inline-block;
+    max-width: 20%;
+    margin-left: 5%;
+  }
+  .buttonCenter{
+    padding-left: 30%;
+    padding-right: 30%;
+    width: 40%;
+  }
+  .flogo{
+    vertical-align: super!important;
+  }
+  #editor{
+    height: 1200px!important;
+    font-size: 1em!important;
+  }
+  .btn{
+    font-size: 1em!important;
+  }
+}
