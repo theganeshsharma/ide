@@ -99,12 +99,13 @@ $(document).ready(function () {
   });
   
   var fileInput = document.getElementById('upload');
-		fileInput.addEventListener('change', function(e) {
-			var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) { // closure to set read data to editor
-                ace.edit("editor").setValue(reader.result);
-            }
-            reader.readAsText(file);	
-		});
+  fileInput.addEventListener('change', function(e) {
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) { // closure to set read data to editor
+          ace.edit("editor").setValue(reader.result);
+      }
+      reader.readAsText(file);	
+});
+  
 });
