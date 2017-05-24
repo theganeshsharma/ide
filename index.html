@@ -20,7 +20,27 @@
         }
     </style>
     <script>
-        function saveTextAsFile() {
+        function loadCookie() {
+            var code = getCookieByName('code');
+            var codeLang= getCookieByName('Lang');
+            console.log('code:' + code);
+            if(codeLang!=undefined)
+                lang = codeLang;
+            if(code!=undefined)
+                ace.edit("editor").setValue(code+'');
+        }
+        function saveCode() {
+            var textToSave = ace.edit("editor").getValue();
+            document.cookie = 'code=' + textToSave + ';';
+            document.cookie = 'Lang=' + lang + ';';
+            console.log(document.cookie);
+        }
+        function getCookieByName(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+        function saveCodeAsFile() {
             var textToWrite = ace.edit("editor").getValue();
             var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
             var fileNameToSaveAs = "main";
@@ -53,7 +73,7 @@
             downloadLink.click();
         }
 
-        var button = document.getElementById('save');
+        var button = document.getElementById('download');
         button.addEventListener('click', saveTextAsFile);
 
         function destroyClickedElement(event) {
@@ -144,7 +164,12 @@
                         </div>
                         <div class="btn-group">
                             <button type="button" id="save" class="btn hovercard-light btn-sm btn-filled"
-                                    onclick="saveTextAsFile();">Save
+                                    onclick="saveCode();">Save
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="downlaod" class="btn hovercard-light btn-sm btn-filled"
+                                    onclick="saveCodeAsFile();">Download
                             </button>
                         </div>
                     </div>
