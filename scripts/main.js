@@ -87,6 +87,7 @@ $(document).ready(function () {
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
         document.getElementById('test-input').value = "";
+        deleteAllCookies();
     });
 
     $('.lang').click(function (event) {
