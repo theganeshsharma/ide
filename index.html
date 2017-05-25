@@ -20,27 +20,33 @@
         }
     </style>
     <script>
-        function loadCookie() {
-            var code = getCookieByName('code');
-            var codeLang= getCookieByName('Lang');
-            code.replace()
-            code=code.replace(/¥/g,"\n");
-            code=code.replace(/¢/g,"\t");
-            code=code.replace(/€/g,";");
-            console.log('code: '+code);
-            if(codeLang!=undefined)
-                lang = codeLang;
-            if(code!=undefined)
-                ace.edit("editor").setValue(code+'');
+        function supportsLocalStorage() {
+            return typeof(Storage)!== 'undefined';
+        }
+        function loadLocalStorage() {
+            if(supportsLocalStorage()) {
+                var code = localStorage.getItem('code');
+                var codeLang = localStorage.getItem('Lang');
+                code = code.replace(/¥/g, "\n");
+                code = code.replace(/¢/g, "\t");
+                code = code.replace(/€/g, ";");
+                if (codeLang != undefined)
+                    lang = codeLang;
+                if (code != undefined)
+                    ace.edit("editor").setValue(code + '');
+            }
         }
         function saveCode() {
-            var textToSave = ace.edit("editor").getValue();
-            textToSave=textToSave.replace(/\n/g,"¥");
-            textToSave=textToSave.replace(/\t/g,"¢");
-            textToSave=textToSave.replace(/;/g,"€");
-            document.cookie = 'code=' + textToSave + ';';
-            document.cookie = 'Lang=' + lang + ';';
-            console.log(document.cookie);
+            if(supportsLocalStorage()) {
+                var textToSave = ace.edit("editor").getValue();
+                textToSave = textToSave.replace(/\n/g, "¥");
+                textToSave = textToSave.replace(/\t/g, "¢");
+                textToSave = textToSave.replace(/;/g, "€");
+                localStorage.setItem('code', textToSave);
+                localStorage.setItem('Lang', lang);
+            }
+            else
+                alert("Browser does not support this feature;");
         }
         function getCookieByName(name) {
             var value = "; " + document.cookie;

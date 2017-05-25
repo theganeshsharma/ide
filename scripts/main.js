@@ -7,7 +7,7 @@
 
 var lang;
 var lang_sample;
-var ifLoadCookie=0;
+var ifLocalStorage=0;
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
@@ -15,9 +15,9 @@ function init() {
     lang_sample = lang_samples[lang];
     ace.edit("editor").setValue(lang_sample);
     console.log("Language = " + lang);
-    if(!ifLoadCookie) {
-        loadCookie();
-        ifLoadCookie=1;
+    if(!ifLocalStorage) {
+        loadLocalStorage();
+        ifLocalStorage=1;
     }
 }
 
@@ -87,7 +87,7 @@ $(document).ready(function () {
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
         document.getElementById('test-input').value = "";
-        deleteAllCookies();
+        localStorage.clear();
     });
 
     $('.lang').click(function (event) {
