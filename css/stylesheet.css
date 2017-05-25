@@ -1625,9 +1625,9 @@ footer.bg-dark a {
     margin-left: 5%;
   }
   .buttonCenter{
-    padding-left: 30%;
-    padding-right: 30%;
-    width: 40%;
+    padding-left: 25%;
+    padding-right: 25%;
+    width: 50%;
   }
   .flogo{
     vertical-align: super!important;
@@ -1638,5 +1638,8 @@ footer.bg-dark a {
   }
   .btn{
     font-size: 1em!important;
+  }
+  .panel-heading{
+    height: 100%!important;
   }
 }
