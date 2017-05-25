@@ -27,9 +27,6 @@
             if(supportsLocalStorage()) {
                 var code = localStorage.getItem('code');
                 var codeLang = localStorage.getItem('Lang');
-                code = code.replace(/¥/g, "\n");
-                code = code.replace(/¢/g, "\t");
-                code = code.replace(/€/g, ";");
                 if (codeLang != undefined)
                     lang = codeLang;
                 if (code != undefined)
@@ -39,9 +36,6 @@
         function saveCode() {
             if(supportsLocalStorage()) {
                 var textToSave = ace.edit("editor").getValue();
-                textToSave = textToSave.replace(/\n/g, "¥");
-                textToSave = textToSave.replace(/\t/g, "¢");
-                textToSave = textToSave.replace(/;/g, "€");
                 localStorage.setItem('code', textToSave);
                 localStorage.setItem('Lang', lang);
             }
