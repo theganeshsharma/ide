@@ -179,25 +179,24 @@
                                     aria-haspopup="true" aria-expanded="false">
                                 Theme <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="changetheme" id="dawn" href="#">Dawn</a></li>
-                                <li><a class="changetheme" id="monokai" href="#">Monokai</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" id="save" class="btn hovercard-light btn-sm btn-filled"
-                                    onclick="saveCode();">Save
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" id="downlaod" class="btn hovercard-light btn-sm btn-filled"
-                                    onclick="saveCodeAsFile();">Download
-                            </button>
-                        </div>
-                    </div>
+                <ul class="dropdown-menu">
+                  <li><a class="changetheme" id="dawn" href="#">Dawn</a></li>
+                  <li><a class="changetheme" id="monokai" href="#">Monokai</a></li>
+                </ul>
+                <button type="button" id="downlaod" class="btn hovercard-light btn-sm btn-filled"
+                    onclick="saveCodeAsFile();">Download
+                </button>
+                <button type="button" id="save" class="btn hovercard-light btn-sm btn-filled"
+                    onclick="saveCode();">Save
+                </button>
+                <button type="button" id="uploadFile" class="btn hovercard-light btn-sm btn-filled">   
+                  Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                </button>
+                <input type="file" id="upload" style="display:none;" >
                 </div>
-                <pre id="editor"></pre>
-            </div>
+              </div>
+          </div>
+          <pre id="editor"></pre>
         </div>
     </div>
 
