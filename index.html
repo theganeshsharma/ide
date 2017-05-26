@@ -147,7 +147,7 @@
     <div class="row">
 
       <div class="col-md-12 colw90">
-        <div class="hovercard">
+        <div class="hovercard" id ="fs_control">
           <div class="panel panel-default" style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
             <div class="panel-heading" style="height:55px; border-bottom-width:0px; ">
               <!-- Single button -->
@@ -184,13 +184,16 @@
                    onclick="saveCodeAsFile();">Download
                  </button>
                </div>
+			   <ul class="list-inline panel-actions">
+                 <li><a href="#" id="panel-fullscreen" role="button" title="Enter Full Screen Mode"><i id="toggleBtn" class="glyphicon glyphicon-resize-full"></i></a></li>
+               </ul>
               </div>
           </div>
           <pre id="editor"></pre>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row fsHide">
       <div class="col-md-12 colw90" id="inputBox" style="width:30%;">
         <div class="panel panel-default hovercard ">
           <div class="panel-heading">Input</div>
@@ -200,7 +203,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row fsHide">
         <div class="col-md-12 colw90 buttonCenter">
             <button id="submit" type="button" class="btn btn-sm hover-light btn-filled"
                     data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run
@@ -212,7 +215,7 @@
         </div>
     </div>
 
-    <div class="row top-buffer">
+    <div class="row top-buffer fsHide">
         <div class="col-md-12 colw90">
             <div class="hovercard">
                 <div class="panel panel-default">
@@ -226,7 +229,7 @@
     </div>
 </div>
 <!-- FOOTER -->
-<footer class="footer-1 bg-dark">
+<footer class="footer-1 bg-dark fsHide">
     <div class="container">
         <div class="row" style="margin-top:30px;">
             <div class="col-md-3 fcol">
