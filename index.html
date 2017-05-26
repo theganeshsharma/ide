@@ -4,7 +4,9 @@
 <head>
   <title>Coding Blocks IDE</title>
   <!-- Bootstrap -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <meta name = "viewport" content = "width = device-width, initial-scale=1">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/stylesheet.css" rel="stylesheet">
   <link href="https://codingblocks.com/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
@@ -84,7 +86,7 @@
       <div class="nav-bar">
         <div class="module left">
           <a href="/">
-            <div class="vnu"><img class="logo logo-dark" alt="Foundry" src="cblogo.png"></div>
+            <div class="vnu"><img class="logo logo-dark navLogo" alt="Foundry" src="cblogo.png"></div>
           </a>
         </div>
         <h2 class="vnu">Online IDE</h2>
@@ -159,7 +161,7 @@
           <div class="panel panel-default" style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
             <div class="panel-heading" style="height:55px; border-bottom-width:0px; ">
               <!-- Single button -->
-              <div class="btn-group" style="margin-left:25px; ">
+              <div class="btn-group">
                 <button type="button" class="btn hovercard-light btn-sm btn-filled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Language <span class="caret"></span>
                             </button>
@@ -180,7 +182,13 @@
                   <li><a class="changetheme" id="monokai" href="#">Monokai</a></li>
                 </ul>
               </div>
-            </div>
+              <div class="btn-group">
+                <button type="button" id="uploadFile" class="btn hovercard-light btn-sm btn-filled">   
+                  Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                </button>
+                <input type="file" id="upload" style="display:none;" >
+                </div>
+              </div>
           </div>
           <pre id="editor"></pre>
         </div>
@@ -188,7 +196,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 colw90" style="width:30%;">
+      <div class="col-md-12 colw90" id="inputBox" style="width:30%;">
         <div class="panel panel-default hovercard ">
           <div class="panel-heading">Input</div>
           <div class="panel-body">
