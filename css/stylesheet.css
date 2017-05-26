@@ -1674,44 +1674,35 @@ footer.bg-dark a {
 }
 
 @media (max-width: 1024px) {
-    .colw90 {
-        max-width: 100%;
-        margin-left: 0%;
-        margin-right: 0%;
-        width: 100% !important;
-        font-size: 2em !important;
-    }
-
-    .container {
-        width: 100%;
-    }
-
     .fcol {
-        display: inline-block;
-        max-width: 20%;
-        margin-left: 5%;
+        display: block;
+        max-width: 100%;
     }
 
-    .buttonCenter {
-        padding-left: 30%;
-        padding-right: 30%;
-        width: 40%;
+    .footer-1{
+        padding-left: 5%!important;
+        padding-right: 5%!important;
     }
-
-    .flogo {
-        vertical-align: super !important;
-    }
-
-    #editor {
-        height: 1200px !important;
-        font-size: 1em !important;
-    }
-
-    .btn {
-        font-size: 1em !important;
-    }
-
     .panel-heading {
         height:100%!important;
+    }
+
+    #inputBox{
+        width: 100%!important;
+    }
+    .colw90 {
+        max-width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        padding-right: 0px!important;
+        width: 90% !important;
+    }
+    .container {
+        width: 100%!important;
+        padding-left: 0px!important;
+        margin: 0px 0px!important;
+    }
+    .navLogo{
+        display: none!important;
     }
 }
