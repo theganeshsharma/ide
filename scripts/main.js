@@ -7,7 +7,7 @@
 
 var lang;
 var lang_sample;
-
+var ifLocalStorage=0;
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
@@ -15,14 +15,18 @@ function init() {
     lang_sample = lang_samples[lang];
     ace.edit("editor").setValue(lang_sample);
     console.log("Language = " + lang);
+    if(!ifLocalStorage) {
+        loadLocalStorage();
+        ifLocalStorage=1;
+    }
 }
 
-    $('.changetheme').click(function (event) {
-        event.preventDefault();
-        var newtheme = $(this).attr('id');
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/"+newtheme); 
-    });
+$('.changetheme').click(function (event) {
+    event.preventDefault();
+    var newtheme = $(this).attr('id');
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/" + newtheme);
+});
 
 $(document).ready(function () {
     var URL = "https://judge.cb.lk/api/";
@@ -32,11 +36,11 @@ $(document).ready(function () {
     var runButton = $('#submit');
     runButton.click(function () {
         runButton.button('loading');
-        var source = ace.edit("editor").getValue();	
-        if(lang === 'js') {
+        var source = ace.edit("editor").getValue();
+        if (lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
             var input = '';
-            jsWorker.postMessage( {source , input } );
+            jsWorker.postMessage({source, input});
 
             jsWorker.onmessage = function (e) {
                 console.log(e.data);
@@ -44,14 +48,14 @@ $(document).ready(function () {
                 $('#output').text(e.data.output.join('\n'));
             };
 
-            return ;
+            return;
         }
 
         source = window.btoa(source);
         var testcases = $("#test-input").val(); // cusotm inputs
         testcases = window.btoa(testcases);
         var expected = '';
-        
+
         var config = {
             headers: {'Access-Token': '79f3c2f8301fc60565de003f4ac76a1d4e5242cb0836995ec2bd28fd083ce86f'}
         };
@@ -83,6 +87,7 @@ $(document).ready(function () {
     $('#clear').click(function () {
         ace.edit("editor").setValue('');
         document.getElementById('test-input').value = "";
+        localStorage.clear();
     });
 
     $('.lang').click(function (event) {
