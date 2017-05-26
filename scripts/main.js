@@ -33,9 +33,12 @@ $(document).ready(function () {
     runButton.click(function () {
         runButton.button('loading');
         var source = ace.edit("editor").getValue();	
+        var testcases = $("#test-input").val(); // cusotm inputs
+      
         if(lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
-            var input = '';
+            var input = JSON.stringify(testcases);
+            console.log(input);
             jsWorker.postMessage( {source , input } );
 
             jsWorker.onmessage = function (e) {
@@ -48,7 +51,6 @@ $(document).ready(function () {
         }
 
         source = window.btoa(source);
-        var testcases = $("#test-input").val(); // cusotm inputs
         testcases = window.btoa(testcases);
         var expected = '';
         
