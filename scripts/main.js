@@ -8,12 +8,15 @@
 var lang;
 var lang_sample;
 var ifLocalStorage=0;
+var ifUpload=0;
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
     }
-    lang_sample = lang_samples[lang];
-    ace.edit("editor").setValue(lang_sample);
+    if(!ifUpload) {
+        lang_sample = lang_samples[lang];
+        ace.edit("editor").setValue(lang_sample);
+    }
     console.log("Language = " + lang);
     if(!ifLocalStorage) {
         loadLocalStorage();
@@ -89,6 +92,7 @@ $(document).ready(function () {
         ace.edit("editor").setValue('');
         document.getElementById('test-input').value = "";
         localStorage.clear();
+        ifUpload=0;
     });
 
     $('.lang').click(function (event) {
@@ -128,6 +132,7 @@ $(document).ready(function () {
       reader.readAsText(file);
       console.log("File Upload Success!");
       console.log("Language =" +lang);
+      ifUpload=1;
   });
 
 });
