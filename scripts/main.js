@@ -173,3 +173,6 @@ function exitFullScreen()
         document.webkitExitFullscreen();
 }
 
+function toggleCustInp() {
+    $("#custInpBox").toggleClass('hide');
+}

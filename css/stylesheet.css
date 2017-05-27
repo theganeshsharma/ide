@@ -1724,6 +1724,10 @@ footer.bg-dark a {
   height : 0px;
   display :none;
 }
+.hide{
+    height: 0px;
+    display:none;
+}
 
 .panel-fullscreen {
   z-index: 9999;
@@ -1739,4 +1743,3 @@ footer.bg-dark a {
   top:-30px;
   left : -5px;
 }
-
