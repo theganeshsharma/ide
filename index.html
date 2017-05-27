@@ -4,9 +4,9 @@
 <head>
     <title>Coding Blocks IDE</title>
     <!-- Bootstrap -->
-  
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <meta name = "viewport" content = "width = device-width, initial-scale=1">
+    <meta name="viewport" content="width = device-width, initial-scale=1">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,10 +24,10 @@
     </style>
     <script>
         function supportsLocalStorage() {
-            return typeof(Storage)!== 'undefined';
+            return typeof(Storage) !== 'undefined';
         }
         function loadLocalStorage() {
-            if(supportsLocalStorage()) {
+            if (supportsLocalStorage()) {
                 var code = localStorage.getItem('code');
                 var codeLang = localStorage.getItem('Lang');
                 if (codeLang != undefined)
@@ -37,7 +37,7 @@
             }
         }
         function saveCode() {
-            if(supportsLocalStorage()) {
+            if (supportsLocalStorage()) {
                 var textToSave = ace.edit("editor").getValue();
                 localStorage.setItem('code', textToSave);
                 localStorage.setItem('Lang', lang);
@@ -49,18 +49,18 @@
             var textToWrite = ace.edit("editor").getValue();
             var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
             var fileNameToSaveAs = "main";
-            if(lang === 'js')
-                fileNameToSaveAs+=".js";
-            else if(lang === 'c')
-                fileNameToSaveAs+=".c";
-            else if(lang === 'cpp')
-                fileNameToSaveAs+=".cpp";
-            else if(lang === 'java')
-                fileNameToSaveAs+=".java";
-            else if(lang === 'py2')
-                fileNameToSaveAs+=".py";
+            if (lang === 'js')
+                fileNameToSaveAs += ".js";
+            else if (lang === 'c')
+                fileNameToSaveAs += ".c";
+            else if (lang === 'cpp')
+                fileNameToSaveAs += ".cpp";
+            else if (lang === 'java')
+                fileNameToSaveAs += ".java";
+            else if (lang === 'py2')
+                fileNameToSaveAs += ".py";
             else
-                fileNameToSaveAs+=".txt";
+                fileNameToSaveAs += ".txt";
             var downloadLink = document.createElement("a");
             downloadLink.download = fileNameToSaveAs;
             downloadLink.innerHTML = "Download File";
@@ -89,70 +89,72 @@
 </head>
 
 <body>
-  <nav>
-  <div class="nav-bar">
-    <div class="module left">
-      <a href="/">
-        <div class="vnu"><img class="logo logo-dark" alt="Foundry" src="cblogo.png"></div>
-      </a>
-    </div>
-    <h2 class="vnu">Online IDE</h2>
-    <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
-      <i class="ti-menu"></i>
-    </div>
+<nav>
+    <div class="nav-bar">
+        <div class="module left">
+            <a href="/">
+                <div class="vnu"><img class="logo logo-dark" alt="Foundry" src="cblogo.png"></div>
+            </a>
+        </div>
+        <h2 class="vnu">Online IDE</h2>
+        <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+            <i class="ti-menu"></i>
+        </div>
 
-    <div class="module-group right">
-      <div class="module left">
-        <ul class="menu">
-          <li><a href="https://blog.codingblocks.com">Blog</a></li>
-          <li><a href="https://lab.codingblocks.com">Labs</a></li>
-          <li><a href="https://bytecast.codingblocks.com/">Podcast</a></li>
-          <li><a title="Our Locations" href="/contactus">Contact Us</a></li>
-          <a class="btn btn-white btn-filled btn-lg" href="http://hackerblocks.com">HACKERBLOCKS</a>
-        </ul>
-      </div>
-    </div>
+        <div class="module-group right">
+            <div class="module left">
+                <ul class="menu">
+                    <li><a href="https://blog.codingblocks.com">Blog</a></li>
+                    <li><a href="https://lab.codingblocks.com">Labs</a></li>
+                    <li><a href="https://bytecast.codingblocks.com/">Podcast</a></li>
+                    <li><a title="Our Locations" href="/contactus">Contact Us</a></li>
+                    <a class="btn btn-white btn-filled btn-lg" href="http://hackerblocks.com">HACKERBLOCKS</a>
+                </ul>
+            </div>
+        </div>
 
-    <script>
-        $('.mobile-toggle').click(function() {
-            $('.nav-bar').toggleClass('nav-open');
-            $(this).toggleClass('active');
-        });
-        $('.menu li').click(function(e) {
-            if (!e) e = window.event;
-            e.stopPropagation();
-            if ($(this).find('ul').length) {
-                $(this).toggleClass('toggle-sub');
-            } else {
-                $(this).parents('.toggle-sub').removeClass('toggle-sub');
-            }
-        });
-        $('.menu li a').click(function() {
-            if ($(this).hasClass('inner-link')){
-                $(this).closest('.nav-bar').removeClass('nav-open');
-            }
-        });
-        $('.module.widget-handle').click(function() {
-            $(this).toggleClass('toggle-widget-handle');
-        });
-        $('.search-widget-handle .search-form input').click(function(e){
-            if (!e) e = window.event;
-            e.stopPropagation();
-        });
-    </script>
-  </div>
+        <script>
+            $('.mobile-toggle').click(function () {
+                $('.nav-bar').toggleClass('nav-open');
+                $(this).toggleClass('active');
+            });
+            $('.menu li').click(function (e) {
+                if (!e) e = window.event;
+                e.stopPropagation();
+                if ($(this).find('ul').length) {
+                    $(this).toggleClass('toggle-sub');
+                } else {
+                    $(this).parents('.toggle-sub').removeClass('toggle-sub');
+                }
+            });
+            $('.menu li a').click(function () {
+                if ($(this).hasClass('inner-link')) {
+                    $(this).closest('.nav-bar').removeClass('nav-open');
+                }
+            });
+            $('.module.widget-handle').click(function () {
+                $(this).toggleClass('toggle-widget-handle');
+            });
+            $('.search-widget-handle .search-form input').click(function (e) {
+                if (!e) e = window.event;
+                e.stopPropagation();
+            });
+        </script>
+    </div>
 </nav>
-  <div class="container" style="margin-top: 20px;">
+<div class="container" style="margin-top: 20px;">
 
     <div class="row">
 
-      <div class="col-md-12 colw90">
-        <div class="hovercard" id ="fs_control">
-          <div class="panel panel-default" style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
-            <div class="panel-heading" style="height:55px; border-bottom-width:0px; ">
-              <!-- Single button -->
-              <div class="btn-group">
-                <button type="button" class="btn hovercard-light btn-sm btn-filled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="col-md-12 colw90">
+            <div class="hovercard" id="fs_control">
+                <div class="panel panel-default"
+                     style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
+                    <div class="panel-heading" style="height:55px; border-bottom-width:0px; ">
+                        <!-- Single button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn hovercard-light btn-sm btn-filled" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                 Language <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -168,60 +170,64 @@
                                     aria-haspopup="true" aria-expanded="false">
                                 Theme <span class="caret"></span>
                             </button>
-                <ul class="dropdown-menu">
-                  <li><a class="changetheme" id="dawn" href="#">Dawn</a></li>
-                  <li><a class="changetheme" id="monokai" href="#">Monokai</a></li>
-                </ul>
-              </div>
-              <div class="btn-group">
-                <button type="button" id="uploadFile" class="btn hovercard-light btn-sm btn-filled">   
-                  Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-                </button>
-                <input type="file" id="upload" style="display:none;" >
+                            <ul class="dropdown-menu">
+                                <li><a class="changetheme" id="dawn" href="#">Dawn</a></li>
+                                <li><a class="changetheme" id="monokai" href="#">Monokai</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="uploadFile" class="btn hovercard-light btn-sm btn-filled">
+                                Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                            </button>
+                            <input type="file" id="upload" style="display:none;">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" id="downlaod" class="btn hovercard-light btn-sm btn-filled"
+                                    onclick="saveCodeAsFile();">Download
+                            </button>
+                        </div>
+                        <ul class="list-inline panel-actions">
+                            <li><a href="#" id="panel-fullscreen" role="button" title="Enter Full Screen Mode"><i
+                                    id="toggleBtn" class="glyphicon glyphicon-resize-full"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
-               <div class="btn-group">
-                 <button type="button" id="downlaod" class="btn hovercard-light btn-sm btn-filled"
-                   onclick="saveCodeAsFile();">Download
-                 </button>
-               </div>
-			   <ul class="list-inline panel-actions">
-                 <li><a href="#" id="panel-fullscreen" role="button" title="Enter Full Screen Mode"><i id="toggleBtn" class="glyphicon glyphicon-resize-full"></i></a></li>
-               </ul>
-              </div>
-          </div>
-          <pre id="editor"></pre>
+                <pre id="editor"></pre>
+            </div>
         </div>
     </div>
-
     <div class="row fsHide">
-      <div class="col-md-12 colw90" id="inputBox" style="width:30%;">
-        <div class="panel panel-default hovercard ">
-          <div class="panel-heading">Input</div>
-          <div class="panel-body">
-            <textarea class="textbox" id="test-input" rows="2" style="width: 100%; max-width:100%;" placeholder="Enter your custom inputs"></textarea>
-          </div>
-        </div>
-    </div>
-
-    <div class="row fsHide">
-        <div class="col-md-12 colw90 buttonCenter">
-            <button id="submit" type="button" class="btn btn-sm hover-light btn-filled"
-                    data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run
-            </button>
-            <button type="button" id="save" class="btn hovercard-light btn-sm btn-filled"
-                    onclick="saveCode();">Save
-            </button>
-            <button id="clear" type="button" class="btn bg-dark hover-light btn-sm">Clear All</button>
-        </div>
-    </div>
-
-    <div class="row top-buffer fsHide">
-        <div class="col-md-12 colw90">
-            <div class="hovercard">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Output</div>
+       <div class="col-md-12 colw90" id="inputBox" style="width:30%;">
+           <div class="panel panel-default hovercard ">
+               <div class="panel-heading">Input</div>
                     <div class="panel-body">
-                        <pre id="output"></pre>
+                        <textarea class="textbox" id="test-input" rows="2" style="width: 100%; max-width:100%;"
+                                  placeholder="Enter your custom inputs"></textarea>
+                    </div>
+                </div>
+          </div>
+    </div>
+            <div class="row fsHide">
+                <div class="col-md-12 colw90 buttonCenter">
+                    <button id="submit" type="button" class="btn btn-sm hover-light btn-filled"
+                            data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run
+                    </button>
+                    <button type="button" id="save" class="btn hovercard-light btn-sm btn-filled"
+                            onclick="saveCode();">Save
+                    </button>
+                    <button id="clear" type="button" class="btn bg-dark hover-light btn-sm">Clear All</button>
+                </div>
+            </div>
+
+            <div class="row top-buffer fsHide">
+                <div class="col-md-12 colw90">
+                    <div class="hovercard">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Output</div>
+                            <div class="panel-body">
+                                <pre id="output"></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -308,13 +314,13 @@
     editor.getSession().setMode("ace/mode/c_cpp");
     editor.$blockScrolling = Infinity;
 
-  </script>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="scripts/sample-source.js"></script>
-  <script src="scripts/main.js"></script>
+</script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="scripts/sample-source.js"></script>
+<script src="scripts/main.js"></script>
 </body>
 
 </html>
