@@ -118,9 +118,16 @@ $(document).ready(function () {
 //toggle full-screen mode
 $(document).ready(function () {
     //Toggle fullscreen
+   var fs=false;
    $("#panel-fullscreen").click(function (e) {
      e.preventDefault();
-     
+     fs=!fs;
+     var elem = document.body;
+     if(fs)
+        requestFullScreen(elem);
+     else{
+        exitFullScreen();
+     }
      var $this = $(this);
 
      if ($this.children('i').hasClass('glyphicon-resize-full')){
@@ -139,3 +146,28 @@ $(document).ready(function () {
      editor.resize();
     });
 });
+
+function requestFullScreen(element) {
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+    if (requestMethod) { // Native full screen.
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+function exitFullScreen()
+{
+    if (document.exitFullscreen)
+        document.exitFullscreen();
+    else if (document.msExitFullscreen)
+        document.msExitFullscreen();
+    else if (document.mozCancelFullScreen)
+        document.mozCancelFullScreen();
+    else if (document.webkitExitFullscreen)
+        document.webkitExitFullscreen();
+}
+
