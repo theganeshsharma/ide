@@ -19,6 +19,7 @@ function init() {
         loadLocalStorage();
         ifLocalStorage=1;
     }
+    $("#panelLang").html(langName[lang]);
 }
 
 $('.changetheme').click(function (event) {
@@ -97,22 +98,38 @@ $(document).ready(function () {
         $(this).closest('li').addClass('active');
         init();
     });
-  
+
   $('#uploadFile').click(function(e){
     e.preventDefault();
     $('#upload').click();
   });
-  
+
   var fileInput = document.getElementById('upload');
   fileInput.addEventListener('change', function(e) {
       var file = fileInput.files[0];
+      var ext = file.name.split('.').pop();
+      if(ext === 'js')
+          lang='js';
+      else if(ext === 'c')
+          lang='c';
+      else if(ext === 'cpp')
+          lang='cpp';
+      else if(ext === 'java')
+          lang='java';
+      else if(ext === 'py')
+          lang='py2';
+      else
+          lang='c';
+      $("#panelLang").html(langName[lang]);
       var reader = new FileReader();
       reader.onload = function(e) { // closure to set read data to editor
           ace.edit("editor").setValue(reader.result);
       }
-      reader.readAsText(file);	
+      reader.readAsText(file);
+      console.log("File Upload Success!");
+      console.log("Language =" +lang);
   });
-  
+
 });
 
 //toggle full-screen mode
@@ -120,7 +137,7 @@ $(document).ready(function () {
     //Toggle fullscreen
    $("#panel-fullscreen").click(function (e) {
      e.preventDefault();
-     
+
      var $this = $(this);
 
      if ($this.children('i').hasClass('glyphicon-resize-full')){
@@ -139,3 +156,11 @@ $(document).ready(function () {
      editor.resize();
     });
 });
+
+var langName = {
+    c: "C",
+    cpp: "C++",
+    java: "Java",
+    py2: "Python",
+    js : "JavaScript"
+};
