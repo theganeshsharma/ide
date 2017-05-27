@@ -118,8 +118,7 @@ $(document).ready(function () {
 //toggle full-screen mode
 $(document).ready(function () {
     //Toggle fullscreen
-    var fs=false;
-
+   var fs=false;
    $("#panel-fullscreen").click(function (e) {
      e.preventDefault();
      fs=!fs;
@@ -149,7 +148,6 @@ $(document).ready(function () {
 });
 
 function requestFullScreen(element) {
-    // Supports most browsers and their versions.
     var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
 
     if (requestMethod) { // Native full screen.
