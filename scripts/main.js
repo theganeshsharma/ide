@@ -141,6 +141,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     //Toggle fullscreen
    var fs=false;
+   window.isInpBoxHidden=false;
    $("#panel-fullscreen").click(function (e) {
      e.preventDefault();
 
@@ -203,5 +204,13 @@ function exitFullScreen()
 }
 
 function toggleCustInp() {
+    window.isInpBoxHidden=!window.isInpBoxHidden;
+    var inp=$('#test-input');
+    if(isInpBoxHidden){
+        localStorage.setItem('inputData',inp.html());
+        inp.html(null);
+    }else{
+        inp.html(localStorage.getItem('inputData'));
+    }
     $("#custInpBox").toggleClass('hide');
 }
