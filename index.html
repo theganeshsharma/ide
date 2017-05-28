@@ -146,14 +146,14 @@
 
     <div class="row">
 
-        <div class="col-md-12 colw90">
+        <div class="col-md-8 colw90">
             <div class="hovercard" id="fs_control">
                 <div class="panel panel-default"
                      style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
                     <div class="panel-heading" style="height:55px; border-bottom-width:0px; ">
                         <!-- Single button -->
                         <div class="btn-group">
-                            <button type="button" class="btn hovercard-light btn-sm btn-filled" data-toggle="dropdown"
+                            <button id="panelLang" type="button" class="btn hovercard-light btn-sm btn-filled" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                 Language <span class="caret"></span>
                             </button>
@@ -201,20 +201,22 @@
                 <pre id="editor"></pre>
             </div>
         </div>
-    </div>
-    <div id="custInpBox" class="row hide fsHide">
-       <div class="col-md-12 colw90" id="inputBox" style="width:30%;">
-           <div class="panel panel-default hovercard ">
-               <div class="panel-heading">Input<i onclick="toggleCustInp();" style="margin-top: 5px" class="fa fa-times pull-right"></i></div>
-                    <div class="panel-body">
-                        <textarea class="textbox" id="test-input" rows="2" style="width: 100%; max-width:100%;"
-                                  placeholder="Enter your custom inputs"></textarea>
+
+        <div class="col-md-4 colw90">
+            <div id="custInpBox" class="fsHide hide">
+                <div class="sidecol" id="inputBox">
+                    <div class="panel panel-default hovercard ">
+                        <div class="panel-heading">Input<i onclick="toggleCustInp();" style="margin-top: 5px" class="fa fa-times pull-right"></i></div>
+                                <div class="panel-body">
+                                    <textarea class="textbox" id="test-input" rows="2" style="width: 100%; max-width:100%;"
+                                            placeholder="Enter your custom inputs"></textarea>
+                                </div>
+
                     </div>
                 </div>
-          </div>
-    </div>
+            </div>
             <div class="row fsHide">
-                <div class="col-md-12 colw90 buttonCenter">
+                <div class="col-md-12 buttonCenter">
                     <button id="submit" type="button" class="btn btn-sm hover-light btn-filled"
                             data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Running">Run
                     </button>
@@ -226,7 +228,7 @@
             </div>
 
             <div class="row top-buffer fsHide">
-                <div class="col-md-12 colw90">
+                <div class="col-md-12">
                     <div class="hovercard">
                         <div class="panel panel-default">
                             <div class="panel-heading">Output</div>
@@ -240,6 +242,7 @@
         </div>
     </div>
 </div>
+
 <!-- FOOTER -->
 <footer class="footer-1 bg-dark fsHide">
     <div class="container">
