@@ -1737,6 +1737,10 @@ footer.bg-dark a {
     margin-right: 0;
 }
 
+.headPanel{
+    height: 55px; !important;
+}
+
 @media (max-width: 970px){
     .colw90 {
         max-width: 90%;
@@ -1745,5 +1749,14 @@ footer.bg-dark a {
         padding-right: 0px!important;
         width: 90% !important;
     }
+    .heading{
+        height:90%; !important;
+    }
 }
-    
+
+
+@media (min-width: 893px) and (max-width: 1200px) {
+    .headPanel{
+        height: 120px; !important;
+    }
+}
