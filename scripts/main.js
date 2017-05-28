@@ -147,10 +147,14 @@ $(document).ready(function () {
 
      fs=!fs;
      var elem = document.body;
-     if(fs)
-        requestFullScreen(elem);
+     $('.headPanel').toggleClass('fullscreen');
+     if(fs) {
+         $('#custInp').hide();
+         requestFullScreen(elem);
+     }
      else{
-        exitFullScreen();
+         $('#custInp').show();
+         exitFullScreen();
      }
      var $this = $(this);
 
