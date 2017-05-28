@@ -22,7 +22,7 @@ function init() {
         loadLocalStorage();
         ifLocalStorage=1;
     }
-    $("#panelLang").html(langName[lang]);
+    $("#panelLang").html(langName[lang]+'<span class="caret" style="margin-left: 5px"></span>');
 }
 
 $('.changetheme').click(function (event) {
@@ -124,7 +124,7 @@ $(document).ready(function () {
           lang='py2';
       else
           lang='c';
-      $("#panelLang").html(langName[lang]);
+      $("#panelLang").html(langName[lang]+'<span class="caret" style="margin-left: 5px"></span>');
       var reader = new FileReader();
       reader.onload = function(e) { // closure to set read data to editor
           ace.edit("editor").setValue(reader.result);
