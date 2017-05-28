@@ -11,11 +11,6 @@ body {
     text-align: left !important;
 }
 
-.colw90 {
-    max-width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
 
 /*!---------- 7. NAVIGATION ----------*/
 
@@ -472,7 +467,7 @@ nav .cart-overview a {
     -moz-transition: all 0.4s ease;
     overflow: hidden;
 }
-
+F
 .offscreen-container.reveal-nav {
     transform: translate3d(100%, 0, 0);
     -webkit-transform: translate3d(100%, 0, 0);
@@ -1690,13 +1685,6 @@ footer.bg-dark a {
     #inputBox{
         width: 100%!important;
     }
-    .colw90 {
-        max-width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
-        padding-right: 0px!important;
-        width: 90% !important;
-    }
     .container {
         width: 100%!important;
         padding-left: 0px!important;
@@ -1740,3 +1728,19 @@ footer.bg-dark a {
   left : -5px;
 }
 
+.sidecol {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@media (max-width: 970px){
+    .colw90 {
+        max-width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        padding-right: 0px!important;
+        width: 90% !important;
+    }
+}
+    
