@@ -1673,7 +1673,9 @@ footer.bg-dark a {
         display: block;
         max-width: 100%;
     }
-
+    .flogo{
+        display: none!important;
+    }
     .footer-1{
         padding-left: 5%!important;
         padding-right: 5%!important;
