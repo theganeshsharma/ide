@@ -139,6 +139,11 @@ $(document).ready(function () {
 
 //toggle full-screen mode
 $(document).ready(function () {
+    if($(window).width()>1024) {
+        var cw = $('#editor').width();
+        cw = 0.5625 * cw;
+        $('#editor').css({'height': cw + 'px'});
+    }
     //Toggle fullscreen
    var fs=false;
    $("#panel-fullscreen").click(function (e) {
