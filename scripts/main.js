@@ -22,7 +22,7 @@ function init() {
         loadLocalStorage();
         ifLocalStorage=1;
     }
-    $("#panelLang").html(langName[lang]);
+    $("#panelLang").html(langName[lang]+" <span class='caret'></span>");
 }
 
 $('.changetheme').click(function (event) {
