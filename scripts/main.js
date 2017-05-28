@@ -124,7 +124,7 @@ $(document).ready(function () {
           lang='py2';
       else
           lang='c';
-      $("#panelLang").html(langName[lang]);
+      $("#panelLang").html(langName[lang]+'<span class="caret" style="margin-left: 5px"></span>');
       var reader = new FileReader();
       reader.onload = function(e) { // closure to set read data to editor
           ace.edit("editor").setValue(reader.result);
@@ -139,6 +139,11 @@ $(document).ready(function () {
 
 //toggle full-screen mode
 $(document).ready(function () {
+    if($(window).width()>1024) {
+        var cw = $('#editor').width();
+        cw = 0.5625 * cw;
+        $('#editor').css({'height': cw + 'px'});
+    }
     //Toggle fullscreen
    var fs=false;
    $("#panel-fullscreen").click(function (e) {

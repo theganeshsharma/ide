@@ -1698,7 +1698,7 @@ footer.bg-dark a {
 }
 
 #editor.change_height {
-  height: 89%;
+  height: 92.5%!important;
 }
 
 .panel-actions {
