@@ -21,6 +21,7 @@
             bottom: 0;
             left: 0;
             border-radius: 0px;
+            height: 400px;
         }
     </style>
     <script>
@@ -315,9 +316,11 @@
     editor.setTheme("ace/theme/dawn");
     editor.getSession().setMode("ace/mode/c_cpp");
     editor.$blockScrolling = Infinity;
-    var cw = $('#editor').width();
-    cw=0.5625*cw;
-    $('#editor').css({'height':cw+'px'});
+    if($(window).width()>1024) {
+        var cw = $('#editor').width();
+        cw = 0.5625 * cw;
+        $('#editor').css({'height': cw + 'px'});
+    }
 </script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
