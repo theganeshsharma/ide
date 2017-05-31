@@ -7,28 +7,31 @@
 
 var lang;
 var lang_sample;
-var ifLocalStorage=0;
-var ifUpload=0;
-
+var ifLocalStorage = 0;
+var ifUpload = 0;
+var editorTheme = "dawn";
+var editorFontFamily = "Monaco";
+var editorFontSize = "12";
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
     }
-    if(!ifUpload) {
+    if (!ifUpload) {
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
     }
     console.log("Language = " + lang);
-    if(!ifLocalStorage) {
+    if (!ifLocalStorage) {
         loadLocalStorage();
-        ifLocalStorage=1;
+        ifLocalStorage = 1;
     }
-    $("#panelLang").html(langName[lang]+" <span class='caret'></span>");
+    $("#panelLang").html(langName[lang] + " <span class='caret'></span>");
 }
 
 $('.changetheme').click(function (event) {
     event.preventDefault();
     var newtheme = $(this).attr('id');
+    editorTheme= newtheme;
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/" + newtheme);
 });
@@ -94,7 +97,7 @@ $(document).ready(function () {
         document.getElementById('test-input').value = "";
         localStorage.clear();
         document.getElementById('fileName').value = "";
-        ifUpload=0;
+        ifUpload = 0;
     });
 
     $('.lang').click(function (event) {
@@ -105,76 +108,76 @@ $(document).ready(function () {
         init();
     });
 
-  $('#uploadFile').click(function(e){
-    e.preventDefault();
-    $('#upload').click();
-  });
+    $('#uploadFile').click(function (e) {
+        e.preventDefault();
+        $('#upload').click();
+    });
 
-  var fileInput = document.getElementById('upload');
-  fileInput.addEventListener('change', function(e) {
-      var file = fileInput.files[0];
-      document.getElementById("fileName").value=file.name;
-      var ext = file.name.split('.').pop();
-      if(ext === 'js')
-          lang='js';
-      else if(ext === 'c')
-          lang='c';
-      else if(ext === 'cpp')
-          lang='cpp';
-      else if(ext === 'java')
-          lang='java';
-      else if(ext === 'py')
-          lang='py2';
-      else
-          lang='c';
-      $("#panelLang").html(langName[lang]+'<span class="caret" style="margin-left: 5px"></span>');
-      var reader = new FileReader();
-      reader.onload = function(e) { // closure to set read data to editor
-          ace.edit("editor").setValue(reader.result);
-      }
-      reader.readAsText(file);
-      console.log("File Upload Success!");
-      console.log("Language =" +lang);
-      ifUpload=1;
-  });
+    var fileInput = document.getElementById('upload');
+    fileInput.addEventListener('change', function (e) {
+        var file = fileInput.files[0];
+        document.getElementById("fileName").value = file.name;
+        var ext = file.name.split('.').pop();
+        if (ext === 'js')
+            lang = 'js';
+        else if (ext === 'c')
+            lang = 'c';
+        else if (ext === 'cpp')
+            lang = 'cpp';
+        else if (ext === 'java')
+            lang = 'java';
+        else if (ext === 'py')
+            lang = 'py2';
+        else
+            lang = 'c';
+        $("#panelLang").html(langName[lang] + '<span class="caret" style="margin-left: 5px"></span>');
+        var reader = new FileReader();
+        reader.onload = function (e) { // closure to set read data to editor
+            ace.edit("editor").setValue(reader.result);
+        }
+        reader.readAsText(file);
+        console.log("File Upload Success!");
+        console.log("Language =" + lang);
+        ifUpload = 1;
+    });
 
 });
 
 //toggle full-screen mode
 $(document).ready(function () {
-    if($(window).width()>1024) {
+    if ($(window).width() > 1024) {
         var cw = $('#editor').width();
         cw = 0.5625 * cw;
         $('#editor').css({'height': cw + 'px'});
     }
     //Toggle fullscreen
-   var fs=false;
-   $("#panel-fullscreen").click(function (e) {
-     e.preventDefault();
+    var fs = false;
+    $("#panel-fullscreen").click(function (e) {
+        e.preventDefault();
 
-     fs=!fs;
-     var elem = document.body;
-     if(fs)
-        requestFullScreen(elem);
-     else{
-        exitFullScreen();
-     }
-     var $this = $(this);
+        fs = !fs;
+        var elem = document.body;
+        if (fs)
+            requestFullScreen(elem);
+        else {
+            exitFullScreen();
+        }
+        var $this = $(this);
 
-     if ($this.children('i').hasClass('glyphicon-resize-full')){
-			$this.attr('title','Exit Full Screen');
-			$this.children('i').removeClass('glyphicon-resize-full');
+        if ($this.children('i').hasClass('glyphicon-resize-full')) {
+            $this.attr('title', 'Exit Full Screen');
+            $this.children('i').removeClass('glyphicon-resize-full');
             $this.children('i').addClass('glyphicon-resize-small');
-      }
-     else if($this.children('i').hasClass('glyphicon-resize-small')){
-			$this.attr('title','Enter Full Screen Mode');
+        }
+        else if ($this.children('i').hasClass('glyphicon-resize-small')) {
+            $this.attr('title', 'Enter Full Screen Mode');
             $this.children('i').removeClass('glyphicon-resize-small');
             $this.children('i').addClass('glyphicon-resize-full');
-      }
-     $(this).closest('.hovercard').toggleClass('panel-fullscreen');
-     $('.fsHide').toggleClass('fs')
-	 $('#editor').toggleClass('change_height');
-     editor.resize();
+        }
+        $(this).closest('.hovercard').toggleClass('panel-fullscreen');
+        $('.fsHide').toggleClass('fs')
+        $('#editor').toggleClass('change_height');
+        editor.resize();
     });
 });
 
@@ -183,7 +186,7 @@ var langName = {
     cpp: "C++",
     java: "Java",
     py2: "Python",
-    js : "JavaScript"
+    js: "JavaScript"
 };
 
 function requestFullScreen(element) {
@@ -198,8 +201,7 @@ function requestFullScreen(element) {
         }
     }
 }
-function exitFullScreen()
-{
+function exitFullScreen() {
     if (document.exitFullscreen)
         document.exitFullscreen();
     else if (document.msExitFullscreen)

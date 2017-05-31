@@ -5,8 +5,11 @@ function loadLocalStorage() {
     if (supportsLocalStorage()) {
         var code = localStorage.getItem('code');
         var codeLang = localStorage.getItem('Lang');
-        var fileName= localStorage.getItem('fileName');
+        var fileName = localStorage.getItem('fileName');
         var ifUpload_Local = localStorage.getItem('ifUpload');
+        var cacheTheme = localStorage.getItem('Theme');
+        var cacheFont = localStorage.getItem('Font');
+        var cacheSize = localStorage.getItem('Size');
         if (codeLang != undefined)
             lang = codeLang;
         if (code != undefined)
@@ -15,6 +18,12 @@ function loadLocalStorage() {
             document.getElementById('fileName').value = fileName;
         if (ifUpload_Local != undefined)
             ifUpload = ifUpload_Local;
+        if (cacheTheme != undefined)
+            editor.setTheme("ace/theme/" + cacheTheme);
+        if (cacheFont != undefined)
+            setFont(cacheFont);
+        if (cacheSize != undefined)
+            setFontSize(cacheSize);
     }
 }
 function saveCode() {
@@ -24,7 +33,11 @@ function saveCode() {
         localStorage.setItem('code', textToSave);
         localStorage.setItem('Lang', lang);
         localStorage.setItem('fileName', fileName);
-        localStorage.setItem('ifUpload',ifUpload);
+        localStorage.setItem('ifUpload', ifUpload);
+        localStorage.setItem('Theme', editorTheme);
+        localStorage.setItem('Font', editorFontFamily);
+        localStorage.setItem('Size', editorFontSize);
+
     }
     else
         alert("Browser does not support this feature;");
@@ -78,12 +91,14 @@ function toggleSetting() {
 }
 
 function setFont(Family) {
+    editorFontSize= Family;
     editor.setOptions({
         fontFamily: Family
     });
 }
 
 function setFontSize(Size) {
+    editorFontSize = Size;
     editor.setOptions({
         fontSize: Size + 'px'
     });
