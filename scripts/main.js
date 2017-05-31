@@ -9,6 +9,7 @@ var lang;
 var lang_sample;
 var ifLocalStorage=0;
 var ifUpload=0;
+
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
@@ -92,6 +93,7 @@ $(document).ready(function () {
         ace.edit("editor").setValue('');
         document.getElementById('test-input').value = "";
         localStorage.clear();
+        document.getElementById('fileName').value = "";
         ifUpload=0;
     });
 
@@ -111,6 +113,7 @@ $(document).ready(function () {
   var fileInput = document.getElementById('upload');
   fileInput.addEventListener('change', function(e) {
       var file = fileInput.files[0];
+      document.getElementById("fileName").value=file.name;
       var ext = file.name.split('.').pop();
       if(ext === 'js')
           lang='js';
