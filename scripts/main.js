@@ -16,15 +16,20 @@ function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
     }
+
+    editor.setTheme("ace/theme/dawn");
+
+    if (!ifLocalStorage) {
+        loadLocalStorage();
+        ifLocalStorage = 1;
+    }
+
     if (!ifUpload) {
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
     }
     console.log("Language = " + lang);
-    if (!ifLocalStorage) {
-        loadLocalStorage();
-        ifLocalStorage = 1;
-    }
+
     $("#panelLang").html(langName[lang] + " <span class='caret'></span>");
 }
 
@@ -97,6 +102,8 @@ $(document).ready(function () {
         document.getElementById('test-input').value = "";
         localStorage.clear();
         document.getElementById('fileName').value = "";
+        setFontSize("12");
+        editor.setTheme("ace/theme/dawn");
         ifUpload = 0;
     });
 
