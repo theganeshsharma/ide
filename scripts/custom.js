@@ -10,12 +10,15 @@ function loadLocalStorage() {
         var cacheTheme = localStorage.getItem('Theme');
         var cacheFont = localStorage.getItem('Font');
         var cacheSize = localStorage.getItem('Size');
+        var inputs = localStorage.getItem('Input');
         if (codeLang != undefined)
             lang = codeLang;
         if (code != undefined)
             ace.edit("editor").setValue(code + '');
         if (fileName != undefined)
             document.getElementById('fileName').value = fileName;
+        if (inputs != undefined)
+            document.getElementById('test-input').value = inputs;
         if (ifUpload_Local != undefined)
             ifUpload = ifUpload_Local;
         if (cacheTheme != undefined)
@@ -30,18 +33,23 @@ function saveCode() {
     if (supportsLocalStorage()) {
         var textToSave = ace.edit("editor").getValue();
         var fileName = document.getElementById('fileName').value;
+        var inputs = document.getElementById('test-input').value;
         localStorage.setItem('code', textToSave);
         localStorage.setItem('Lang', lang);
         localStorage.setItem('fileName', fileName);
+        localStorage.setItem('Input', inputs);
         localStorage.setItem('ifUpload', ifUpload);
         localStorage.setItem('Theme', editorTheme);
         localStorage.setItem('Font', editorFontFamily);
         localStorage.setItem('Size', editorFontSize);
-
+        console.log("Saved!");
     }
-    else
-        alert("Browser does not support this feature;");
 }
+
+var saveID = setInterval(function() {
+    saveCode();
+}, 30 * 1000);
+
 function saveCodeAsFile() {
     var textToWrite = ace.edit("editor").getValue();
     var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
@@ -78,9 +86,6 @@ function saveCodeAsFile() {
     downloadLink.click();
 }
 
-var button = document.getElementById('download');
-button.addEventListener('click', saveTextAsFile);
-
 function destroyClickedElement(event) {
     // remove the link from the DOM
     document.body.removeChild(event.target);
@@ -91,7 +96,7 @@ function toggleSetting() {
 }
 
 function setFont(Family) {
-    editorFontSize= Family;
+    editorFontSize = Family;
     editor.setOptions({
         fontFamily: Family
     });
