@@ -1807,3 +1807,14 @@ textarea {
     padding: 3px 5px !important;
     background: rgb(245, 245, 245) !important;
 }
+.autoSaveText{
+    font-size: 15px;
+    line-height: 27px;
+    font-style: italic;
+    transition: 2s;
+    display: none;
+    -webkit-transition: opacity 2.0s ease-in;
+    -moz-transition: opacity 2.0s ease-in;
+    -o-transition: opacity 2.0s ease-in;
+    opacity: 1;
+}

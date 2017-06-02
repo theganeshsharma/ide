@@ -21,8 +21,10 @@ function loadLocalStorage() {
             document.getElementById('test-input').value = inputs;
         if (ifUpload_Local != undefined)
             ifUpload = ifUpload_Local;
-        if (cacheTheme != undefined)
+        if (cacheTheme != undefined) {
             editor.setTheme("ace/theme/" + cacheTheme);
+            editorTheme = cacheTheme;
+        }
         if (cacheFont != undefined)
             setFont(cacheFont);
         if (cacheSize != undefined)
@@ -43,11 +45,16 @@ function saveCode() {
         localStorage.setItem('Font', editorFontFamily);
         localStorage.setItem('Size', editorFontSize);
         console.log("Saved!");
+        changes = 0;
     }
 }
 
-var saveID = setInterval(function() {
-    saveCode();
+
+var saveID = setInterval(function () {
+    if (changes === 1) {
+        saveCode();
+        $('.autoSaveText').fadeIn('slow').delay(2000).fadeOut('slow');
+    }
 }, 30 * 1000);
 
 function saveCodeAsFile() {
@@ -96,10 +103,11 @@ function toggleSetting() {
 }
 
 function setFont(Family) {
-    editorFontSize = Family;
+    editorFontFamily = Family;
     editor.setOptions({
         fontFamily: Family
     });
+    changes = 1;
 }
 
 function setFontSize(Size) {
@@ -107,6 +115,7 @@ function setFontSize(Size) {
     editor.setOptions({
         fontSize: Size + 'px'
     });
+    changes = 1;
 }
 
 function resetSettings() {
@@ -115,4 +124,5 @@ function resetSettings() {
         fontFamily: "Monaco",
         fontSize: "12px"
     });
+    changes = 1;
 }
