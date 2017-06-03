@@ -1673,7 +1673,9 @@ footer.bg-dark a {
         display: block;
         max-width: 100%;
     }
-
+    .flogo{
+        display: none!important;
+    }
     .footer-1{
         padding-left: 5%!important;
         padding-right: 5%!important;
@@ -1696,7 +1698,7 @@ footer.bg-dark a {
 }
 
 #editor.change_height {
-  height: 89%;
+  height: 92.5%!important;
 }
 
 .panel-actions {
@@ -1718,7 +1720,7 @@ footer.bg-dark a {
 }
 
 .panel-fullscreen {
-  z-index: 9999;
+  z-index: 1020;
   width: 100%;
   height: 101%;
   position: fixed;
@@ -1763,4 +1765,65 @@ footer.bg-dark a {
 
 .headPanel.fullscreen{
     height:55px; !important;
+}
+@media (max-width: 394px){
+    .panelTopOptions{
+        margin-bottom: 30px;
+    }
+    .panelTopButton{
+        display: inline-block;!important;
+        margin-top: 20px!important;
+        margin-left: 0!important;
+        margin-right: 0!important;
+        margin-bottom: 0!important;
+        float: none!important;
+    }
+    .panelTopTextbox{
+        width: 100%!important;
+        margin-bottom: 20px!important;
+    }
+}
+
+.btn-modal {
+    display: inline-block;
+    background: rgb(255, 255, 255);
+    border-color: rgb(252, 79, 79);
+}
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+
+.modal-body {
+    height: 100%;
+    overflow-y: auto;
+    font-size: 18px;
+}
+
+.modal-group {
+    width: auto;
+    float: left;
+    margin-left: 1%;
+}
+
+.modal-dropdown {
+    position: relative;
+    z-index: 1050;
+    float: none;
+    min-width: 0px;
+    width: 100%;
+    top: 0px;
+    margin: 0px !important;
+}
+
+textarea {
+    font-size: 14px;
+    line-height: 27px;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(221, 221, 221) !important;
+    border-image: initial !important;
+    border-radius: 4px !important;
+    padding: 3px 5px !important;
+    background: rgb(245, 245, 245) !important;
 }
