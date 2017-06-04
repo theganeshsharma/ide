@@ -13,8 +13,9 @@ function loadLocalStorage() {
         var inputs = localStorage.getItem('Input');
         if (codeLang != undefined)
             lang = codeLang;
-        if (code != undefined)
+        if (code != undefined){
             ace.edit("editor").setValue(code + '');
+        }
         if (fileName != undefined)
             document.getElementById('fileName').value = fileName;
         if (inputs != undefined)
@@ -26,9 +27,9 @@ function loadLocalStorage() {
             editorTheme = cacheTheme;
         }
         if (cacheFont != undefined)
-            setFont(cacheFont);
+           setFont(cacheFont);
         if (cacheSize != undefined)
-            setFontSize(cacheSize);
+           setFontSize(cacheSize);
     }
 }
 function saveCode() {
@@ -121,7 +122,7 @@ function setFontSize(Size) {
 function resetSettings() {
     editor.setTheme("ace/theme/dawn");
     editor.setOptions({
-        fontFamily: "Monaco",
+        fontFamily: "Ubuntu",
         fontSize: "12px"
     });
     changes = 1;
