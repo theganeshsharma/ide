@@ -7,25 +7,41 @@
 
 var lang;
 var lang_sample;
-var ifLocalStorage=0;
+var ifLocalStorage = 0;
+var ifUpload = 0;
+var editorTheme = "dawn";
+var editorFontFamily = "Monaco";
+var editorFontSize = "12";
+var changes = 0;
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
     }
-    lang_sample = lang_samples[lang];
-    ace.edit("editor").setValue(lang_sample);
-    console.log("Language = " + lang);
-    if(!ifLocalStorage) {
+
+    editor.setTheme("ace/theme/dawn");
+
+    if (!ifLocalStorage) {
         loadLocalStorage();
-        ifLocalStorage=1;
+        ifLocalStorage = 1;
+        changes = 0;
     }
+
+    if (!ifUpload) {
+        lang_sample = lang_samples[lang];
+        ace.edit("editor").setValue(lang_sample);
+    }
+    console.log("Language = " + lang);
+
+    $("#panelLang").html(langName[lang] + " <span class='caret'></span>");
 }
 
 $('.changetheme').click(function (event) {
     event.preventDefault();
     var newtheme = $(this).attr('id');
+    editorTheme = newtheme;
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/" + newtheme);
+    changes = 1;
 });
 
 $(document).ready(function () {
@@ -88,6 +104,11 @@ $(document).ready(function () {
         ace.edit("editor").setValue('');
         document.getElementById('test-input').value = "";
         localStorage.clear();
+        document.getElementById('fileName').value = "";
+        setFontSize("12");
+        setFont("Monaco");
+        editor.setTheme("ace/theme/dawn");
+        ifUpload = 0;
     });
 
     $('.lang').click(function (event) {
@@ -97,45 +118,114 @@ $(document).ready(function () {
         $(this).closest('li').addClass('active');
         init();
     });
-  
-  $('#uploadFile').click(function(e){
-    e.preventDefault();
-    $('#upload').click();
-  });
-  
-  var fileInput = document.getElementById('upload');
-  fileInput.addEventListener('change', function(e) {
-      var file = fileInput.files[0];
-      var reader = new FileReader();
-      reader.onload = function(e) { // closure to set read data to editor
-          ace.edit("editor").setValue(reader.result);
-      }
-      reader.readAsText(file);	
-  });
-  
+
+    $('#uploadFile').click(function (e) {
+        e.preventDefault();
+        $('#upload').click();
+    });
+
+    var fileInput = document.getElementById('upload');
+    fileInput.addEventListener('change', function (e) {
+        var file = fileInput.files[0];
+        document.getElementById("fileName").value = file.name;
+        var ext = file.name.split('.').pop();
+        if (ext === 'js')
+            lang = 'js';
+        else if (ext === 'c')
+            lang = 'c';
+        else if (ext === 'cpp')
+            lang = 'cpp';
+        else if (ext === 'java')
+            lang = 'java';
+        else if (ext === 'py')
+            lang = 'py2';
+        else
+            lang = 'c';
+        $("#panelLang").html(langName[lang] + '<span class="caret" style="margin-left: 5px"></span>');
+        var reader = new FileReader();
+        reader.onload = function (e) { // closure to set read data to editor
+            ace.edit("editor").setValue(reader.result);
+        }
+        reader.readAsText(file);
+        console.log("File Upload Success!");
+        console.log("Language =" + lang);
+        ifUpload = 1;
+    });
+
+});
+
+$('#test-input').on('change', function () {
+    changes = 1;
+});
+$('#fileName').on('change', function () {
+    changes = 1;
 });
 
 //toggle full-screen mode
 $(document).ready(function () {
+    if ($(window).width() > 1024) {
+        var cw = $('#editor').width();
+        cw = 0.5625 * cw;
+        $('#editor').css({'height': cw + 'px'});
+    }
     //Toggle fullscreen
-   $("#panel-fullscreen").click(function (e) {
-     e.preventDefault();
-     
-     var $this = $(this);
+    var fs = false;
+    $("#panel-fullscreen").click(function (e) {
+        e.preventDefault();
 
-     if ($this.children('i').hasClass('glyphicon-resize-full')){
-			$this.attr('title','Exit Full Screen');
-			$this.children('i').removeClass('glyphicon-resize-full');
+        fs = !fs;
+        var elem = document.body;
+        if (fs)
+            requestFullScreen(elem);
+        else {
+            exitFullScreen();
+        }
+        var $this = $(this);
+
+        if ($this.children('i').hasClass('glyphicon-resize-full')) {
+            $this.attr('title', 'Exit Full Screen');
+            $this.children('i').removeClass('glyphicon-resize-full');
             $this.children('i').addClass('glyphicon-resize-small');
-      }
-     else if($this.children('i').hasClass('glyphicon-resize-small')){
-			$this.attr('title','Enter Full Screen Mode');
+        }
+        else if ($this.children('i').hasClass('glyphicon-resize-small')) {
+            $this.attr('title', 'Enter Full Screen Mode');
             $this.children('i').removeClass('glyphicon-resize-small');
             $this.children('i').addClass('glyphicon-resize-full');
-      }
-     $(this).closest('.hovercard').toggleClass('panel-fullscreen');
-     $('.fsHide').toggleClass('fs')
-	 $('#editor').toggleClass('change_height');
-     editor.resize();
+        }
+        $(this).closest('.hovercard').toggleClass('panel-fullscreen');
+        $('.fsHide').toggleClass('fs')
+        $('#editor').toggleClass('change_height');
+        editor.resize();
     });
 });
+
+var langName = {
+    c: "C",
+    cpp: "C++",
+    java: "Java",
+    py2: "Python",
+    js: "JavaScript"
+};
+
+function requestFullScreen(element) {
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+    if (requestMethod) { // Native full screen.
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+function exitFullScreen() {
+    if (document.exitFullscreen)
+        document.exitFullscreen();
+    else if (document.msExitFullscreen)
+        document.msExitFullscreen();
+    else if (document.mozCancelFullScreen)
+        document.mozCancelFullScreen();
+    else if (document.webkitExitFullscreen)
+        document.webkitExitFullscreen();
+}
