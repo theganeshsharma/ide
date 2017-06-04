@@ -13,8 +13,9 @@ function loadLocalStorage() {
         var inputs = localStorage.getItem('Input');
         if (codeLang != undefined)
             lang = codeLang;
-        if (code != undefined)
+        if (code != undefined){
             ace.edit("editor").setValue(code + '');
+        }
         if (fileName != undefined)
             document.getElementById('fileName').value = fileName;
         if (inputs != undefined)
@@ -24,9 +25,9 @@ function loadLocalStorage() {
         if (cacheTheme != undefined)
             editor.setTheme("ace/theme/" + cacheTheme);
         if (cacheFont != undefined)
-            setFont(cacheFont);
+           setFont(cacheFont);
         if (cacheSize != undefined)
-            setFontSize(cacheSize);
+           setFontSize(cacheSize);
     }
 }
 function saveCode() {

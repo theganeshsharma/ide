@@ -10,6 +10,8 @@ var ifUpload = 0;
 var editorTheme = "dawn";
 var editorFontFamily = "Monaco";
 var editorFontSize = "12";
+var editorHasChanged = false;
+
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
@@ -24,11 +26,17 @@ function init() {
     if (!ifUpload) {
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
+        editorHasChanged = false;
     }
     console.log("Language = " + lang);
 
     $("#panelLang").html(langName[lang] + " <span class='caret'></span>");
 }
+
+
+editor.getSession().on('change', function(){
+    editorHasChanged = true;
+});
 
 $('.changetheme').click(function (event) {
     event.preventDefault();
@@ -104,15 +112,35 @@ $(document).ready(function () {
         ifUpload = 0;
     });
 
+    var select;
     $('.lang').click(function (event) {
         event.preventDefault();
-        if(confirm(" All Changes will be lost")){
+        if(editorHasChanged){
+            $("#settingsssModal").modal("toggle");
+            select = this;
+        }else{
             lang = $(this).attr('id');
             $('ul li.active').removeClass('active');
             $(this).closest('li').addClass('active');
             init();
         }
+    });
+    $('#keepChanges').click(function(){
+        lang = $(select).attr('id');
+        $('ul li.active').removeClass('active');
+        $(this).closest('li').addClass('active');
+        ifUpload = 1;
+        init();
+        $("#settingsssModal").modal("hide");
+    });
 
+    $('#discardChanges').click(function(){
+        lang = $(select).attr('id');
+        $('ul li.active').removeClass('active');
+        $(this).closest('li').addClass('active');
+        ifUpload = 0;
+        init();
+        $("#settingsssModal").modal("hide");
     });
 
     $('#uploadFile').click(function (e) {
@@ -135,8 +163,9 @@ $(document).ready(function () {
             lang = 'java';
         else if (ext === 'py')
             lang = 'py2';
-        else
+        else{
             lang = 'c';
+        }
         $("#panelLang").html(langName[lang] + '<span class="caret" style="margin-left: 5px"></span>');
         var reader = new FileReader();
         reader.onload = function (e) { // closure to set read data to editor
