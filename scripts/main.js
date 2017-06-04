@@ -12,6 +12,7 @@ var editorFontFamily = "Monaco";
 var editorFontSize = "12";
 var editorHasChanged = false;
 
+var changes = 0;
 function init() {
     if (lang == undefined || lang == 'c') {
         lang = 'c';
@@ -22,6 +23,7 @@ function init() {
     if (!ifLocalStorage) {
         loadLocalStorage();
         ifLocalStorage = 1;
+        changes = 0;
     }
     if (!ifUpload) {
         lang_sample = lang_samples[lang];
@@ -41,9 +43,10 @@ editor.getSession().on('change', function(){
 $('.changetheme').click(function (event) {
     event.preventDefault();
     var newtheme = $(this).attr('id');
-    editorTheme= newtheme;
+    editorTheme = newtheme;
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/" + newtheme);
+    changes = 1;
 });
 
 $(document).ready(function () {
@@ -108,6 +111,7 @@ $(document).ready(function () {
         localStorage.clear();
         document.getElementById('fileName').value = "";
         setFontSize("12");
+        setFont("Monaco");
         editor.setTheme("ace/theme/dawn");
         ifUpload = 0;
     });
@@ -177,6 +181,13 @@ $(document).ready(function () {
         ifUpload = 1;
     });
 
+});
+
+$('#test-input').on('change', function () {
+    changes = 1;
+});
+$('#fileName').on('change', function () {
+    changes = 1;
 });
 
 //toggle full-screen mode
