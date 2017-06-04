@@ -18,14 +18,11 @@ function init() {
         lang = 'c';
     }
 
-    editor.setTheme("ace/theme/dawn");
-
     if (!ifLocalStorage) {
         loadLocalStorage();
         ifLocalStorage = 1;
         changes = 0;
     }
-
     if (!ifUpload) {
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
