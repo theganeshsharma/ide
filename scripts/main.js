@@ -116,7 +116,7 @@ $(document).ready(function () {
     $('.lang').click(function (event) {
         event.preventDefault();
         if(editorHasChanged){
-            $("#settingsssModal").modal("toggle");
+            $("#confirmModal").modal("toggle");
             select = this;
         }else{
             lang = $(this).attr('id');
