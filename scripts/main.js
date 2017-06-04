@@ -1,8 +1,6 @@
 /**
  * Created by umair on 26/12/16.
 
-
-
  */
 
 var lang;
@@ -23,7 +21,6 @@ function init() {
         loadLocalStorage();
         ifLocalStorage = 1;
     }
-
     if (!ifUpload) {
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
@@ -109,10 +106,13 @@ $(document).ready(function () {
 
     $('.lang').click(function (event) {
         event.preventDefault();
-        lang = $(this).attr('id');
-        $('ul li.active').removeClass('active');
-        $(this).closest('li').addClass('active');
-        init();
+        if(confirm(" All Changes will be lost")){
+            lang = $(this).attr('id');
+            $('ul li.active').removeClass('active');
+            $(this).closest('li').addClass('active');
+            init();
+        }
+
     });
 
     $('#uploadFile').click(function (e) {

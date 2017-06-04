@@ -20,7 +20,7 @@ function loadLocalStorage() {
         if (inputs != undefined)
             document.getElementById('test-input').value = inputs;
         if (ifUpload_Local != undefined)
-            ifUpload = ifUpload_Local;
+            ifUpload = parseInt(ifUpload_Local);
         if (cacheTheme != undefined)
             editor.setTheme("ace/theme/" + cacheTheme);
         if (cacheFont != undefined)
@@ -112,7 +112,7 @@ function setFontSize(Size) {
 function resetSettings() {
     editor.setTheme("ace/theme/dawn");
     editor.setOptions({
-        fontFamily: "Monaco",
+        fontFamily: "Ubuntu",
         fontSize: "12px"
     });
 }
