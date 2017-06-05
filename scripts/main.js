@@ -1,8 +1,6 @@
 /**
  * Created by umair on 26/12/16.
 
-
-
  */
 
 var lang;
@@ -12,6 +10,8 @@ var ifUpload = 0;
 var editorTheme = "dawn";
 var editorFontFamily = "Monaco";
 var editorFontSize = "12";
+var editorHasChanged = false;
+
 var changes = 0;
 function init() {
     if (lang == undefined || lang == 'c') {
@@ -26,11 +26,17 @@ function init() {
     if (!ifUpload) {
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
+        editorHasChanged = false;
     }
     console.log("Language = " + lang);
 
     $("#panelLang").html(langName[lang] + " <span class='caret'></span>");
 }
+
+
+editor.getSession().on('change', function(){
+    editorHasChanged = true;
+});
 
 $('.changetheme').click(function (event) {
     event.preventDefault();
@@ -49,11 +55,15 @@ $(document).ready(function () {
     var runButton = $('#submit');
     runButton.click(function () {
         runButton.button('loading');
-        var source = ace.edit("editor").getValue();
-        if (lang === 'js') {
+
+        var source = ace.edit("editor").getValue();	
+        var testcases = $("#test-input").val(); // cusotm inputs
+      
+        if(lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
-            var input = '';
-            jsWorker.postMessage({source, input});
+            var input = JSON.stringify(testcases);
+            console.log(input);
+            jsWorker.postMessage( {source , input } );
 
             jsWorker.onmessage = function (e) {
                 console.log(e.data);
@@ -65,7 +75,6 @@ $(document).ready(function () {
         }
 
         source = window.btoa(source);
-        var testcases = $("#test-input").val(); // cusotm inputs
         testcases = window.btoa(testcases);
         var expected = '';
 
@@ -108,12 +117,35 @@ $(document).ready(function () {
         ifUpload = 0;
     });
 
+    var select;
     $('.lang').click(function (event) {
         event.preventDefault();
-        lang = $(this).attr('id');
+        if(editorHasChanged){
+            $("#confirmModal").modal("toggle");
+            select = this;
+        }else{
+            lang = $(this).attr('id');
+            $('ul li.active').removeClass('active');
+            $(this).closest('li').addClass('active');
+            init();
+        }
+    });
+    $('#keepChanges').click(function(){
+        lang = $(select).attr('id');
         $('ul li.active').removeClass('active');
         $(this).closest('li').addClass('active');
+        ifUpload = 1;
         init();
+        $("#settingsssModal").modal("hide");
+    });
+
+    $('#discardChanges').click(function(){
+        lang = $(select).attr('id');
+        $('ul li.active').removeClass('active');
+        $(this).closest('li').addClass('active');
+        ifUpload = 0;
+        init();
+        $("#settingsssModal").modal("hide");
     });
 
     $('#uploadFile').click(function (e) {
@@ -136,8 +168,9 @@ $(document).ready(function () {
             lang = 'java';
         else if (ext === 'py')
             lang = 'py2';
-        else
+        else{
             lang = 'c';
+        }
         $("#panelLang").html(langName[lang] + '<span class="caret" style="margin-left: 5px"></span>');
         var reader = new FileReader();
         reader.onload = function (e) { // closure to set read data to editor
