@@ -11,9 +11,10 @@ function loadLocalStorage() {
         var cacheFont = localStorage.getItem('Font');
         var cacheSize = localStorage.getItem('Size');
         var inputs = localStorage.getItem('Input');
+        var autoSaveToggle = localStorage.getItem('autoSave');
         if (codeLang != undefined)
             lang = codeLang;
-        if (code != undefined){
+        if (code != undefined) {
             ace.edit("editor").setValue(code + '');
         }
         if (fileName != undefined)
@@ -27,9 +28,11 @@ function loadLocalStorage() {
             editorTheme = cacheTheme;
         }
         if (cacheFont != undefined)
-           setFont(cacheFont);
+            setFont(cacheFont);
         if (cacheSize != undefined)
-           setFontSize(cacheSize);
+            setFontSize(cacheSize);
+        if(autoSaveToggle!=undefined)
+            setAutoSave(autoSaveToggle);
     }
 }
 function saveCode() {
@@ -45,6 +48,7 @@ function saveCode() {
         localStorage.setItem('Theme', editorTheme);
         localStorage.setItem('Font', editorFontFamily);
         localStorage.setItem('Size', editorFontSize);
+        localStorage.setItem('autoSave', autoSave);
         console.log("Saved!");
         changes = 0;
     }
@@ -52,7 +56,7 @@ function saveCode() {
 
 
 var saveID = setInterval(function () {
-    if (changes === 1) {
+    if (changes === 1 && autoSave === 1) {
         saveCode();
         $('.autoSaveText').fadeIn('slow').delay(2000).fadeOut('slow');
     }
@@ -116,6 +120,11 @@ function setFontSize(Size) {
     editor.setOptions({
         fontSize: Size + 'px'
     });
+    changes = 1;
+}
+
+function setAutoSave(val) {
+    autoSave = val;
     changes = 1;
 }
 

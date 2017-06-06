@@ -161,6 +161,16 @@
                     </ul>
                 </div>
                 <div class="modal-group">
+                    <button type="button" class="btn hovercard-light btn-sm btn-modal" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Auto Save <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu modal-dropdown" style="height: 100%;overflow: auto;">
+                        <li><a onclick="setAutoSave(1);" href="#">ON</a></li>
+                        <li><a onclick="setAutoSave(0);" href="#">OFF</a></li>
+                    </ul>
+                </div>
+                <div class="modal-group">
                     <button onclick="resetSettings();" type="button" class="btn hovercard-light btn-sm btn-modal">
                         Reset
                     </button>
