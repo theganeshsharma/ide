@@ -159,12 +159,12 @@ $(document).ready(function () {
     }
     //Toggle fullscreen
 
-   var fs=false;
-   window.isInpBoxHidden=false;
+   var fs = false;
+   window.isInpBoxHidden = false;
    $("#panel-fullscreen").click(function (e) {
         e.preventDefault();
 
-        fs=!fs;
+        fs = !fs;
         var elem = document.body;
         $('.headPanel').toggleClass('fullscreen');
         if(fs) {
@@ -178,8 +178,8 @@ $(document).ready(function () {
         var $this = $(this);
 
         if ($this.children('i').hasClass('glyphicon-resize-full')){
-			      $this.attr('title','Exit Full Screen');
-			      $this.children('i').removeClass('glyphicon-resize-full');
+            $this.attr('title','Exit Full Screen');
+            $this.children('i').removeClass('glyphicon-resize-full');
             $this.children('i').addClass('glyphicon-resize-small');
         }
         else if ($this.children('i').hasClass('glyphicon-resize-small')) {
@@ -226,12 +226,12 @@ function exitFullScreen() {
 }
 
 function toggleCustInp() {
-    window.isInpBoxHidden=!window.isInpBoxHidden;
-    var inp=$('#test-input');
-    if(isInpBoxHidden){
+    window.isInpBoxHidden = !window.isInpBoxHidden;
+    var inp = $('#test-input');
+    if (isInpBoxHidden) {
         localStorage.setItem('inputData',inp.html());
         inp.html(null);
-    }else{
+    } else {
         inp.html(localStorage.getItem('inputData'));
     }
     $("#custInpBox").toggleClass('hide');
