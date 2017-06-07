@@ -167,7 +167,7 @@ $(document).ready(function () {
         fs = !fs;
         var elem = document.body;
         $('.headPanel').toggleClass('fullscreen');
-        if(fs) {
+        if (fs) {
             $('#custInp').hide();
             requestFullScreen(elem);
         }
