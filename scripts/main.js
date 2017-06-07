@@ -159,9 +159,9 @@ $(document).ready(function () {
     }
     //Toggle fullscreen
 
-   var fs = false;
-   window.isInpBoxHidden = false;
-   $("#panel-fullscreen").click(function (e) {
+    var fs = false;
+    window.isInpBoxHidden = false;
+    $("#panel-fullscreen").click(function (e) {
         e.preventDefault();
 
         fs = !fs;
@@ -171,13 +171,13 @@ $(document).ready(function () {
             $('#custInp').hide();
             requestFullScreen(elem);
         }
-        else{
+        else {
             $('#custInp').show();
             exitFullScreen();
         }
         var $this = $(this);
 
-        if ($this.children('i').hasClass('glyphicon-resize-full')){
+        if ($this.children('i').hasClass('glyphicon-resize-full')) {
             $this.attr('title','Exit Full Screen');
             $this.children('i').removeClass('glyphicon-resize-full');
             $this.children('i').addClass('glyphicon-resize-small');
