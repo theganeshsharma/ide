@@ -200,21 +200,27 @@ $(document).ready(function () {
         $('#editor').css({'height': cw + 'px'});
     }
     //Toggle fullscreen
+
     var fs = false;
+    window.isInpBoxHidden = false;
     $("#panel-fullscreen").click(function (e) {
         e.preventDefault();
 
         fs = !fs;
         var elem = document.body;
-        if (fs)
+        $('.headPanel').toggleClass('fullscreen');
+        if (fs) {
+            $('#custInp').hide();
             requestFullScreen(elem);
+        }
         else {
+            $('#custInp').show();
             exitFullScreen();
         }
         var $this = $(this);
 
         if ($this.children('i').hasClass('glyphicon-resize-full')) {
-            $this.attr('title', 'Exit Full Screen');
+            $this.attr('title','Exit Full Screen');
             $this.children('i').removeClass('glyphicon-resize-full');
             $this.children('i').addClass('glyphicon-resize-small');
         }
@@ -259,4 +265,16 @@ function exitFullScreen() {
         document.mozCancelFullScreen();
     else if (document.webkitExitFullscreen)
         document.webkitExitFullscreen();
+}
+
+function toggleCustInp() {
+    window.isInpBoxHidden = !window.isInpBoxHidden;
+    var inp = $('#test-input');
+    if (isInpBoxHidden) {
+        localStorage.setItem('inputData',inp.html());
+        inp.html(null);
+    } else {
+        inp.html(localStorage.getItem('inputData'));
+    }
+    $("#custInpBox").toggleClass('hide');
 }

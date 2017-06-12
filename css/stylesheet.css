@@ -1714,6 +1714,10 @@ footer.bg-dark a {
   height : 0px;
   display :none;
 }
+.hide{
+  height: 0px;
+  display:none;
+}
 
 .panel-fullscreen {
   z-index: 1020;
@@ -1729,11 +1733,14 @@ footer.bg-dark a {
   top:-30px;
   left : -5px;
 }
-
 .sidecol {
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
+}
+
+.headPanel{
+    height: 55px; !important;
 }
 
 @media (max-width: 970px){
@@ -1744,8 +1751,21 @@ footer.bg-dark a {
         padding-right: 0px!important;
         width: 90% !important;
     }
+    .heading{
+        height:90%; !important;
+    }
 }
 
+
+@media (min-width: 893px) and (max-width: 1200px) {
+    .headPanel{
+        height: 120px; !important;
+    }
+}
+
+.headPanel.fullscreen{
+    height:55px; !important;
+}
 @media (max-width: 394px){
     .panelTopOptions{
         margin-bottom: 30px;
