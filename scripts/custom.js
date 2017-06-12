@@ -31,8 +31,9 @@ function loadLocalStorage() {
             setFont(cacheFont);
         if (cacheSize != undefined)
             setFontSize(cacheSize);
-        if(autoSaveToggle!=undefined)
+        if (autoSaveToggle != undefined)
             setAutoSave(autoSaveToggle);
+        console.log("Local Storage Loaded!");
     }
 }
 function saveCode() {
@@ -131,8 +132,11 @@ function setAutoSave(val) {
 function resetSettings() {
     editor.setTheme("ace/theme/dawn");
     editor.setOptions({
-        fontFamily: "Ubuntu",
+        fontFamily: "Ubuntu Mono",
         fontSize: "12px"
     });
+    editorFontFamily="Ubuntu Mono";
+    editorFontSize = "12";
+    editorTheme = "dawn";
     changes = 1;
 }

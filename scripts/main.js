@@ -11,7 +11,7 @@ var editorTheme = "dawn";
 var editorFontFamily = "Monaco";
 var editorFontSize = "12";
 var editorHasChanged = false;
-var autoSave =1;
+var autoSave = 1;
 var changes = 0;
 function init() {
     if (lang == undefined || lang == 'c') {
@@ -34,7 +34,7 @@ function init() {
 }
 
 
-editor.getSession().on('change', function(){
+editor.getSession().on('change', function () {
     editorHasChanged = true;
 });
 
@@ -56,14 +56,14 @@ $(document).ready(function () {
     runButton.click(function () {
         runButton.button('loading');
 
-        var source = ace.edit("editor").getValue();	
+        var source = ace.edit("editor").getValue();
         var testcases = $("#test-input").val(); // cusotm inputs
-      
-        if(lang === 'js') {
+
+        if (lang === 'js') {
             var jsWorker = new Worker('scripts/javascriptWebWorker.js');
             var input = JSON.stringify(testcases);
             console.log(input);
-            jsWorker.postMessage( {source , input } );
+            jsWorker.postMessage({source, input});
 
             jsWorker.onmessage = function (e) {
                 console.log(e.data);
@@ -106,32 +106,38 @@ $(document).ready(function () {
         });
     });
 
-    $('#clear').click(function () {
+    $('#reset').click(function () {
+        resetSettings();
         document.getElementById('test-input').value = "";
-        localStorage.clear();
         document.getElementById('fileName').value = "";
-        setFontSize("12");
-        setFont("Monaco");
-        editor.setTheme("ace/theme/dawn");
         lang_sample = lang_samples[lang];
         ace.edit("editor").setValue(lang_sample);
         ifUpload = 0;
+        localStorage.clear();
+    });
+
+    $('#clear').click(function () {
+        lang_sample = lang_samples[lang];
+        ace.edit("editor").setValue(lang_sample);
+        document.getElementById('test-input').value = "";
+        document.getElementById('fileName').value = "";
+        document.getElementById('output').value = "";
     });
 
     var select;
     $('.lang').click(function (event) {
         event.preventDefault();
-        if(editorHasChanged){
+        if (editorHasChanged) {
             $("#confirmModal").modal("toggle");
             select = this;
-        }else{
+        } else {
             lang = $(this).attr('id');
             $('ul li.active').removeClass('active');
             $(this).closest('li').addClass('active');
             init();
         }
     });
-    $('#keepChanges').click(function(){
+    $('#keepChanges').click(function () {
         lang = $(select).attr('id');
         $('ul li.active').removeClass('active');
         $(this).closest('li').addClass('active');
@@ -140,7 +146,7 @@ $(document).ready(function () {
         $("#confirmModal").modal("hide");
     });
 
-    $('#discardChanges').click(function(){
+    $('#discardChanges').click(function () {
         lang = $(select).attr('id');
         $('ul li.active').removeClass('active');
         $(this).closest('li').addClass('active');
@@ -169,7 +175,7 @@ $(document).ready(function () {
             lang = 'java';
         else if (ext === 'py')
             lang = 'py2';
-        else{
+        else {
             lang = 'c';
         }
         $("#panelLang").html(langName[lang] + '<span class="caret" style="margin-left: 5px"></span>');
