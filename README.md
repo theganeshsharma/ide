@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/abhishek97/ide.svg?branch=master)](https://travis-ci.org/abhishek97/ide)
+
 # cb-ide
 
 > Cb ide 
