@@ -6,19 +6,19 @@
       <div class="btn-group">
         <b>Theme:</b>
         <select @change="changeTheme">
-          <option v-for="theme in themeOptions" :value="theme"> {{theme | capitalize }} </option>
+          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme',theme)"> {{theme | capitalize }} </option>
         </select>
       </div>
       <div class="btn-group">
         <b>Font:</b>
         <select @change="changeFont">
-          <option v-for="font in fontOptions" :value="font"> {{font}} </option>
+          <option v-for="font in fontOptions" :value="font" :selected="setDefault('font',font)"> {{font}} </option>
         </select>
       </div>
       <div class="btn-group">
         <b>Size:</b>
         <select @change="changeSize">
-          <option v-for="size in sizeOptions" :value="size">{{size}}</option>
+          <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size',size)">{{size}}</option>
         </select>
       </div>
       <div class="btn-group">
@@ -28,7 +28,7 @@
 
 
       <ul class="list-inline panel-actions">
-        <li @click="resetEditor" ><a href="#">Reset Defaults</a></li>
+        <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
       </ul>
     </div>
   </div>
@@ -60,16 +60,27 @@
       },
       resetEditor () {
         this.$store.commit('resetEditor')
+      },
+      setDefault (type, val) {
+        switch (type) {
+          case 'theme':
+            return val === this.$store.state.theme
+          case 'size':
+            return val === parseInt(this.$store.state.fontSize)
+          case 'font':
+            return val === this.$store.state.font
+        }
       }
     }
   }
 </script>
 
 <style scoped>
-  .btn-group{
+  .btn-group {
     margin: 2px 10px;
   }
-  li{
+
+  li {
     position: relative;
     bottom: 26px;
   }

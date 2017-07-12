@@ -2,15 +2,16 @@
   <div class="col-md-8 colw90 panelTopOptions">
               <textarea id="fileName" class="panelTopTextbox textbox hovercard-light panelTopOptions" rows="1"
                         style="font-size:16px!important;width: 25%; max-width:100%; margin: 0 5px 0 0!important;resize: none!important;"
-                        placeholder="Enter file name" v-model="filename" ></textarea>
+                        placeholder="Enter file name" v-model="filename" @keyup="setIsChanged"
+                        @change="fileNameChange"></textarea>
     <div class="btn-group panelTopOptions panelTopButton" style="float: right">
       <button type="button" id="downlaod" class="btn hover-light btn-sm btn-filled" @click="downloadCode()">
         Download
       </button>
     </div>
     <div class="btn-group panelTopOptions panelTopButton" style="float: right;margin-right: 5px;">
-      <input type="file" ref="fileUpload" style="display:none" @change="uploadCode" >
-      <button type="button" id="uploadFile" class=" btn hover-light btn-sm btn-filled" @click="selectFile" >
+      <input type="file" ref="fileUpload" style="display:none" @change="uploadCode">
+      <button type="button" id="uploadFile" class=" btn hover-light btn-sm btn-filled" @click="selectFile">
         Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
       </button>
       <input type="file" id="upload" style="display:none;">
@@ -22,6 +23,9 @@
   export default {
     name: 'panel-top',
     methods: {
+      fileNameChange (e) {
+        this.$store.commit('fileNameChange', e.target.value)
+      },
       selectFile () {
         // open file select dialogue
         this.$refs.fileUpload.click()
@@ -52,12 +56,25 @@
         document.body.appendChild(el)
         document.body.removeChild(el)
         el.click()
+      },
+      setIsChanged (e) {
+        if (!this.$store.state.isChanged) {
+          console.log('Auto Save Stack + ' + e.target.id)
+          this.$store.commit('setIsChanged', true)
+        }
       }
     },
     data () {
       return {
         filename: ''
       }
+    },
+    mounted () {
+      this.$store.subscribe((mutation, state) => {
+        if (mutation.type === 'loadLocalStorage') {
+          this.filename = state.fileName
+        }
+      })
     }
   }
 </script>
