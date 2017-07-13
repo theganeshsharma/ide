@@ -56,6 +56,13 @@
             break;
           case "loadLocalStorage":
             this.editor.setValue(this.$store.state.code)
+            this.getDirty()
+            this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
+            this.editor.setOptions({fontFamily: this.$store.state.font})
+            this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
+            break;
+          case "resetCode":
+            this.editor.setValue(this.$store.state.code)
             this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
             this.editor.setOptions({fontFamily: this.$store.state.font})
             this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})

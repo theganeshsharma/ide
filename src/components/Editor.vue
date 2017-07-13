@@ -64,13 +64,7 @@
     },
     mounted () {
       // set auto save true
-      this.$store.commit('changeAutosave', true)
-      // load from localStorage
-      this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'loadLocalStorage') {
-          this.language = state.language
-        }
-      })
+      this.$store.commit('changeAutoSave', true)
     },
     data () {
       return {

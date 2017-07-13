@@ -6,7 +6,9 @@
       <div class="btn-group">
         <b>Theme:</b>
         <select @change="changeTheme">
-          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme',theme)"> {{theme | capitalize }} </option>
+          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme',theme)">
+            {{theme | capitalize }}
+          </option>
         </select>
       </div>
       <div class="btn-group">
@@ -23,7 +25,7 @@
       </div>
       <div class="btn-group">
         <b>AutoSave:</b>
-        <input type="checkbox" @change="changeAutosave" style="margin-bottom: 24px" checked>
+        <input type="checkbox" @change="changeAutoSave" style="margin-bottom: 24px" v-model="this.$store.state.autoSave">
       </div>
 
 
@@ -55,8 +57,8 @@
       changeSize (e) {
         this.$store.commit('changeFontSize', e.target.value)
       },
-      changeAutosave (e) {
-        this.$store.commit('changeAutosave', e.target.checked)
+      changeAutoSave (e) {
+        this.$store.commit('changeAutoSave', e.target.checked)
       },
       resetEditor () {
         this.$store.commit('resetEditor')

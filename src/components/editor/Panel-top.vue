@@ -2,7 +2,7 @@
   <div class="col-md-8 colw90 panelTopOptions">
               <textarea id="fileName" class="panelTopTextbox textbox hovercard-light panelTopOptions" rows="1"
                         style="font-size:16px!important;width: 25%; max-width:100%; margin: 0 5px 0 0!important;resize: none!important;"
-                        placeholder="Enter file name" v-model="filename" @keyup="setIsChanged"
+                        placeholder="Enter file name" :value="this.$store.state.fileName" @keyup="setIsChanged"
                         @change="fileNameChange"></textarea>
     <div class="btn-group panelTopOptions panelTopButton" style="float: right">
       <button type="button" id="downlaod" class="btn hover-light btn-sm btn-filled" @click="downloadCode()">
@@ -31,7 +31,6 @@
         this.$refs.fileUpload.click()
       },
       uploadCode (e) {
-        console.log(e)
         const files = e.target.files || e.dataTransfer.files
         if (!files.length) {
           return
@@ -42,8 +41,9 @@
         const vm = this
 
         reader.onload = function (e) {
-          console.log(e.target.result)
+          console.log('Uploaded File: ' + file.name)
           vm.$store.commit('uploadCode', e.target.result)
+          vm.$store.commit('fileNameChange', file.name)
         }
         reader.readAsText(file)
       },
@@ -51,7 +51,7 @@
         const code = this.$store.state.code
         const el = document.createElement('a')
         el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(code))
-        el.setAttribute('download', this.filename)
+        el.setAttribute('download', this.$store.state.fileName)
         el.style.display = 'none'
         document.body.appendChild(el)
         document.body.removeChild(el)
@@ -63,18 +63,6 @@
           this.$store.commit('setIsChanged', true)
         }
       }
-    },
-    data () {
-      return {
-        filename: ''
-      }
-    },
-    mounted () {
-      this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'loadLocalStorage') {
-          this.filename = state.fileName
-        }
-      })
     }
   }
 </script>

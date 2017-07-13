@@ -58,7 +58,16 @@ export default new Vuex.Store({
       state.fileName = val
     },
     resetCode (state) {
-      state.code = samples[state.language]
+      localStorage.clear()
+
+      state.language = "C++"
+      state.code = samples["C++"]
+      state.fileName = ''
+      state.customInput = ''
+      state.customInputBuf = ''
+      state.theme = 'dawn'
+      state.font = 'Ubuntu Mono'
+      state.fontSize = 14
     },
     changeCustomInput (state, val) {
       state.customInput = val
@@ -80,18 +89,18 @@ export default new Vuex.Store({
     setIsChanged (state, val){
       state.isChanged = val;
     },
-    changeAutosave (state, val) {
+    changeAutoSave (state, val) {
       if (val) {
+        state.autoSave = true
         if (typeof(Storage) !== 'undefined') {
           state.autoSaveIntervalId = window.setInterval(() => {
-            console.log(state.isChanged)
             if (state.autoSave && state.isChanged) {
               saveLocalStorage(state)
               console.log('Auto Saved!')
               state.isChanged = false
               console.log('Auto Save Stack Cleared!')
             }
-          }, 9000)
+          }, 10000)
         }
       } else {
         window.clearInterval(state.autoSaveIntervalId)
@@ -101,16 +110,37 @@ export default new Vuex.Store({
     },
     loadLocalStorage (state){
       if (typeof(Storage) !== 'undefined') {
-        state.code = window.localStorage.getItem('code')
-        state.language = window.localStorage.getItem('language')
-        state.theme = window.localStorage.getItem('theme')
-        state.font = window.localStorage.getItem('font')
-        state.fontSize = window.localStorage.getItem('fontSize')
-        state.autoSave = window.localStorage.getItem('autoSave')
-        state.customInput = window.localStorage.getItem('customInput')
-        state.fileName = window.localStorage.getItem('fileName')
-        state.customInputBuf = window.localStorage.getItem('customInputBuf')
-        state.showCustomInput = window.localStorage.getItem('showCustomInput')
+        let item
+        item = window.localStorage.getItem('language') || state.language
+        state.language = item
+
+        item = window.localStorage.getItem('code') || state.code
+        state.code = item
+
+        item = window.localStorage.getItem('theme') || state.theme
+        state.theme = item
+
+        item = window.localStorage.getItem('font') || state.font
+        state.font = item
+
+        item = window.localStorage.getItem('fontSize') || state.fontSize
+        state.fontSize = item
+
+        item = window.localStorage.getItem('autoSave') || state.autoSave
+        state.autoSave = (item === "true") ? true : item !== "false"
+
+        item = window.localStorage.getItem('customInput') || state.customInput
+        state.customInput = item
+
+        item = window.localStorage.getItem('fileName') || state.fileName
+        state.fileName = item
+
+        item = window.localStorage.getItem('customInputBuf') || state.customInputBuf
+        state.customInputBuf = item
+
+        item = window.localStorage.getItem('showCustomInput') || state.showCustomInput
+        state.showCustomInput = item !== 'false'
+
         console.log("Local Storage Loaded!")
       }
     }

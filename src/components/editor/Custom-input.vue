@@ -1,5 +1,5 @@
 <template>
-  <div id="custInpBox" class="fsHide">
+  <div id="custInpBox" class="fsHide" v-show="this.$store.state.showCustomInput">
     <div class="sidecol" id="inputBox">
       <div class="panel panel-default hovercard ">
 
@@ -8,8 +8,8 @@
                                            class="fa fa-times pull-right"></i></div>
         <div class="panel-body">
           <textarea class="textbox" id="test-input" rows="2" style="width: 100%; max-width:100%;"
-                    placeholder="Enter your custom inputs" @change="customInputChange"
-                    @keyup="setIsChanged" v-model="customInput"></textarea>
+                    placeholder="Enter your custom inputs" :value="this.$store.state.customInput"
+                    @change="customInputChange" @keyup="setIsChanged"></textarea>
         </div>
 
       </div>
@@ -21,7 +21,7 @@
   export default {
     name: 'custom-input',
     data  () {
-      return {customInput: ''}
+      return {showCustomInput: this.$store.state.showCustomInput}
     },
     methods: {
       customInputToggle () {
@@ -36,13 +36,6 @@
           this.$store.commit('setIsChanged', true)
         }
       }
-    },
-    mounted () {
-      this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'loadLocalStorage') {
-          this.customInput = state.customInput
-        }
-      })
     }
   }
 </script>
