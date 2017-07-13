@@ -1,5 +1,5 @@
 <template>
-  <pre id="editor" @keyup="getDirty()" ></pre>
+  <pre id="editor" @keyup="getDirty()"></pre>
 </template>
 
 <script>
@@ -28,8 +28,8 @@
       this.editor.getSession().setMode(`ace/mode/${this.languageMode}`);
       this.editor.$blockScrolling = Infinity
       this.editor.setValue(samples[this.language])
-      this.editor.on('change', ()=>{
-        this.$store.commit('updateCode',this.editor.getValue())
+      this.editor.on('change', () => {
+        this.$store.commit('updateCode', this.editor.getValue())
       })
 
       this.$store.subscribe((mutation, state) => {
@@ -47,6 +47,24 @@
             this.editor.setOptions({fontFamily: this.$store.state.font})
             break;
           case "changeFontSize":
+            this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
+            break;
+          case "resetEditor":
+            this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
+            this.editor.setOptions({fontFamily: this.$store.state.font})
+            this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
+            break;
+          case "loadLocalStorage":
+            this.editor.setValue(this.$store.state.code)
+            this.getDirty()
+            this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
+            this.editor.setOptions({fontFamily: this.$store.state.font})
+            this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
+            break;
+          case "resetCode":
+            this.editor.setValue(this.$store.state.code)
+            this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
+            this.editor.setOptions({fontFamily: this.$store.state.font})
             this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
             break;
         }
@@ -69,19 +87,25 @@
     },
     computed: {
       languageMode () {
-        switch(this.language){
-          case 'C': return 'c_cpp'
-          case 'C++': return 'c_cpp'
-          case 'Java': return 'java'
-          case 'Python': return 'python'
-          case 'Javascript': return 'javascript'
-          default : return 'c_cpp'
+        switch (this.language) {
+          case 'C':
+            return 'c_cpp'
+          case 'C++':
+            return 'c_cpp'
+          case 'Java':
+            return 'java'
+          case 'Python':
+            return 'python'
+          case 'Javascript':
+            return 'javascript'
+          default :
+            return 'c_cpp'
         }
       }
     },
     watch: {
       language(newLang){
-        if(this.isClean)
+        if (this.isClean)
           this.editor.setValue(samples[newLang])
       },
       languageMode(newMode){
