@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/babel">
   import saveLocalStorage from '@/assets/js/utils'
 
   export default {
@@ -29,6 +29,13 @@
         this.loading = !this.loading
         this.$store.dispatch('runCode').then(() => {
           this.loading = false
+        }).catch(err => {
+          console.error(err)
+          this.loading = false
+          this.$notify({
+            text: 'There was some error while running the code, please try again.',
+            type: 'error'
+          })
         })
       },
       resetCode () {

@@ -3,6 +3,8 @@
     <navbar></navbar>
     <editor></editor>
     <footer-comp></footer-comp>
+
+    <notifications />
   </div>
 </template>
 
