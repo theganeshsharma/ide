@@ -15,8 +15,6 @@
 </template>
 
 <script type="text/babel">
-  import saveLocalStorage from '@/assets/js/utils'
-
   export default {
     name: 'actions',
     data () {
@@ -43,12 +41,12 @@
       },
       saveToLocalStorage () {
         if (this.$store.state.isChanged) {
-          saveLocalStorage(this.$store.state)
           this.$store.state.isChanged = false
           console.log('Saved!')
         } else {
           console.log('Already Saved!')
         }
+        this.$store.dispatch('saveDataToServer')
       }
     }
   }

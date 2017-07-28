@@ -14,8 +14,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    code: samples['C++'],
-    language: 'C++',
+    code: samples['C'],
+    language: 'C',
     theme: 'dawn',
     font: 'Ubuntu Mono',
     fontSize: 14,
@@ -48,6 +48,9 @@ export default new Vuex.Store({
     updateCode (state, val) {
       state.code = val
     },
+    satCode (state, val) {
+      state.code = val
+    },
     uploadCode (state, val) {
       state.code = val
     },
@@ -58,7 +61,7 @@ export default new Vuex.Store({
       state.fileName = val
     },
     resetCode (state) {
-      localStorage.clear()
+      window.localStorage.clear()
 
       state.language = "C++"
       state.code = samples["C++"]
@@ -96,9 +99,7 @@ export default new Vuex.Store({
           state.autoSaveIntervalId = window.setInterval(() => {
             if (state.autoSave && state.isChanged) {
               saveLocalStorage(state)
-              console.log('Auto Saved!')
               state.isChanged = false
-              console.log('Auto Save Stack Cleared!')
             }
           }, 10000)
         }
@@ -108,6 +109,8 @@ export default new Vuex.Store({
         state.autoSave = false
       }
     },
+
+
     loadLocalStorage (state){
       if (typeof(Storage) !== 'undefined') {
         let item
@@ -159,6 +162,85 @@ export default new Vuex.Store({
         context.commit('updateOutput', output)
       }
     },
+
+    loadDataFromServer ({state,commit,dispatch}) {
+      commit('resetCode')
+      state.autosave = false
+      var pathName = window.location.pathname;
+      var id = pathName.slice(1)
+      var xhr = new XMLHttpRequest();
+
+      if (!(id === '')) {
+        xhr.open('GET', `https://ide.cb.lk/code/${id}`);
+
+        xhr.setRequestHeader("Content-type", "application/json");
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            var responseText = JSON.parse(xhr.responseText);
+            commit('changeLanguage', responseText.language)
+            commit('satCode', responseText.code)
+            commit('changeCustomInput', responseText.customInput)
+            commit('fileNameChange', responseText.fileName)
+          }
+          else {
+            console.error (xhr.request)
+          }
+        };
+
+        xhr.send(null)
+      }
+    },
+
+    saveDataToServer ({state,commit,dispetch}) {
+      var pathName = window.location.pathname;
+      var id = pathName.slice(1)
+
+      var xhr = new XMLHttpRequest();
+
+      var data = {
+        id: id,
+        language: state.language,
+        code: state.code,
+        customInput: state.customInput,
+        fileName: state.fileName
+      }
+
+      xhr.open('POST', 'https://ide.cb.lk/code/');
+
+      xhr.setRequestHeader("Content-type", "application/json");
+
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var responseJSON = JSON.parse(xhr.responseText)
+          if (id !== responseJSON.id) {
+            window.history.pushState({ path: '/' + id }, responseJSON.id, responseJSON.id);
+
+            window.onpopstate = function (event) {
+              if (window.location.pathname === '/') {
+                window.localStorage.clear()
+
+                state.language = "C++"
+                state.code = samples["C++"]
+                state.fileName = ''
+                state.customInput = ''
+                state.customInputBuf = ''
+                state.theme = 'dawn'
+                state.font = 'Ubuntu Mono'
+                state.fontSize = 14
+              } else {
+                window.location.reload ()
+              }
+            }
+          }
+        }
+        else {
+          console.error (xhr.request)
+        }
+      };
+
+      xhr.send(JSON.stringify(data))
+    },
     runCode ({state, commit, dispatch}) {
       let lang = 'c'
       switch (state.language) {
@@ -199,7 +281,6 @@ export default new Vuex.Store({
       }, config)
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
-          console.log(output);
           commit('updateOutput', base64.decode(output))
         })
     }
