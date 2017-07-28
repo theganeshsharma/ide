@@ -63,7 +63,6 @@
       AceEditor
     },
     mounted () {
-      // set auto save true
       this.$store.commit('changeAutoSave', true)
     },
     data () {

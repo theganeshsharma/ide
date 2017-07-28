@@ -163,83 +163,31 @@ export default new Vuex.Store({
       }
     },
 
-    loadDataFromServer ({state,commit,dispatch}) {
-      commit('resetCode')
-      state.autosave = false
-      var pathName = window.location.pathname;
-      var id = pathName.slice(1)
-      var xhr = new XMLHttpRequest();
+    loadDataFromServer ({ state, commit, dispatch }) {
+      const pasteId = state.route.params.id
 
-      if (!(id === '')) {
-        xhr.open('GET', `https://ide.cb.lk/code/${id}`);
-
-        xhr.setRequestHeader("Content-type", "application/json");
-
-        xhr.onload = function() {
-          if (xhr.status === 200) {
-            var responseText = JSON.parse(xhr.responseText);
-            commit('changeLanguage', responseText.language)
-            commit('satCode', responseText.code)
-            commit('changeCustomInput', responseText.customInput)
-            commit('fileNameChange', responseText.fileName)
-          }
-          else {
-            console.error (xhr.request)
-          }
-        };
-
-        xhr.send(null)
+      if (state.route.name !== 'saved') {
+        return
       }
+
+      axios
+        .get(`https://ide.cb.lk/code/${pasteId}`)
+        .then(({ data }) => {
+          commit('changeLanguage', data.language)
+          commit('satCode', data.code)
+          commit('changeCustomInput', data.customInput)
+          commit('fileNameChange', data.fileName)
+        })
     },
 
-    saveDataToServer ({state,commit,dispetch}) {
-      var pathName = window.location.pathname;
-      var id = pathName.slice(1)
-
-      var xhr = new XMLHttpRequest();
-
-      var data = {
-        id: id,
+    saveDataToServer ({ state, commit, dispatch }) {
+      return axios.post('https://ide.cb.lk/code/', {
+        id: (void 0),
         language: state.language,
         code: state.code,
         customInput: state.customInput,
         fileName: state.fileName
-      }
-
-      xhr.open('POST', 'https://ide.cb.lk/code/');
-
-      xhr.setRequestHeader("Content-type", "application/json");
-
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          var responseJSON = JSON.parse(xhr.responseText)
-          if (id !== responseJSON.id) {
-            window.history.pushState({ path: '/' + id }, responseJSON.id, responseJSON.id);
-
-            window.onpopstate = function (event) {
-              if (window.location.pathname === '/') {
-                window.localStorage.clear()
-
-                state.language = "C++"
-                state.code = samples["C++"]
-                state.fileName = ''
-                state.customInput = ''
-                state.customInputBuf = ''
-                state.theme = 'dawn'
-                state.font = 'Ubuntu Mono'
-                state.fontSize = 14
-              } else {
-                window.location.reload ()
-              }
-            }
-          }
-        }
-        else {
-          console.error (xhr.request)
-        }
-      };
-
-      xhr.send(JSON.stringify(data))
+      })
     },
     runCode ({state, commit, dispatch}) {
       let lang = 'c'
