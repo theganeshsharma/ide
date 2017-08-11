@@ -195,6 +195,9 @@ export default new Vuex.Store({
         case 'C++':
           lang = 'cpp';
           break
+        case 'C#':
+          lang = 'csharp';
+          break
         case 'Javascript':
           lang = 'js';
           break
