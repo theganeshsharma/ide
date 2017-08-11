@@ -39,7 +39,7 @@
     components: { editorDropdown, Settings },
     data () {
       return {
-        languages: ['C', 'C++', 'Java', 'Python', 'Javascript']
+        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript']
       }
     },
     methods: {

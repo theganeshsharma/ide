@@ -5,6 +5,7 @@
 <script>
   import ace from 'brace'
   import 'brace/mode/c_cpp'
+  import 'brace/mode/csharp'
   import 'brace/mode/java'
   import 'brace/mode/python'
   import 'brace/mode/javascript'
@@ -100,6 +101,8 @@
             return 'c_cpp'
           case 'C++':
             return 'c_cpp'
+          case 'C#':
+            return 'csharp'
           case 'Java':
             return 'java'
           case 'Python':
@@ -113,9 +116,9 @@
     },
     watch: {
       language(newLang){
-          if (this.isClean) {
-            this.editor.setValue(samples[newLang])
-          }
+        if (this.isClean) {
+          this.editor.setValue(samples[newLang])
+        }
       },
       languageMode(newMode){
         this.editor.getSession().setMode(`ace/mode/${newMode}`);
