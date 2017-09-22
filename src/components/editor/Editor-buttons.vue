@@ -1,5 +1,6 @@
 <template>
-  <div class="col-md-8 colw90">
+  <fullscreen :fullscreen.sync="fullscreen">
+    <div class="col-md-8 colw90">
     <div class="hovercard" id="fs_control">
       <div class="panel panel-default"
            style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
@@ -19,7 +20,7 @@
 
           <ul class="list-inline panel-actions">
             <li><a href="#" id="panel-fullscreen" role="button" title="Enter Full Screen Mode"><i
-              id="toggleBtn" class="glyphicon glyphicon-resize-full"></i></a></li>
+              id="toggleBtn" @click="toggleFullscreen" class="glyphicon glyphicon-resize-full"></i></a></li>
           </ul>
         </div>
       </div>
@@ -29,20 +30,39 @@
     </div>
     <p class="autoSaveText">Auto Saved!</p>
   </div>
+  </fullscreen>
 </template>
 
 <script>
   import editorDropdown from './editor-dropdown.vue'
+  import fullscreen from 'vue-fullscreen'
+  import Vue from 'vue'
   import Settings from './Settings.vue'
+
+  Vue.use(fullscreen)
+
   export default {
     name: 'editor-buttons',
     components: { editorDropdown, Settings },
     data () {
       return {
-        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript']
+        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript'],
+        fullscreen: false
       }
     },
     methods: {
+      toggleFullscreen () {
+        this.$fullscreen.toggle(this.$el.querySelector('#fs_control'), {
+          callback: this.fullscreenChange
+        })
+      },
+      fullscreenChange (isFullscreen) {
+        if (isFullscreen) {
+          this.$el.querySelector('#editor').style.height = '100vh'
+        } else {
+          this.$el.querySelector('#editor').style.height = '400px'
+        }
+      },
       customInputToggle () {
         this.$store.commit('toggleCustomInput')
       },
