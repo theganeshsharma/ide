@@ -14,11 +14,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    code: samples['C'],
-    language: 'C',
+    code: samples['C++'],
+    language: 'C++',
     theme: 'dawn',
     font: 'Ubuntu Mono',
-    fontSize: 14,
+    fontSize: 16,
     showCustomInput: 'false',
     showSettings: false,
     customInput: '',
@@ -87,7 +87,7 @@ export default new Vuex.Store({
     resetEditor (state) {
       state.theme = 'dawn'
       state.font = 'Ubuntu Mono'
-      state.fontSize = 14
+      state.fontSize = 16
     },
     setIsChanged (state, val){
       state.isChanged = val;
