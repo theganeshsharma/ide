@@ -5,6 +5,7 @@
 <script>
   import ace from 'brace'
   import 'brace/mode/c_cpp'
+  import 'brace/mode/csharp'
   import 'brace/mode/java'
   import 'brace/mode/python'
   import 'brace/mode/javascript'
@@ -28,17 +29,25 @@
       this.editor.getSession().setMode(`ace/mode/${this.languageMode}`);
       this.editor.$blockScrolling = Infinity
       this.editor.setValue(samples[this.language])
+      let changeCount = 0
       this.editor.on('change', () => {
         this.$store.commit('updateCode', this.editor.getValue())
       })
+
+      this.$store.dispatch('loadDataFromServer')
 
       this.$store.subscribe((mutation, state) => {
         switch (mutation.type) {
           case "resetCode":
             this.editor.setValue(this.$store.state.code)
+            this.isClean = true
             break;
           case "uploadCode":
             this.editor.setValue(this.$store.state.code)
+            break;
+          case "satCode":
+            this.editor.setValue(this.$store.state.code)
+            this.getDirty()
             break;
           case "changeTheme":
             this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
@@ -92,6 +101,8 @@
             return 'c_cpp'
           case 'C++':
             return 'c_cpp'
+          case 'C#':
+            return 'csharp'
           case 'Java':
             return 'java'
           case 'Python':
@@ -105,8 +116,9 @@
     },
     watch: {
       language(newLang){
-        if (this.isClean)
+        if (this.isClean) {
           this.editor.setValue(samples[newLang])
+        }
       },
       languageMode(newMode){
         this.editor.getSession().setMode(`ace/mode/${newMode}`);

@@ -20,6 +20,19 @@ var cpp_sample =
   '    cout<<"Hello World!";\n' +
   '}\n';
 
+var csharp_sample =
+  'using System;\n' +
+  'namespace HelloWorld\n' +
+  '{\n' +
+  '    class Hello\n' +
+  '    {\n' +
+  '        static void Main()\n' +
+  '        {\n' +
+  '            Console.WriteLine("Hello World!");\n' +
+  '        }\n' +
+  '    }\n' +
+  '}\n';
+
 var java_sample =
   'public class Main {\n' +
   '    public static void main(String args[]) {\n' +
@@ -40,9 +53,10 @@ var js_sample =
 var lang_samples = {
   'C': c_sample,
   'C++': cpp_sample,
+  'C#': csharp_sample,
   'Java': java_sample,
   'Python': py2_sample,
-  'Javascript' : js_sample
+  'Javascript': js_sample
 };
 
 export default lang_samples

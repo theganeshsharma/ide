@@ -6,17 +6,13 @@
         <span v-if="loading">  <i class='fa fa-circle-o-notch fa-spin'></i> Running  </span>
         <span v-else> Run </span>
       </button>
-      <button type="button" id="save" class="btn hover-light btn-sm btn-filled"
-              @click="saveToLocalStorage()">Save
-      </button>
+      <button type="button" id="save" class="btn hover-light btn-sm btn-filled" @click="saveToServer()">Save</button>
       <button id="clear" type="button" class="btn bg-dark hover-light btn-sm" @click="resetCode()">Reset</button>
     </div>
   </div>
 </template>
 
-<script>
-  import saveLocalStorage from '@/assets/js/utils'
-
+<script type="text/babel">
   export default {
     name: 'actions',
     data () {
@@ -29,19 +25,25 @@
         this.loading = !this.loading
         this.$store.dispatch('runCode').then(() => {
           this.loading = false
+        }).catch(err => {
+          console.error(err)
+          this.loading = false
+          this.$notify({
+            text: 'There was some error while running the code, please try again.',
+            type: 'error'
+          })
         })
       },
       resetCode () {
         this.$store.commit('resetCode')
+
+        this.$router.push({ name: 'root' })
       },
-      saveToLocalStorage () {
-        if (this.$store.state.isChanged) {
-          saveLocalStorage(this.$store.state)
-          this.$store.state.isChanged = false
-          console.log('Saved!')
-        } else {
-          console.log('Already Saved!')
-        }
+      saveToServer () {
+        this.$store.dispatch('saveDataToServer')
+          .then(({ data }) => {
+            return this.$router.push({ name: 'saved', params: { id: data.id } })
+          })
       }
     }
   }

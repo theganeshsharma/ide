@@ -3,6 +3,8 @@
     <navbar></navbar>
     <editor></editor>
     <footer-comp></footer-comp>
+
+    <notifications />
   </div>
 </template>
 
@@ -28,16 +30,15 @@
         'changeFont',
         'changeFontSize',
         'resetEditor',
+        'satCode',
         'changeAutosave'
       ]
 
       this.$store.subscribe((mutation, state) => {
         if (mutationsToSubscribe.includes(mutation.type) && !state.isChanged) {
-          console.log('Auto Save Stack + ' + mutation.type)
           this.$store.commit('setIsChanged', true)
         }
       })
-      this.$store.commit('loadLocalStorage')
     }
   }
 
@@ -45,4 +46,3 @@
 <style src="bootstrap/dist/css/bootstrap.css"></style>
 <style src="font-awesome/css/font-awesome.css"></style>
 <style src="./assets/css/whole.css"></style>
-

@@ -14,8 +14,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    code: samples['C++'],
-    language: 'C++',
+    code: samples['C'],
+    language: 'C',
     theme: 'dawn',
     font: 'Ubuntu Mono',
     fontSize: 14,
@@ -48,6 +48,9 @@ export default new Vuex.Store({
     updateCode (state, val) {
       state.code = val
     },
+    satCode (state, val) {
+      state.code = val
+    },
     uploadCode (state, val) {
       state.code = val
     },
@@ -58,7 +61,7 @@ export default new Vuex.Store({
       state.fileName = val
     },
     resetCode (state) {
-      localStorage.clear()
+      window.localStorage.clear()
 
       state.language = "C++"
       state.code = samples["C++"]
@@ -96,9 +99,7 @@ export default new Vuex.Store({
           state.autoSaveIntervalId = window.setInterval(() => {
             if (state.autoSave && state.isChanged) {
               saveLocalStorage(state)
-              console.log('Auto Saved!')
               state.isChanged = false
-              console.log('Auto Save Stack Cleared!')
             }
           }, 10000)
         }
@@ -108,6 +109,8 @@ export default new Vuex.Store({
         state.autoSave = false
       }
     },
+
+
     loadLocalStorage (state){
       if (typeof(Storage) !== 'undefined') {
         let item
@@ -159,11 +162,41 @@ export default new Vuex.Store({
         context.commit('updateOutput', output)
       }
     },
+
+    loadDataFromServer ({ state, commit, dispatch }) {
+      const pasteId = state.route.params.id
+
+      if (state.route.name !== 'saved') {
+        return
+      }
+
+      axios
+        .get(`https://ide.cb.lk/code/${pasteId}`)
+        .then(({ data }) => {
+          commit('changeLanguage', data.language)
+          commit('satCode', data.code)
+          commit('changeCustomInput', data.customInput)
+          commit('fileNameChange', data.fileName)
+        })
+    },
+
+    saveDataToServer ({ state, commit, dispatch }) {
+      return axios.post('https://ide.cb.lk/code/', {
+        id: (void 0),
+        language: state.language,
+        code: state.code,
+        customInput: state.customInput,
+        fileName: state.fileName
+      })
+    },
     runCode ({state, commit, dispatch}) {
       let lang = 'c'
       switch (state.language) {
         case 'C++':
           lang = 'cpp';
+          break
+        case 'C#':
+          lang = 'csharp';
           break
         case 'Javascript':
           lang = 'js';
@@ -199,7 +232,6 @@ export default new Vuex.Store({
       }, config)
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
-          console.log(output);
           commit('updateOutput', base64.decode(output))
         })
     }
