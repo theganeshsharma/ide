@@ -22,15 +22,10 @@
     },
     mounted () {
       let mutationsToSubscribe = [
-        'changeLanguage',
-        'updateCode',
-        'uploadCode',
-        'resetCode',
         'changeTheme',
         'changeFont',
         'changeFontSize',
         'resetEditor',
-        'satCode',
         'changeAutosave'
       ]
 
@@ -39,6 +34,7 @@
           this.$store.commit('setIsChanged', true)
         }
       })
+      this.$store.commit('loadLocalStorage')
     }
   }
 

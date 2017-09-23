@@ -14,11 +14,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    code: samples['C'],
-    language: 'C',
+    code: samples['C++'],
+    language: 'C++',
     theme: 'dawn',
     font: 'Ubuntu Mono',
-    fontSize: 14,
+    fontSize: 16,
     showCustomInput: 'false',
     showSettings: false,
     customInput: '',
@@ -87,7 +87,7 @@ export default new Vuex.Store({
     resetEditor (state) {
       state.theme = 'dawn'
       state.font = 'Ubuntu Mono'
-      state.fontSize = 14
+      state.fontSize = 16
     },
     setIsChanged (state, val){
       state.isChanged = val;
@@ -114,11 +114,11 @@ export default new Vuex.Store({
     loadLocalStorage (state){
       if (typeof(Storage) !== 'undefined') {
         let item
-        item = window.localStorage.getItem('language') || state.language
-        state.language = item
-
-        item = window.localStorage.getItem('code') || state.code
-        state.code = item
+        // item = window.localStorage.getItem('language') || state.language
+        // state.language = item
+        //
+        // item = window.localStorage.getItem('code') || state.code
+        // state.code = item
 
         item = window.localStorage.getItem('theme') || state.theme
         state.theme = item
@@ -132,17 +132,17 @@ export default new Vuex.Store({
         item = window.localStorage.getItem('autoSave') || state.autoSave
         state.autoSave = (item === "true") ? true : item !== "false"
 
-        item = window.localStorage.getItem('customInput') || state.customInput
-        state.customInput = item
-
-        item = window.localStorage.getItem('fileName') || state.fileName
-        state.fileName = item
-
-        item = window.localStorage.getItem('customInputBuf') || state.customInputBuf
-        state.customInputBuf = item
-
-        item = window.localStorage.getItem('showCustomInput') || state.showCustomInput
-        state.showCustomInput = item !== 'false'
+        // item = window.localStorage.getItem('customInput') || state.customInput
+        // state.customInput = item
+        //
+        // item = window.localStorage.getItem('fileName') || state.fileName
+        // state.fileName = item
+        //
+        // item = window.localStorage.getItem('customInputBuf') || state.customInputBuf
+        // state.customInputBuf = item
+        //
+        // item = window.localStorage.getItem('showCustomInput') || state.showCustomInput
+        // state.showCustomInput = item !== 'false'
 
         console.log("Local Storage Loaded!")
       }
