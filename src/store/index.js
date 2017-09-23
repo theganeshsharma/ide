@@ -7,8 +7,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import base64 from 'base-64'
+import createPersistedState from 'vuex-persistedstate'
 import samples from '../assets/js/sample-source'
-import saveLocalStorage from '../assets/js/utils'
 
 Vue.use(Vuex)
 
@@ -30,7 +30,7 @@ export default new Vuex.Store({
     autoSaveIntervalId: null
   },
   mutations: {
-    toggleCustomInput (state) {
+    toggleCustomInput(state) {
       state.showCustomInput = !state.showCustomInput
       if (state.showCustomInput) {
         state.customInput = state.customInputBuf
@@ -39,28 +39,28 @@ export default new Vuex.Store({
         state.customInput = ''
       }
     },
-    toogleSettings (state) {
+    toogleSettings(state) {
       state.showSettings = !state.showSettings
     },
-    changeLanguage (state, val) {
+    changeLanguage(state, val) {
       state.language = val
     },
-    updateCode (state, val) {
+    updateCode(state, val) {
       state.code = val
     },
-    satCode (state, val) {
+    satCode(state, val) {
       state.code = val
     },
-    uploadCode (state, val) {
+    uploadCode(state, val) {
       state.code = val
     },
-    updateOutput (state, val) {
+    updateOutput(state, val) {
       state.output = val
     },
-    fileNameChange(state, val){
+    fileNameChange(state, val) {
       state.fileName = val
     },
-    resetCode (state) {
+    resetCode(state) {
       window.localStorage.clear()
 
       state.language = "C++"
@@ -70,86 +70,40 @@ export default new Vuex.Store({
       state.customInputBuf = ''
       state.theme = 'dawn'
       state.font = 'Ubuntu Mono'
-      state.fontSize = 14
+      state.fontSize = 16
     },
-    changeCustomInput (state, val) {
+    changeCustomInput(state, val) {
       state.customInput = val
     },
-    changeTheme (state, val) {
+    changeTheme(state, val) {
       state.theme = val
     },
-    changeFont (state, val) {
+    changeFont(state, val) {
       state.font = val
     },
-    changeFontSize (state, val) {
+    changeFontSize(state, val) {
       state.fontSize = val
     },
-    resetEditor (state) {
+    resetEditor(state) {
       state.theme = 'dawn'
       state.font = 'Ubuntu Mono'
       state.fontSize = 16
     },
-    setIsChanged (state, val){
+    setIsChanged(state, val) {
       state.isChanged = val;
     },
-    changeAutoSave (state, val) {
-      if (val) {
-        state.autoSave = true
-        if (typeof(Storage) !== 'undefined') {
-          state.autoSaveIntervalId = window.setInterval(() => {
-            if (state.autoSave && state.isChanged) {
-              saveLocalStorage(state)
-              state.isChanged = false
-            }
-          }, 10000)
-        }
-      } else {
-        window.clearInterval(state.autoSaveIntervalId)
-        state.autoSaveIntervalId = null
-        state.autoSave = false
-      }
-    },
-
-
-    loadLocalStorage (state){
-      if (typeof(Storage) !== 'undefined') {
-        let item
-        // item = window.localStorage.getItem('language') || state.language
-        // state.language = item
-        //
-        // item = window.localStorage.getItem('code') || state.code
-        // state.code = item
-
-        item = window.localStorage.getItem('theme') || state.theme
-        state.theme = item
-
-        item = window.localStorage.getItem('font') || state.font
-        state.font = item
-
-        item = window.localStorage.getItem('fontSize') || state.fontSize
-        state.fontSize = item
-
-        item = window.localStorage.getItem('autoSave') || state.autoSave
-        state.autoSave = (item === "true") ? true : item !== "false"
-
-        // item = window.localStorage.getItem('customInput') || state.customInput
-        // state.customInput = item
-        //
-        // item = window.localStorage.getItem('fileName') || state.fileName
-        // state.fileName = item
-        //
-        // item = window.localStorage.getItem('customInputBuf') || state.customInputBuf
-        // state.customInputBuf = item
-        //
-        // item = window.localStorage.getItem('showCustomInput') || state.showCustomInput
-        // state.showCustomInput = item !== 'false'
-
-        console.log("Local Storage Loaded!")
-      }
-    }
   },
+  plugins: [
+    createPersistedState({
+      paths: [
+        "theme",
+        "font",
+        "fontSize"
+      ]
+    })
+  ],
   actions: {
-    runJs (context, {code, input}) {
+    runJs(context, {code, input}) {
       let jsWorker = null
       if (process.env.NODE_ENV === 'production')
         jsWorker = new Worker('../../ide/static/jsWorker.js')
@@ -163,7 +117,7 @@ export default new Vuex.Store({
       }
     },
 
-    loadDataFromServer ({ state, commit, dispatch }) {
+    loadDataFromServer({state, commit, dispatch}) {
       const pasteId = state.route.params.id
 
       if (state.route.name !== 'saved') {
@@ -172,7 +126,7 @@ export default new Vuex.Store({
 
       axios
         .get(`https://ide.cb.lk/code/${pasteId}`)
-        .then(({ data }) => {
+        .then(({data}) => {
           commit('changeLanguage', data.language)
           commit('satCode', data.code)
           commit('changeCustomInput', data.customInput)
@@ -180,7 +134,7 @@ export default new Vuex.Store({
         })
     },
 
-    saveDataToServer ({ state, commit, dispatch }) {
+    saveDataToServer({state, commit, dispatch}) {
       return axios.post('https://ide.cb.lk/code/', {
         id: (void 0),
         language: state.language,
@@ -189,7 +143,7 @@ export default new Vuex.Store({
         fileName: state.fileName
       })
     },
-    runCode ({state, commit, dispatch}) {
+    runCode({state, commit, dispatch}) {
       let lang = 'c'
       switch (state.language) {
         case 'C++':

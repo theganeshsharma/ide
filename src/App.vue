@@ -34,7 +34,6 @@
           this.$store.commit('setIsChanged', true)
         }
       })
-      this.$store.commit('loadLocalStorage')
     }
   }
 

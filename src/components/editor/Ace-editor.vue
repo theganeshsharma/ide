@@ -29,6 +29,9 @@
       this.editor.getSession().setMode(`ace/mode/${this.languageMode}`);
       this.editor.$blockScrolling = Infinity
       this.editor.setValue(samples[this.language])
+      this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
+      this.editor.setOptions({fontFamily: this.$store.state.font})
+      this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
       let changeCount = 0
       this.editor.on('change', () => {
         this.$store.commit('updateCode', this.editor.getValue())
@@ -72,6 +75,15 @@
             break;
           case "resetCode":
             this.editor.setValue(this.$store.state.code)
+            this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
+            this.editor.setOptions({fontFamily: this.$store.state.font})
+            this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
+            break;
+        }
+      })
+      this.$store.subscribe((plugin, state) => {
+        switch (plugin.type) {
+          case "createPersistedState":
             this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
             this.editor.setOptions({fontFamily: this.$store.state.font})
             this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
