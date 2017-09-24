@@ -18,7 +18,7 @@ export default new Vuex.Store({
     language: 'C++',
     theme: 'dark',
     font: 'Ubuntu Mono',
-    fontSize: 16,
+    fontSize: 22,
     showInOutBox: false,
     showSettings: false,
     customInput: '',
