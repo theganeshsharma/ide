@@ -7,7 +7,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import base64 from 'base-64'
-import createPersistedState from 'vuex-persistedstate'
+import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
 
 Vue.use(Vuex)
@@ -76,13 +76,15 @@ export default new Vuex.Store({
     },
   },
   plugins: [
-    createPersistedState({
-      paths: [
-        "theme",
-        "font",
-        "fontSize"
-      ]
-    })
+    (new VuexPersistence({
+      storage: window.localStorage,
+      reducer: (state) => ({
+        theme: state.theme,
+        font: state.font,
+        fontSize: state.fontSize
+      }),
+      filter: (mutation) => (mutation.type.startsWith("changeFont"))
+    })).plugin
   ],
   actions: {
     runJs(context, {code, input}) {
