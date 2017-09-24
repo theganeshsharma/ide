@@ -1,16 +1,6 @@
 <template>
-  <div class="panel panel-default"
-       style="margin-bottom: 0px; border-radius:0px; border-bottom-width:0px;   ">
+  <div class="panel panel-default">
     <div class="headPanel panel-heading" style=" border-bottom-width:0px; ">
-      <!-- Single button -->
-      <div class="btn-group">
-        <b>Theme:</b>
-        <select @change="changeTheme">
-          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme',theme)">
-            {{theme | capitalize }}
-          </option>
-        </select>
-      </div>
       <div class="btn-group">
         <b>Font:</b>
         <select @change="changeFont">
@@ -23,11 +13,6 @@
           <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size',size)">{{size}}</option>
         </select>
       </div>
-      <div class="btn-group">
-        <b>AutoSave:</b>
-        <input type="checkbox" @change="changeAutoSave" style="margin-bottom: 24px" v-model="this.$store.state.autoSave">
-      </div>
-
 
       <ul class="list-inline panel-actions">
         <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
@@ -41,10 +26,9 @@
     name: 'settings',
     data () {
       return {
-        themeOptions: ['dawn', 'github', 'solarized_light', 'tomorrow', 'xcode', 'clouds_midnight', 'cobalt', 'idle_fingers', 'monokai'],
+        themeOptions: ['dawn', 'github', 'solarized_light', 'tomorrow', 'xcode', 'clouds_midnight', 'cobalt', 'idle_fingers', 'monokai', 'dark'],
         fontOptions: ['Lucida Console', 'Anonymous Pro', 'Courier', 'Droid Sans Mono', 'Inconsolata', 'Source Code Pro', 'Ubuntu Mono'],
         sizeOptions: Array(30).fill(0).map((el, ind) => 6 + (2 * ind)),
-        autoSave: false
       }
     },
     methods: {
@@ -56,9 +40,6 @@
       },
       changeSize (e) {
         this.$store.commit('changeFontSize', e.target.value)
-      },
-      changeAutoSave (e) {
-        this.$store.commit('changeAutoSave', e.target.checked)
       },
       resetEditor () {
         this.$store.commit('resetEditor')
@@ -85,5 +66,26 @@
   li {
     position: relative;
     bottom: 26px;
+  }
+  .panel{
+    width: 100vw;
+    height: 40px;
+    z-index: 20;
+    position: absolute;
+    margin: 0;
+  }
+
+  .panel-heading {
+    background: #272727;
+    color: #fff;
+    border-color: #272727;
+  }
+
+  .panel-heading a{
+    color:#fff;
+  }
+
+  .panel select{
+    color: #202020;
   }
 </style>

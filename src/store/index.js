@@ -16,10 +16,10 @@ export default new Vuex.Store({
   state: {
     code: samples['C++'],
     language: 'C++',
-    theme: 'dawn',
+    theme: 'dark',
     font: 'Ubuntu Mono',
     fontSize: 16,
-    showCustomInput: 'false',
+    showInOutBox: false,
     showSettings: false,
     customInput: '',
     customInputBuf: '', //input buffer to store customInput when toggled OFF
@@ -30,14 +30,8 @@ export default new Vuex.Store({
     autoSaveIntervalId: null
   },
   mutations: {
-    toggleCustomInput(state) {
-      state.showCustomInput = !state.showCustomInput
-      if (state.showCustomInput) {
-        state.customInput = state.customInputBuf
-      } else {
-        state.customInputBuf = state.customInput
-        state.customInput = ''
-      }
+    toggleInOutBox(state) {
+      state.showInOutBox = !state.showInOutBox
     },
     toogleSettings(state) {
       state.showSettings = !state.showSettings
@@ -60,18 +54,6 @@ export default new Vuex.Store({
     fileNameChange(state, val) {
       state.fileName = val
     },
-    resetCode(state) {
-      window.localStorage.clear()
-
-      state.language = "C++"
-      state.code = samples["C++"]
-      state.fileName = ''
-      state.customInput = ''
-      state.customInputBuf = ''
-      state.theme = 'dawn'
-      state.font = 'Ubuntu Mono'
-      state.fontSize = 16
-    },
     changeCustomInput(state, val) {
       state.customInput = val
     },
@@ -85,7 +67,7 @@ export default new Vuex.Store({
       state.fontSize = val
     },
     resetEditor(state) {
-      state.theme = 'dawn'
+      state.theme = 'dark'
       state.font = 'Ubuntu Mono'
       state.fontSize = 16
     },
