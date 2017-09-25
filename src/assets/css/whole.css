@@ -1842,4 +1842,8 @@ textarea {
   margin: 0;
 }
 
+input:focus, button:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
 

@@ -158,5 +158,11 @@
     background: #e31d3b;
     color: white !important;
   }
+
+  @media (max-width: 877px) {
+    .logoMenu {
+      display: none;
+    }
+  }
 </style>
 
