@@ -87,7 +87,7 @@ export default new Vuex.Store({
     })).plugin
   ],
   actions: {
-    runJs(context, {code, input}) {
+    runJs(context, {state,code, input}) {
       let jsWorker = null
       if (process.env.NODE_ENV === 'production')
         jsWorker = new Worker('../../ide/static/jsWorker.js')
@@ -98,7 +98,8 @@ export default new Vuex.Store({
       jsWorker.onmessage = function (e) {
         const output = e.data.join('\n')
         context.commit('updateOutput', output)
-        context.commit('toggleInOutBox')
+        if(!state.showInOutBox)
+          context.commit('toggleInOutBox')
       }
     },
 
@@ -150,6 +151,7 @@ export default new Vuex.Store({
 
       if (lang === 'js') {
         return dispatch('runJs', {
+          state: state,
           code: state.code,
           input: state.customInput
         })
@@ -172,7 +174,8 @@ export default new Vuex.Store({
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
           commit('updateOutput', base64.decode(output))
-          commit('toggleInOutBox')
+          if(!state.showInOutBox)
+            commit('toggleInOutBox')
         })
     }
   }
