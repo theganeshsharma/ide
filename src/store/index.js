@@ -98,6 +98,7 @@ export default new Vuex.Store({
       jsWorker.onmessage = function (e) {
         const output = e.data.join('\n')
         context.commit('updateOutput', output)
+        context.commit('toggleInOutBox')
       }
     },
 
