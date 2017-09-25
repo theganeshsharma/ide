@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  import ace from 'braceplus'
+  import ace from 'brace'
   import 'brace/mode/c_cpp'
   import 'brace/mode/csharp'
   import 'brace/mode/java'
   import 'brace/mode/python'
   import 'brace/mode/javascript'
-  import 'braceplus/theme/dark'
+  import 'brace/theme/dark'
 
 
   import samples from '../../assets/js/sample-source'

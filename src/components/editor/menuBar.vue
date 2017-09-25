@@ -152,6 +152,7 @@
   .btn-run {
     background: #e31d3b;
     border-radius: 50px !important;
+    outline: none!important;
   }
 
   .btn-run:hover, .btn-run:focus, .btn-run:active {

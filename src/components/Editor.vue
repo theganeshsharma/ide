@@ -75,6 +75,7 @@
     background: transparent;
     border: none;
     color: #fff !important;
+    outline: none!important;
   }
 
   .btn-menu:hover, .btn-menu:active, .btn-menu:focus {
