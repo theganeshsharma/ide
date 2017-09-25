@@ -62,6 +62,10 @@
         this.loading = !this.loading
         this.$store.dispatch('runCode').then(() => {
           this.loading = false
+          this.$notify({
+            text: 'Code compiled successfully.',
+            type: 'success'
+          })
         }).catch(err => {
           console.error(err)
           this.loading = false
@@ -152,7 +156,7 @@
   .btn-run {
     background: #e31d3b;
     border-radius: 50px !important;
-    outline: none!important;
+    outline: none !important;
   }
 
   .btn-run:hover, .btn-run:focus, .btn-run:active {
