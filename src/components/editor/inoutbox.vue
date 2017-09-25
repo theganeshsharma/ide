@@ -56,7 +56,7 @@
     overflow: scroll;
     background: #202020 !important;
     border-color: #272727 !important;
-    color:white!important;
+    color: white !important;
   }
 
   #test-input {
