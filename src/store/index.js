@@ -172,6 +172,7 @@ export default new Vuex.Store({
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
           commit('updateOutput', base64.decode(output))
+          commit('toggleInOutBox')
         })
     }
   }

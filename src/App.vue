@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <editor></editor>
-    <notifications />
+    <notifications/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     components: {
       Editor
     },
-    mounted () {
+    mounted() {
       let mutationsToSubscribe = [
         'changeTheme',
         'changeFont',
@@ -33,3 +33,8 @@
 <style src="bootstrap/dist/css/bootstrap.css"></style>
 <style src="font-awesome/css/font-awesome.css"></style>
 <style src="./assets/css/whole.css"></style>
+<style scoped>
+  #app {
+    background: #202020;
+  }
+</style>
