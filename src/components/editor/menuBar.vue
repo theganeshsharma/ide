@@ -60,7 +60,7 @@
     methods: {
       runCode() {
         this.loading = !this.loading
-        this.$store.dispatch('runCode').then(({data}) => {
+        this.$store.dispatch('runCode').then(() => {
           this.loading = false
         }).catch(err => {
           console.error(err)
