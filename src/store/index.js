@@ -176,24 +176,6 @@ export default new Vuex.Store({
           commit('updateOutput', base64.decode(output))
           if (!state.showInOutBox)
             commit('toggleInOutBox')
-          if (data.result == 'compile_error') {
-            this.$notify({
-              text: 'Compilation Error',
-              type: 'error'
-            })
-          } else if (data.result == 'success') {
-              if(data.data.testcases[0].result == 'run-error'){
-                this.$notify({
-                  text: 'Runtime Error',
-                  type: 'error'
-                })
-              } else {
-                this.$notify({
-                  text: 'Code Complied Successfully',
-                  type: 'success'
-                })
-              }
-          }
         })
     }
   }
