@@ -176,6 +176,7 @@ export default new Vuex.Store({
           commit('updateOutput', base64.decode(output))
           if (!state.showInOutBox)
             commit('toggleInOutBox')
+          return data;
         })
     }
   }
