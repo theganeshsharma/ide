@@ -87,7 +87,7 @@ export default new Vuex.Store({
     })).plugin
   ],
   actions: {
-    runJs(context, {state,code, input}) {
+    runJs(context, {state, code, input}) {
       let jsWorker = null
       if (process.env.NODE_ENV === 'production')
         jsWorker = new Worker('../../ide/static/jsWorker.js')
@@ -98,7 +98,7 @@ export default new Vuex.Store({
       jsWorker.onmessage = function (e) {
         const output = e.data.join('\n')
         context.commit('updateOutput', output)
-        if(!state.showInOutBox)
+        if (!state.showInOutBox)
           context.commit('toggleInOutBox')
       }
     },
@@ -174,8 +174,26 @@ export default new Vuex.Store({
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
           commit('updateOutput', base64.decode(output))
-          if(!state.showInOutBox)
+          if (!state.showInOutBox)
             commit('toggleInOutBox')
+          if (data.result == 'compile_error') {
+            this.$notify({
+              text: 'Compilation Error',
+              type: 'error'
+            })
+          } else if (data.result == 'success') {
+              if(data.data.testcases[0].result == 'run-error'){
+                this.$notify({
+                  text: 'Runtime Error',
+                  type: 'error'
+                })
+              } else {
+                this.$notify({
+                  text: 'Code Complied Successfully',
+                  type: 'success'
+                })
+              }
+          }
         })
     }
   }

@@ -60,12 +60,8 @@
     methods: {
       runCode() {
         this.loading = !this.loading
-        this.$store.dispatch('runCode').then(() => {
+        this.$store.dispatch('runCode').then(({data}) => {
           this.loading = false
-          this.$notify({
-            text: 'Code compiled successfully.',
-            type: 'success'
-          })
         }).catch(err => {
           console.error(err)
           this.loading = false
