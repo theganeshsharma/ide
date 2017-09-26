@@ -9,6 +9,11 @@
   import 'brace/mode/java'
   import 'brace/mode/python'
   import 'brace/mode/javascript'
+  import 'brace/snippets/c_cpp'
+  import 'brace/snippets/java'
+  import 'brace/snippets/javascript'
+  import 'brace/snippets/python'
+  import 'brace/snippets/csharp'
   import 'brace/theme/dark'
 
 
@@ -23,8 +28,21 @@
       this.editor.setShowPrintMargin(false);
       this.editor.setValue(samples[this.language])
       this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
-      this.editor.setOptions({fontFamily: this.$store.state.font})
-      this.editor.setOptions({fontSize: this.$store.state.fontSize + 'px'})
+      require("brace/ext/language_tools");
+      let langTools = ace.acequire("ace/ext/language_tools");
+      this.editor.setOptions({
+        fontFamily: this.$store.state.font,
+        fontSize: this.$store.state.fontSize + 'px',
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+        highlightActiveLine: false,
+        wrap: 'free',
+      })
+      let flowCompleter = {
+        getCompletions: function (editor, session, pos, prefix, callback) {
+        }
+      }
+      langTools.addCompleter(flowCompleter);
       this.editor.renderer.setScrollMargin(0, 200, 0, 0);
       let changeCount = 0
       this.editor.on('change', () => {
