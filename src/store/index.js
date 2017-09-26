@@ -174,25 +174,6 @@ export default new Vuex.Store({
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
           commit('updateOutput', base64.decode(output))
-
-          if (data.result == 'compile_error') {
-            $notify({
-              text: 'Compilation Error',
-              type: 'error'
-            })
-          } else if (data.result == 'success') {
-              if(data.data.testcases[0].result == 'run-error'){
-                $notify({
-                  text: 'Runtime Error',
-                  type: 'error'
-                })
-              } else {
-                $notify({
-                  text: 'Code Complied Successfully',
-                  type: 'success'
-                })
-              }
-          }
           if (!state.showInOutBox)
             commit('toggleInOutBox')
         })

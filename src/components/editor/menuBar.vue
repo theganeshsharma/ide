@@ -60,8 +60,26 @@
     methods: {
       runCode() {
         this.loading = !this.loading
-        this.$store.dispatch('runCode').then(() => {
+        this.$store.dispatch('runCode').then(({data}) => {
           this.loading = false
+          if (data.result == 'compile_error') {
+            this.$notify({
+              text: 'Compilation Error',
+              type: 'error'
+            })
+          } else if (data.result == 'success') {
+            if (data.data.testcases[0].result == 'run-error') {
+              this.$notify({
+                text: 'Runtime Error',
+                type: 'error'
+              })
+            } else {
+              this.$notify({
+                text: 'Code Complied Successfully',
+                type: 'success'
+              })
+            }
+          }
         }).catch(err => {
           console.error(err)
           this.loading = false
