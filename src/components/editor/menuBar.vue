@@ -64,7 +64,7 @@
         this.$store.dispatch('runCode').then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output
           this.$store.commit('updateOutput', base64.decode(output))
-          if (!this.$store.showInOutBox)
+          if (!this.$store.state.showInOutBox)
             this.$store.commit('toggleInOutBox')
           this.loading = false
           if (data.result == 'compile_error') {
