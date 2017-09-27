@@ -18,7 +18,7 @@ export default new Vuex.Store({
     language: 'C++',
     theme: 'dark',
     font: 'Ubuntu Mono',
-    fontSize: 22,
+    fontSize: 16,
     showInOutBox: false,
     showSettings: false,
     customInput: '',
@@ -171,13 +171,6 @@ export default new Vuex.Store({
         get_output: true,
         wait: true
       }, config)
-        .then(({data}) => {
-          const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output // I know this seems stupid, but i got no choice :(
-          commit('updateOutput', base64.decode(output))
-          if (!state.showInOutBox)
-            commit('toggleInOutBox')
-          return data;
-        })
     }
   }
 })

@@ -45,6 +45,7 @@
 <script>
   import language from './language.vue'
   import Vue from 'vue'
+  import base64 from 'base-64'
   import Settings from './Settings.vue'
 
   export default {
@@ -61,6 +62,10 @@
       runCode() {
         this.loading = !this.loading
         this.$store.dispatch('runCode').then(({data}) => {
+          const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output
+          this.$store.commit('updateOutput', base64.decode(output))
+          if (!this.$store.showInOutBox)
+            this.$store.commit('toggleInOutBox')
           this.loading = false
           if (data.result == 'compile_error') {
             this.$notify({
