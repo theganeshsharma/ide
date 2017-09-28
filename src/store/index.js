@@ -100,7 +100,12 @@ export default new Vuex.Store({
           const output = e.data.join('\n')
           context.commit('updateOutput', output)
           resolve({
-            result: 'success'
+            result: 'success',
+            data: {
+              testcases: [{
+                result: 'success'
+              }]
+            }
           });
           reject({
             result: 'complie_error'
