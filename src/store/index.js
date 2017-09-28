@@ -171,6 +171,11 @@ export default new Vuex.Store({
         get_output: true,
         wait: true
       }, config)
+        .then(({data}) => {
+          const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output
+          commit('updateOutput', base64.decode(output))
+          return data;
+        })
     }
   }
 })

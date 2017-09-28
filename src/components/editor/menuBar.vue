@@ -28,6 +28,9 @@
             <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
               Setting <span class="fa fa-cog"></span>
             </button>
+            <button type="button" id="share-btn" class="btn btn-sm btn-menu" @click="share">
+              Share <i class="fa fa-external-link-square" aria-hidden="true"></i>
+            </button>
           </div>
           <div class="logoMenu">
             Made with <i class="fa fa-heart" aria-hidden="true" style="color: #e31d3b"></i> by
@@ -45,6 +48,7 @@
 <script>
   import language from './language.vue'
   import Vue from 'vue'
+  import axios from 'axios'
   import base64 from 'base-64'
   import Settings from './Settings.vue'
 
@@ -59,11 +63,19 @@
       }
     },
     methods: {
+      share() {
+        console.log(window.location.href)
+        axios.post('http://cb.lk/api/v1/shorten', {
+          url: window.location.href,
+          code: '',
+          secret: ''
+        }).then((response) => {
+
+        })
+      },
       runCode() {
         this.loading = !this.loading
-        this.$store.dispatch('runCode').then(({data}) => {
-          const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output
-          this.$store.commit('updateOutput', base64.decode(output))
+        this.$store.dispatch('runCode').then((data) => {
           if (!this.$store.state.showInOutBox)
             this.$store.commit('toggleInOutBox')
           this.loading = false
