@@ -95,12 +95,26 @@ export default new Vuex.Store({
         jsWorker = new Worker('../../static/jsWorker.js')
       input = JSON.stringify(input)
       jsWorker.postMessage({code, input})
-      jsWorker.onmessage = function (e) {
-        const output = e.data.join('\n')
-        context.commit('updateOutput', output)
-        if (!state.showInOutBox)
-          context.commit('toggleInOutBox')
-      }
+      return new Promise((resolve, reject) => {
+        jsWorker.onmessage = function (e) {
+          const output = e.data.join('\n')
+          context.commit('updateOutput', output)
+          if (output.match(/^Error.*$/)) {
+            reject({
+              result: 'complie_error'
+            });
+          }
+          resolve({
+            result: 'success',
+            data: {
+              testcases: [{
+                result: 'success'
+              }]
+            }
+          });
+
+        }
+      })
     },
 
     loadDataFromServer({state, commit, dispatch}) {
@@ -154,7 +168,7 @@ export default new Vuex.Store({
           state: state,
           code: state.code,
           input: state.customInput
-        })
+        });
       }
 
       const config = {

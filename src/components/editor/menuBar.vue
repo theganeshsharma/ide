@@ -65,7 +65,7 @@
     methods: {
       share() {
         console.log(window.location.href)
-        axios.post('http://cb.lk/api/v1/shorten', {
+        axios.post('https://cb.lk/api/v1/shorten', {
           url: window.location.href,
           code: '',
           secret: ''
