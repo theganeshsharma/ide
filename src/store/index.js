@@ -99,10 +99,11 @@ export default new Vuex.Store({
         jsWorker.onmessage = function (e) {
           const output = e.data.join('\n')
           context.commit('updateOutput', output)
-          if (output.match('/^Error.*$/g'))
+          if (output.match(/^Error.*$/)) {
             reject({
               result: 'complie_error'
             });
+          }
           resolve({
             result: 'success',
             data: {
