@@ -60,5 +60,5 @@ This responsive online code editor and compiler have the following features.
 ## API 
 This hits the Coding Blocks Judge API, which you can find documented here
 
-<http://codingblocks.com/judge-blocks>
+<https://codingblocks.com/judge-blocks-docs/>
 
