@@ -7,9 +7,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import base64 from 'base-64'
+import shajs from 'sha.js'
 import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,7 +27,8 @@ export default new Vuex.Store({
     fileName: '',
     isChanged: false,
     autoSave: true,
-    autoSaveIntervalId: null
+    autoSaveIntervalId: null,
+    checkData:'',
   },
   mutations: {
     toggleInOutBox(state) {
@@ -66,6 +67,9 @@ export default new Vuex.Store({
     changeFontSize(state, val) {
       state.fontSize = val
     },
+    setCheckData(state,val) {
+      state.checkData=shajs('sha256').update(val).digest('hex');
+      },
     resetEditor(state) {
       state.theme = 'dark'
       state.font = 'Ubuntu Mono'
@@ -112,18 +116,15 @@ export default new Vuex.Store({
               }]
             }
           });
-
         }
       })
     },
 
     loadDataFromServer({state, commit, dispatch}) {
       const pasteId = state.route.params.id
-
       if (state.route.name !== 'saved') {
         return
       }
-
       axios
         .get(`https://ide.cb.lk/code/${pasteId}`)
         .then(({data}) => {
@@ -131,17 +132,21 @@ export default new Vuex.Store({
           commit('satCode', data.code)
           commit('changeCustomInput', data.customInput)
           commit('fileNameChange', data.fileName)
-        })
+          commit('setCheckData',data.code)
+      })
     },
-
     saveDataToServer({state, commit, dispatch}) {
-      return axios.post('https://ide.cb.lk/code/', {
+      if(state.checkData==shajs('sha256').update(state.code).digest('hex'))
+        return;
+      else {
+        return axios.post(`https://ide.cb.lk/code/`, {
         id: (void 0),
         language: state.language,
         code: state.code,
         customInput: state.customInput,
         fileName: state.fileName
-      })
+        });
+      }
     },
     runCode({state, commit, dispatch}) {
       let lang = 'c'
