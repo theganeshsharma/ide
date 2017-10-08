@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @keydown="keyShortCuts">
     <div id="fs_control">
       <div class="panel panel-default">
         <div class="headPanel panel-heading">
@@ -31,6 +31,8 @@
             <button type="button" id="share-btn" class="btn btn-sm btn-menu" @click="share">
               Share <i class="fa fa-external-link-square" aria-hidden="true"></i>
             </button>
+            <shortcuts></shortcuts>
+
           </div>
           <div class="logoMenu">
             Made with <i class="fa fa-heart" aria-hidden="true" style="color: #e31d3b"></i> by
@@ -51,10 +53,10 @@
   import axios from 'axios'
   import base64 from 'base-64'
   import Settings from './Settings.vue'
-
+  import Shortcuts from './shortcuts.vue'
   export default {
     name: 'menuBar',
-    components: {language, Settings},
+    components: {language, Settings,Shortcuts},
     data() {
       return {
         languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript'],
@@ -148,6 +150,18 @@
           vm.$store.commit('fileNameChange', file.name)
         }
         reader.readAsText(file)
+      },
+      keyShortCuts(e){
+        if(e.ctrlKey&&e.keyCode==81)
+        {
+          e.preventDefault();
+          this.runCode();
+        }
+        if(e.ctrlKey&&e.keyCode==66)
+        {
+          e.preventDefault();
+          this.$store.commit('resetEditor')
+        }
       }
     }
   }
@@ -184,6 +198,14 @@
     height: 40px;
   }
 
+  @media (max-width: 877px) {
+    .logoMenu {
+      display: none;
+    }
+  }
+</style>
+
+<style>
   .btn-run {
     background: #e31d3b;
     border-radius: 50px !important;
@@ -194,11 +216,4 @@
     background: #e31d3b;
     color: white !important;
   }
-
-  @media (max-width: 877px) {
-    .logoMenu {
-      display: none;
-    }
-  }
 </style>
-

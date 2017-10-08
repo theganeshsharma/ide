@@ -15,6 +15,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     code: samples['C++'],
+    sampleCode: samples['C++'],
     language: 'C++',
     theme: 'dark',
     font: 'Ubuntu Mono',
@@ -74,6 +75,10 @@ export default new Vuex.Store({
       state.theme = 'dark'
       state.font = 'Ubuntu Mono'
       state.fontSize = 16
+    },
+    resetCode(state, lang) {
+      console.log("jjjjj",lang,samples[lang])
+      state.sampleCode = samples[lang];
     },
     setIsChanged(state, val) {
       state.isChanged = val;

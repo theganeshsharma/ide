@@ -1,5 +1,5 @@
 <template>
-  <pre id="editor" @keyup="getDirty()"></pre>
+  <pre id="editor" @keyup="getDirty()" @keydown="resetEditorShortcut"></pre>
 </template>
 
 <script>
@@ -103,6 +103,16 @@
     methods: {
       getDirty() {
         this.isClean = false
+      },
+      resetEditorShortcut(e) {
+        if(e.ctrlKey&&e.keyCode==77)
+        {
+          e.preventDefault();
+          this.$store.commit('resetCode',this.$store.state.language);
+          this.editor.setValue(this.$store.state.sampleCode);
+          this.isClean = true;
+
+        }
       }
     },
     computed: {
