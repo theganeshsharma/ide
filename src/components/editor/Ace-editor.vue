@@ -97,7 +97,8 @@
     },
     data() {
       return {
-        isClean: true
+        isClean: true,
+        resetClean: false
       }
     },
     methods: {
@@ -110,8 +111,7 @@
           e.preventDefault();
           this.$store.commit('resetCode',this.$store.state.language);
           this.editor.setValue(this.$store.state.sampleCode);
-          this.isClean = true;
-
+          this.resetClean = true
         }
       }
     },
@@ -137,8 +137,9 @@
     },
     watch: {
       language(newLang) {
-        if (this.isClean) {
+        if (this.isClean || this.resetClean) {
           this.editor.setValue(samples[newLang])
+          this.resetClean = false
         }
       },
       languageMode(newMode) {
