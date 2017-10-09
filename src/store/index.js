@@ -77,7 +77,6 @@ export default new Vuex.Store({
       state.fontSize = 16
     },
     resetCode(state, lang) {
-      console.log("jjjjj",lang,samples[lang])
       state.sampleCode = samples[lang];
     },
     setIsChanged(state, val) {
