@@ -10,6 +10,11 @@ import base64 from 'base-64'
 import shajs from 'sha.js'
 import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
+import VueClipboard from 'vue-clipboard2'
+import SocialSharing from 'vue-social-sharing';
+
+Vue.use(VueClipboard)
+Vue.use(SocialSharing);
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -29,7 +34,7 @@ export default new Vuex.Store({
     isChanged: false,
     autoSave: true,
     autoSaveIntervalId: null,
-    checkData:'',
+    checkData: '',
   },
   mutations: {
     toggleInOutBox(state) {
@@ -68,9 +73,9 @@ export default new Vuex.Store({
     changeFontSize(state, val) {
       state.fontSize = val
     },
-    setCheckData(state,val) {
-      state.checkData=shajs('sha256').update(val).digest('hex');
-      },
+    setCheckData(state, val) {
+      state.checkData = shajs('sha256').update(val).digest('hex');
+    },
     resetEditor(state) {
       state.theme = 'dark'
       state.font = 'Ubuntu Mono'
@@ -136,19 +141,19 @@ export default new Vuex.Store({
           commit('satCode', data.code)
           commit('changeCustomInput', data.customInput)
           commit('fileNameChange', data.fileName)
-          commit('setCheckData',data.code)
-      })
+          commit('setCheckData', data.code)
+        })
     },
     saveDataToServer({state, commit, dispatch}) {
-      if(state.checkData==shajs('sha256').update(state.code).digest('hex'))
+      if (state.checkData == shajs('sha256').update(state.code).digest('hex'))
         return;
       else {
         return axios.post(`https://ide.cb.lk/code/`, {
-        id: (void 0),
-        language: state.language,
-        code: state.code,
-        customInput: state.customInput,
-        fileName: state.fileName
+          id: (void 0),
+          language: state.language,
+          code: state.code,
+          customInput: state.customInput,
+          fileName: state.fileName
         });
       }
     },

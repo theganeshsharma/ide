@@ -28,11 +28,8 @@
             <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
               Setting <span class="fa fa-cog"></span>
             </button>
-            <button type="button" id="share-btn" class="btn btn-sm btn-menu" @click="share">
-              Share <i class="fa fa-external-link-square" aria-hidden="true"></i>
-            </button>
+            <share></share>
             <shortcuts></shortcuts>
-
           </div>
           <div class="logoMenu">
             Made with <i class="fa fa-heart" aria-hidden="true" style="color: #e31d3b"></i> by
@@ -50,13 +47,13 @@
 <script>
   import language from './language.vue'
   import Vue from 'vue'
-  import axios from 'axios'
   import base64 from 'base-64'
   import Settings from './Settings.vue'
+  import Share from './share.vue'
   import Shortcuts from './shortcuts.vue'
   export default {
     name: 'menuBar',
-    components: {language, Settings,Shortcuts},
+    components: {language, Settings, Share, Shortcuts},
     data() {
       return {
         languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript'],
@@ -65,16 +62,6 @@
       }
     },
     methods: {
-      share() {
-        console.log(window.location.href)
-        axios.post('https://cb.lk/api/v1/shorten', {
-          url: window.location.href,
-          code: '',
-          secret: ''
-        }).then((response) => {
-
-        })
-      },
       runCode() {
         this.loading = !this.loading
         this.$store.dispatch('runCode').then((data) => {
@@ -210,10 +197,84 @@
     background: #e31d3b;
     border-radius: 50px !important;
     outline: none !important;
+    color: white!important;
   }
 
   .btn-run:hover, .btn-run:focus, .btn-run:active {
     background: #e31d3b;
     color: white !important;
+  }
+
+
+
+  .modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+  }
+
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    color: black;
+  }
+
+  .modal-container {
+    width: 45vw;
+    margin: 0px auto;
+    padding: 10px 30px 30px 30px;
+    background-color: #fff;
+    border-radius: 3px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    transition: all .3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .modal-header {
+    padding: 15px 25px !important;
+  }
+
+  .modal-footer {
+    padding: 15px 0 0 0;
+  }
+
+  .modal-header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  .modal-body {
+    margin: 5px 0;
+    font-size: 15px;
+  }
+
+  .modal-default-button {
+    float: right;
+  }
+
+  .modal-footer button {
+    color: white;
+  }
+
+  .modal-body ul li kbd {
+    display: inline-block;
+    margin: 0 .1em;
+    padding: .2em 1em;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #242729;
+    text-shadow: 0 1px 0 #FFF;
+    background-color: #e1e3e5;
+    border: 1px solid #adb3b9;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px #FFF inset;
   }
 </style>

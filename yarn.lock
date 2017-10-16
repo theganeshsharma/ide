@@ -875,15 +875,9 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
-brace@^0.10.0:
+"brace@git+https://github.com/hereisnaman/brace.git#master":
   version "0.10.0"
-  resolved "https://registry.yarnpkg.com/brace/-/brace-0.10.0.tgz#edef4eb9b0928ba1ee5f717ffc157749a6dd5d76"
-  dependencies:
-    w3c-blob "0.0.1"
-
-braceplus@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/braceplus/-/braceplus-0.0.2.tgz#653a883bf877f695fb682beec16bf8881a1c79fa"
+  resolved "git+https://github.com/hereisnaman/brace.git#58f37a014795bd8455a96b18a04ddab95a264122"
   dependencies:
     w3c-blob "0.0.1"
 
@@ -1113,6 +1107,14 @@ cli-spinners@^1.0.0:
 cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
+
+clipboard@^1.5.16:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
+  dependencies:
+    good-listener "^1.2.2"
+    select "^1.1.2"
+    tiny-emitter "^2.0.0"
 
 cliui@^2.1.0:
   version "2.1.0"
@@ -1498,6 +1500,10 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
 
+delegate@^3.1.2:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.1.3.tgz#9a8251a777d7025faa55737bc3b071742127a9fd"
+
 delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
@@ -1855,6 +1861,10 @@ esrecurse@^4.1.0:
 estraverse@^4.0.0, estraverse@^4.1.0, estraverse@^4.1.1, estraverse@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"
+
+estree-walker@^0.3.0:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.3.1.tgz#e6b1a51cf7292524e7237c312e5fe6660c1ce1aa"
 
 esutils@^2.0.2:
   version "2.0.2"
@@ -2223,6 +2233,12 @@ globby@^5.0.0:
     object-assign "^4.0.1"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
+
+good-listener@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/good-listener/-/good-listener-1.2.2.tgz#d53b30cdf9313dffb7dc9a0d477096aa6d145c50"
+  dependencies:
+    delegate "^3.1.2"
 
 graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
@@ -4008,6 +4024,19 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
+rollup-plugin-json@^2.1.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-json/-/rollup-plugin-json-2.3.0.tgz#3c07a452c1b5391be28006fbfff3644056ce0add"
+  dependencies:
+    rollup-pluginutils "^2.0.1"
+
+rollup-pluginutils@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.0.1.tgz#7ec95b3573f6543a46a6461bd9a7c544525d0fc0"
+  dependencies:
+    estree-walker "^0.3.0"
+    micromatch "^2.3.11"
+
 run-async@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-0.1.0.tgz#c8ad4a5e110661e402a7d21b530e009f25f8e389"
@@ -4035,6 +4064,10 @@ schema-utils@^0.3.0:
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
   dependencies:
     ajv "^5.0.0"
+
+select@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
 
 "semver@2 || 3 || 4 || 5", semver@^5.1.0, semver@^5.3.0:
   version "5.4.1"
@@ -4351,6 +4384,10 @@ timers-browserify@^2.0.2:
   dependencies:
     setimmediate "^1.0.4"
 
+tiny-emitter@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
+
 to-arraybuffer@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz#7d229b1fcc637e466ca081180836a7aabff83f43"
@@ -4550,6 +4587,13 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-clipboard2@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/vue-clipboard2/-/vue-clipboard2-0.0.6.tgz#2cae4535efa1a5b873c87c8e5453220fb96d2a71"
+  dependencies:
+    clipboard "^1.5.16"
+    vue "2"
+
 vue-fullscreen@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/vue-fullscreen/-/vue-fullscreen-2.1.1.tgz#5cb8fd70fb67949ed4fde9a009bf23ebb67f8593"
@@ -4586,6 +4630,12 @@ vue-router@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.7.0.tgz#16d424493aa51c3c8cce8b7c7210ea4c3a89aff1"
 
+vue-social-sharing@^2.2.10:
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/vue-social-sharing/-/vue-social-sharing-2.2.10.tgz#3839c7a4c897b014f4a3b85da2e0c9e4892e9e8e"
+  dependencies:
+    rollup-plugin-json "^2.1.0"
+
 vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-3.0.3.tgz#623658f81506aef9d121cdc113a4f5c9cac32df7"
@@ -4607,6 +4657,10 @@ vue-template-es2015-compiler@^1.2.2:
 vue2-filters@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/vue2-filters/-/vue2-filters-0.1.9.tgz#3fc9e78e5744efff03223cff0e395907bb6b41ed"
+
+vue@2:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.1.tgz#1d904b18a2bcbbfc68879f105e29d9a4dd715ff8"
 
 vue@^2.2.6, vue@^2.3.3:
   version "2.4.4"
