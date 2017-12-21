@@ -1,9 +1,10 @@
-[![Build Status](https://travis-ci.org/abhishek97/ide.svg?branch=master)](https://travis-ci.org/abhishek97/ide)
-
-![alt img](http://i.imgur.com/mTjKodQ.png)
-
 # Coding Blocks IDE  
 Coding Blocks IDE is an online IDE which supports compliation of multiple programming languages. 
+
+## Deployment
+
+[![Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://app.netlify.com/sites/cb-ide)  
+Commits to master and PRs are automatically built and deployed by Netlify
 
 ![image](https://user-images.githubusercontent.com/22571395/28400188-1986c13c-6d2f-11e7-8955-98f257abb5ff.png)
 
