@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import inoutbox from './editor/inoutbox.vue'
-  import menuBar from './editor/menuBar.vue'
-  import AceEditor from './editor/Ace-editor.vue'
+  import inoutbox from './editor/InOutBox.vue'
+  import menuBar from './editor/MenuBar.vue'
+  import AceEditor from './editor/AceEditor.vue'
   //
   // console.log(editor);
   export default {

@@ -45,12 +45,12 @@
 </template>
 
 <script>
-  import language from './language.vue'
+  import language from './Language.vue'
   import Vue from 'vue'
   import base64 from 'base-64'
   import Settings from './Settings.vue'
-  import Share from './share.vue'
-  import Shortcuts from './shortcuts.vue'
+  import Share from './Share.vue'
+  import Shortcuts from './Shortcuts.vue'
   export default {
     name: 'menuBar',
     components: {language, Settings, Share, Shortcuts},
