@@ -3,18 +3,18 @@
 </template>
 
 <script>
-  import ace from 'brace'
-  import 'brace/mode/c_cpp'
-  import 'brace/mode/csharp'
-  import 'brace/mode/java'
-  import 'brace/mode/python'
-  import 'brace/mode/javascript'
-  import 'brace/snippets/c_cpp'
-  import 'brace/snippets/java'
-  import 'brace/snippets/javascript'
-  import 'brace/snippets/python'
-  import 'brace/snippets/csharp'
-  import 'brace/theme/dark'
+  import ace from '@coding-blocks/brace'
+  import '@coding-blocks/brace/mode/c_cpp'
+  import '@coding-blocks/brace/mode/csharp'
+  import '@coding-blocks/brace/mode/java'
+  import '@coding-blocks/brace/mode/python'
+  import '@coding-blocks/brace/mode/javascript'
+  import '@coding-blocks/brace/snippets/c_cpp'
+  import '@coding-blocks/brace/snippets/java'
+  import '@coding-blocks/brace/snippets/javascript'
+  import '@coding-blocks/brace/snippets/python'
+  import '@coding-blocks/brace/snippets/csharp'
+  import '@coding-blocks/brace/theme/dark'
 
 
   import samples from '../../assets/js/sample-source'
@@ -28,7 +28,7 @@
       this.editor.setShowPrintMargin(false);
       this.editor.setValue(samples[this.language])
       this.editor.setTheme(`ace/theme/${this.$store.state.theme}`)
-      require("brace/ext/language_tools");
+      require("@coding-blocks/brace/ext/language_tools");
       let langTools = ace.acequire("ace/ext/language_tools");
       this.editor.setOptions({
         fontFamily: this.$store.state.font,
