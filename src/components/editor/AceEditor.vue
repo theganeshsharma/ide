@@ -130,6 +130,8 @@
             return 'python'
           case 'Javascript':
             return 'javascript'
+          case 'NodeJs':
+            return 'javascript'
           default :
             return 'c_cpp'
         }
