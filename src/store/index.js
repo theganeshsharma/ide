@@ -167,7 +167,7 @@ export default new Vuex.Store({
           lang = 'csharp';
           break
         case 'Javascript':
-          lang = 'js';
+          lang = 'jsv';
           break
         case 'Java':
           lang = 'java';
@@ -175,9 +175,12 @@ export default new Vuex.Store({
         case 'Python':
           lang = 'py2';
           break
+        case 'NodeJs':
+          lang = 'js';
+          break
       }
 
-      if (lang === 'js') {
+      if (lang === 'jsv') {
         return dispatch('runJs', {
           state: state,
           code: state.code,

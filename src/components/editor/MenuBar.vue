@@ -56,7 +56,7 @@
     components: {language, Settings, Share, Shortcuts},
     data() {
       return {
-        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript'],
+        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs'],
         fullscreen: false,
         loading: false
       }

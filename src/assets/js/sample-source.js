@@ -56,7 +56,8 @@ var lang_samples = {
   'C#': csharp_sample,
   'Java': java_sample,
   'Python': py2_sample,
-  'Javascript': js_sample
+  'Javascript': js_sample,
+  'NodeJs': js_sample
 };
 
 export default lang_samples
