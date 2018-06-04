@@ -49,6 +49,8 @@
         this.$store.commit('updateCode', this.editor.getValue())
       })
 
+      addEventListener('dragover', this.dragOverHandler, false)
+      addEventListener('drop', this.dropHandler, false)
       this.$store.dispatch('loadDataFromServer')
 
       this.$store.subscribe((mutation, state) => {
@@ -90,6 +92,10 @@
         }
       })
     },
+    destroyed() {
+      removeEventListener('dragover', this.dragOverHandler, false)
+      removeEventListener('drop', this.dropHandler, false)
+    },
     props: {
       language: {
         default: 'C++'
@@ -112,6 +118,28 @@
           this.$store.commit('resetCode',this.$store.state.language);
           this.editor.setValue(this.$store.state.sampleCode);
           this.resetClean = true
+        }
+      },
+      dragOverHandler(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      dropHandler(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const dt = e.dataTransfer;
+        if (dt && dt.types && (dt.types.indexOf ?
+            dt.types.indexOf('Files') !== -1 : dt.types.contains('Files'))) {
+          if (File && FileReader) {
+            const reader = new FileReader();
+            const file = dt.files[0];
+            reader.readAsText(file, 'UTF-8');
+            reader.onload = (e) => {
+              console.log('Uploaded File: ' + file.name);
+              this.$store.commit('uploadCode', e.target.result);
+              this.$store.commit('fileNameChange', file.name);
+            };
+          }
         }
       }
     },
