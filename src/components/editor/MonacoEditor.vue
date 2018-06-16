@@ -3,36 +3,88 @@
 </template>
 
 <script>
-    import * as monaco from 'monaco-editor';
+  import * as monaco from 'monaco-editor';
+  import samples from '../../assets/js/sample-source'
 
-    export default {
+  export default {
     name: 'monaco-editor',
-      mounted() {
-        this.editor = monaco.editor.create(document.getElementById('editor'), {
-            value: [
-                'function x() {',
-                '\tconsole.log("Hello world!");',
-                '}'
-            ].join('\n'),
-            minimap: {
-              showSlider: false
-            },
-            language: 'java',
-            automaticLayout: true,
-            dragAndDrop: true,
-            fontFamily: this.$store.state.font,
-            fontSize: this.$store.state.fontSize + 'px',
-            parameterHints: true,
-            renderIndentGuides: true,
-            lineNumbersMinChars: 3,
-            theme: this.$store.state.theme,
-            scrollBeyondLastLine: false
-        });
+    mounted() {
+      this.editor = 
+        monaco.editor.create(document.getElementById('editor'), {
+          value: samples[this.language],
+          minimap: {
+            showSlider: false
+          },
+          language: this.languageMode,
+          automaticLayout: true,
+          dragAndDrop: true,
+          fontFamily: this.$store.state.font,
+          fontSize: this.$store.state.fontSize,
+          parameterHints: true,
+          renderIndentGuides: true,
+          lineNumbersMinChars: 3,
+          theme: this.$store.state.theme,
+          scrollBeyondLastLine: false
+        })
 
-        this.$store.dispatch('loadDataFromServer');
+      this.editor.onDidChangeModelContent(() => {
+        this.$store.commit('updateCode', this.editor.getValue())
+      })
+
+      this.$store.dispatch('loadDataFromServer')
+
+      this.$store.subscribe((mutation, state) => {
+        switch (mutation.type) {
+          case "resetCode":
+            this.editor.setValue(this.$store.state.code)
+            this.isClean = true
+            break;
+          case "uploadCode":
+            this.editor.setValue(this.$store.state.code)
+            break;
+          case "satCode":
+            this.editor.setValue(this.$store.state.code)
+            this.getDirty()
+            break;
+          case "changeTheme":
+            this.editor.updateOptions({
+              theme: this.$store.state.theme
+            })
+            break;
+          case "changeFont":
+            this.editor.updateOptions({
+              fontFamily: this.$store.state.font
+            })
+            break;
+          case "changeFontSize":
+            this.editor.updateOptions({
+              fontSize: this.$store.state.fontSize
+            })
+            break;
+          case "resetEditor":
+            this.editor.updateOptions({
+              theme: this.$store.state.theme,
+              fontFamily: this.$store.state.font,
+              fontSize: this.$store.state.fontSize
+            })
+            break;
+        }
+      })
+
+      this.$store.subscribe((plugin, state) => {
+        switch (plugin.type) {
+          case "createPersistedState":
+            this.editor.updateOptions({
+              theme: this.$store.state.theme,
+              fontFamily: this.$store.state.font,
+              fontSize: this.$store.state.fontSize
+            })
+            break;
+        }
+      })
     },
     destroyed() {
-        
+      
     },
     props: {
       language: {
@@ -53,7 +105,7 @@
         if(e.ctrlKey&&e.keyCode==77)
         {
           e.preventDefault();
-          this.$store.commit('resetCode',this.$store.state.language);
+          this.$store.commit('resetCode', this.$store.state.language);
           this.editor.setValue(this.$store.state.sampleCode);
           this.resetClean = true
         }
@@ -91,7 +143,7 @@
         }
       },
       languageMode(newMode) {
-        this.editor.getSession().setMode(`ace/mode/${newMode}`);
+        monaco.editor.setModelLanguage(this.editor.getModel(), newMode);
       }
     }
   }

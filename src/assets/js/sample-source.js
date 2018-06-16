@@ -50,6 +50,8 @@ var js_sample =
 */
     console.log('Hello World');`;
 
+var ruby_sample = 'puts "Hello World!";'
+
 var lang_samples = {
   'C': c_sample,
   'C++': cpp_sample,
@@ -57,7 +59,8 @@ var lang_samples = {
   'Java': java_sample,
   'Python': py2_sample,
   'Javascript': js_sample,
-  'NodeJs': js_sample
+  'NodeJs': js_sample,
+  'Ruby': ruby_sample
 };
 
 export default lang_samples

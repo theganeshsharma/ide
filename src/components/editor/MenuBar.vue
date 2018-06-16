@@ -56,7 +56,7 @@
     components: {language, Settings, Share, Shortcuts},
     data() {
       return {
-        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs'],
+        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],
         fullscreen: false,
         loading: false
       }
@@ -81,7 +81,7 @@
               })
             } else {
               this.$notify({
-                text: 'Code Complied Successfully',
+                text: 'Code Compiled Successfully',
                 type: 'success'
               })
             }
