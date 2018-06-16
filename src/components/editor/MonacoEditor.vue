@@ -9,6 +9,9 @@
   export default {
     name: 'monaco-editor',
     mounted() {
+      addEventListener('dragover', this.dragOverHandler, false)
+      addEventListener('drop', this.dropHandler, false)
+
       this.editor = 
         monaco.editor.create(document.getElementById('editor'), {
           value: samples[this.language],
@@ -84,7 +87,8 @@
       })
     },
     destroyed() {
-      
+      removeEventListener('dragover', this.dragOverHandler, false)
+      removeEventListener('drop', this.dropHandler, false)
     },
     props: {
       language: {
@@ -104,12 +108,39 @@
       resetEditorShortcut(e) {
         if(e.ctrlKey&&e.keyCode==77)
         {
-          e.preventDefault();
-          this.$store.commit('resetCode', this.$store.state.language);
-          this.editor.setValue(this.$store.state.sampleCode);
+          e.preventDefault()
+          this.$store.commit('resetCode', this.$store.state.language)
+          this.editor.setValue(this.$store.state.sampleCode)
           this.resetClean = true
         }
-      }
+      },
+      dragOverHandler(e) {
+        e.preventDefault()
+        e.stopPropagation()
+      },
+      dropHandler(e) {
+         e.preventDefault()
+         e.stopPropagation()
+         const dt = e.dataTransfer
+         if (dt && dt.types && (dt.types.indexOf ?
+             dt.types.indexOf('Files') !== -1 : dt.types.contains('Files'))) {
+           if (File && FileReader) {
+             const reader = new FileReader()
+             const file = dt.files[0]
+             reader.readAsText(file, 'UTF-8')
+             reader.onload = (e) => {
+               console.log('Uploaded File: ' + file.name)
+               this.isClean = false
+               this.$notify({
+                text: 'Code Uploaded Successfully',
+                type: 'success'
+               })
+               this.$store.commit('uploadCode', e.target.result)
+               this.$store.commit('fileNameChange', file.name)
+             };
+           }
+         }
+       }
     },
     computed: {
       languageMode() {
@@ -143,7 +174,7 @@
         }
       },
       languageMode(newMode) {
-        monaco.editor.setModelLanguage(this.editor.getModel(), newMode);
+        monaco.editor.setModelLanguage(this.editor.getModel(), newMode)
       }
     }
   }
