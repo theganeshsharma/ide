@@ -7,20 +7,20 @@
  * Created by umair on 27/12/16.
  */
 
-var c_sample =
+const c_sample =
   '#include <stdio.h>\n' +
   'void main() {\n' +
   '    printf("Hello World!");\n' +
   '}\n';
 
-var cpp_sample =
+const cpp_sample =
   '#include <iostream>\n' +
   'using namespace std;\n' +
   'int main() {\n' +
   '    cout<<"Hello World!";\n' +
   '}\n';
 
-var csharp_sample =
+const csharp_sample =
   'using System;\n' +
   'namespace HelloWorld\n' +
   '{\n' +
@@ -33,26 +33,26 @@ var csharp_sample =
   '    }\n' +
   '}\n';
 
-var java_sample =
+const java_sample =
   'public class Main {\n' +
   '    public static void main(String args[]) {\n' +
   '        System.out.println("Hello World!");\n' +
   '    }\n' +
   '}';
 
-var py2_sample =
+const py2_sample =
   'print("Hello World!")';
 
-var js_sample =
+const js_sample =
   `/* 
     Use INPUT variable to get stdin.
     Try console.log(INPUT);
 */
     console.log('Hello World');`;
 
-var ruby_sample = 'puts "Hello World!";'
+const ruby_sample = 'puts "Hello World!";'
 
-var lang_samples = {
+const lang_samples = {
   'C': c_sample,
   'C++': cpp_sample,
   'C#': csharp_sample,
