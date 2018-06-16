@@ -22,7 +22,7 @@
             </button>
             <input type="file" ref="fileUpload" style="display:none" @change="uploadCode">
             <button type="button" id="uploadFile" class=" btn btn-sm btn-menu" @click="selectFile">
-              Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+              Upload <span class="fa fa-folder-open" aria-hidden="true"></span>
             </button>
             <input type="file" id="upload" style="display:none;">
             <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
@@ -197,16 +197,14 @@
     background: #e31d3b;
     border-radius: 50px !important;
     outline: none !important;
-    color: white!important;
+    color: white !important;
   }
 
   .btn-run:hover, .btn-run:focus, .btn-run:active {
     background: #e31d3b;
     color: white !important;
   }
-
-
-
+  
   .modal-mask {
     position: fixed;
     z-index: 9998;

@@ -7,15 +7,29 @@
 
     export default {
     name: 'monaco-editor',
-    mounted() {
-        monaco.editor.create(document.getElementById('editor'), {
+      mounted() {
+        this.editor = monaco.editor.create(document.getElementById('editor'), {
             value: [
                 'function x() {',
                 '\tconsole.log("Hello world!");',
                 '}'
             ].join('\n'),
-            language: 'javascript'
+            minimap: {
+              showSlider: false
+            },
+            language: 'java',
+            automaticLayout: true,
+            dragAndDrop: true,
+            fontFamily: this.$store.state.font,
+            fontSize: this.$store.state.fontSize + 'px',
+            parameterHints: true,
+            renderIndentGuides: true,
+            lineNumbersMinChars: 3,
+            theme: this.$store.state.theme,
+            scrollBeyondLastLine: false
         });
+
+        this.$store.dispatch('loadDataFromServer');
     },
     destroyed() {
         
@@ -49,9 +63,9 @@
       languageMode() {
         switch (this.language) {
           case 'C':
-            return 'c_cpp'
+            return 'c'
           case 'C++':
-            return 'c_cpp'
+            return 'cpp'
           case 'C#':
             return 'csharp'
           case 'Java':
@@ -62,8 +76,10 @@
             return 'javascript'
           case 'NodeJs':
             return 'javascript'
+          case 'Ruby':
+            return 'ruby'
           default :
-            return 'c_cpp'
+            return 'cpp'
         }
       }
     },
@@ -83,6 +99,7 @@
 
 <style scoped>
   #editor {
+    overflow: hidden;
     position: relative;
     border: none;
     height: calc(100vh - 40px);
@@ -90,5 +107,8 @@
     z-index: 10;
     margin: 0;
     border-radius: 0;
+  }
+  .inputarea {
+    opacity: 0;
   }
 </style>

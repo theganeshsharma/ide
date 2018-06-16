@@ -2,7 +2,7 @@
   <div class="btn-group" :class="{ open : isOpen}"  @click="open">
     <button id="panelLang" type="button" class="btn btn-sm btn-menu"
             aria-haspopup="true" aria-expanded="false" @blur="close" >
-      <span v-if="selected"> {{selected}} </span> <span class="caret"></span>
+      <span v-if="selected"> {{selected}} </span> <span class="fa fa-caret-down"></span>
        <i class="fa fa-code" aria-hidden="true"></i>
     </button>
     <ul class="dropdown-menu">

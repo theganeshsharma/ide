@@ -2,13 +2,13 @@
   <div class="panel panel-default">
     <div class="headPanel panel-heading" style=" border-bottom-width:0px; ">
       <div class="btn-group">
-        <b>Font:</b>
+        <b>Font:</b>&nbsp;&nbsp;&nbsp;
         <select @change="changeFont">
           <option v-for="font in fontOptions" :value="font" :selected="setDefault('font',font)"> {{font}} </option>
         </select>
       </div>
       <div class="btn-group">
-        <b>Size:</b>
+        <b>Size:</b>&nbsp;&nbsp;&nbsp;
         <select @change="changeSize">
           <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size',size)">{{size}}</option>
         </select>
@@ -26,7 +26,7 @@
     name: 'settings',
     data () {
       return {
-        themeOptions: ['dawn', 'github', 'solarized_light', 'tomorrow', 'xcode', 'clouds_midnight', 'cobalt', 'idle_fingers', 'monokai', 'dark'],
+        themeOptions: ['vs-dark', 'vs', 'hc-dark'],
         fontOptions: ['Lucida Console', 'Anonymous Pro', 'Courier', 'Droid Sans Mono', 'Inconsolata', 'Source Code Pro', 'Ubuntu Mono'],
         sizeOptions: Array(30).fill(0).map((el, ind) => 6 + (2 * ind)),
       }
@@ -59,20 +59,20 @@
 </script>
 
 <style scoped>
-  .btn-group {
-    margin: 2px 10px;
+  .btn-group, .panel-actions {
+    margin: 10px;
   }
 
-  li {
-    position: relative;
-    bottom: 26px;
-  }
-  .panel{
+  .panel {
     width: 100vw;
     height: 40px;
     z-index: 20;
     position: absolute;
     margin: 0;
+  }
+
+  .panel-actions {
+    float: right;
   }
 
   .panel-heading {
@@ -81,11 +81,26 @@
     border-color: #272727;
   }
 
-  .panel-heading a{
+  .panel-heading a {
     color:#fff;
   }
 
-  .panel select{
+  .panel select {
+    z-index: 20;
     color: #202020;
+    background: white !important;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 120px;
+  }
+
+  .panel select:focus {
+    outline: none;
+  }
+
+  .panel select {
+    height: 28px;
+    padding: 4px 0 4px 4px;
+    border: none;
   }
 </style>
