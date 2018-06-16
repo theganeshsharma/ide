@@ -2,13 +2,13 @@
   <div class="panel panel-default">
     <div class="headPanel panel-heading" style=" border-bottom-width:0px; ">
       <div class="btn-group">
-        <b>Font:</b>&nbsp;&nbsp;&nbsp;
+        <b>Font:</b>
         <select @change="changeFont">
           <option v-for="font in fontOptions" :value="font" :selected="setDefault('font',font)"> {{font}} </option>
         </select>
       </div>
       <div class="btn-group">
-        <b>Size:</b>&nbsp;&nbsp;&nbsp;
+        <b>Size:</b>
         <select @change="changeSize">
           <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size',size)">{{size}}</option>
         </select>
@@ -100,7 +100,8 @@
 
   .panel select {
     height: 28px;
-    padding: 4px 0 4px 4px;
+    padding: 4px;
+    margin: 0 8px;
     border: none;
   }
 </style>

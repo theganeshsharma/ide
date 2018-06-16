@@ -1,7 +1,7 @@
 <template>
   <div id="shortcutId" class="btn-group">
     <button id="panelLang" type="button" class="btn btn-sm btn-menu" @click="showModal=true" @blur="showModal=false">
-      Shortcuts&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i>
+      Shortcuts<i class="fa fa-reply-all" aria-hidden="true"></i>
     </button>
     <div name="modal" v-show="showModal">
       <div class="modal-mask">
@@ -43,4 +43,7 @@
 </script>
 
 <style scoped>
+  i {
+    margin-left: 4px;
+  }
 </style>
