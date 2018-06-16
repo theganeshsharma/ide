@@ -3,6 +3,7 @@
  */
 'use strict'
 
+//import '@babel-runtime/core-js/json/stringify';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
