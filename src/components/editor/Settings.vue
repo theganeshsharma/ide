@@ -16,7 +16,7 @@
       <div class="btn-group">
         <b>Theme:</b>
         <select @change="changeTheme">
-          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme', theme)">{{theme}}</option>
+          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme', theme)">{{themeOptionsMap[theme]}}</option>
         </select>
       </div>
       <ul class="list-inline panel-actions">
@@ -32,6 +32,11 @@
     data () {
       return {
         themeOptions: ['vs-dark', 'vs', 'hc-black'],
+        themeOptionsMap: {
+          'vs-dark': 'Visual Studio Dark',
+          'vs': 'Visual Studio',
+          'hc-black': 'High Contract Dark'
+        },
         fontOptions: ['Lucida Console', 'Anonymous Pro', 'Courier', 'Droid Sans Mono', 'Inconsolata', 'Source Code Pro', 'Ubuntu Mono'],
         sizeOptions: Array(30).fill(0).map((el, ind) => 6 + (2 * ind)),
       }
@@ -84,6 +89,7 @@
     background: #272727;
     color: #fff;
     border-color: #272727;
+    overflow: hidden;
   }
 
   .panel-heading a {
@@ -96,7 +102,6 @@
     background: white !important;
     border-radius: 4px;
     overflow: hidden;
-    width: 120px;
   }
 
   .panel select:focus {
@@ -106,7 +111,7 @@
   .panel select {
     height: 28px;
     padding: 4px;
-    margin: 0 8px;
+    margin-left: 8px;
     border: none;
   }
 </style>

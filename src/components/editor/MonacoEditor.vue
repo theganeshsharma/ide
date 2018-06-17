@@ -104,7 +104,7 @@
         this.isClean = false
       },
       resetEditorShortcut(e) {
-        if(e.ctrlKey&&e.keyCode==77)
+        if(e.ctrlKey && e.keyCode==77)
         {
           e.preventDefault()
           this.$store.commit('resetCode', this.$store.state.language)
