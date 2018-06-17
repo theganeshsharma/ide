@@ -89,7 +89,7 @@
 </script>
 
 <style scoped>
-  i {
+  i.fa {
     margin-left: 4px;
   }
 

@@ -50,9 +50,7 @@
             this.getDirty()
             break;
           case "changeTheme":
-            this.editor.updateOptions({
-              theme: this.$store.state.theme
-            })
+            monaco.editor.setTheme(this.$store.state.theme);
             break;
           case "changeFont":
             this.editor.updateOptions({
@@ -65,8 +63,8 @@
             })
             break;
           case "resetEditor":
+            monaco.editor.setTheme(this.$store.state.theme);
             this.editor.updateOptions({
-              theme: this.$store.state.theme,
               fontFamily: this.$store.state.font,
               fontSize: this.$store.state.fontSize
             })
@@ -77,8 +75,8 @@
       this.$store.subscribe((plugin, state) => {
         switch (plugin.type) {
           case "createPersistedState":
+            monaco.editor.setTheme(this.$store.state.theme);
             this.editor.updateOptions({
-              theme: this.$store.state.theme,
               fontFamily: this.$store.state.font,
               fontSize: this.$store.state.fontSize
             })

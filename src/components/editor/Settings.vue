@@ -4,16 +4,21 @@
       <div class="btn-group">
         <b>Font:</b>
         <select @change="changeFont">
-          <option v-for="font in fontOptions" :value="font" :selected="setDefault('font',font)"> {{font}} </option>
+          <option v-for="font in fontOptions" :value="font" :selected="setDefault('font', font)"> {{font}} </option>
         </select>
       </div>
       <div class="btn-group">
         <b>Size:</b>
         <select @change="changeSize">
-          <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size',size)">{{size}}</option>
+          <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size', size)">{{size}}</option>
         </select>
       </div>
-
+      <div class="btn-group">
+        <b>Theme:</b>
+        <select @change="changeTheme">
+          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme', theme)">{{theme}}</option>
+        </select>
+      </div>
       <ul class="list-inline panel-actions">
         <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
       </ul>
@@ -26,7 +31,7 @@
     name: 'settings',
     data () {
       return {
-        themeOptions: ['vs-dark', 'vs', 'hc-dark'],
+        themeOptions: ['vs-dark', 'vs', 'hc-black'],
         fontOptions: ['Lucida Console', 'Anonymous Pro', 'Courier', 'Droid Sans Mono', 'Inconsolata', 'Source Code Pro', 'Ubuntu Mono'],
         sizeOptions: Array(30).fill(0).map((el, ind) => 6 + (2 * ind)),
       }
