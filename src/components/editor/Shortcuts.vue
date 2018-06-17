@@ -43,4 +43,7 @@
 </script>
 
 <style scoped>
+  i.fa {
+    margin-left: 4px;
+  }
 </style>

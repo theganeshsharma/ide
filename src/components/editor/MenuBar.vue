@@ -4,7 +4,7 @@
       <div class="panel panel-default">
         <div class="headPanel panel-heading">
           <div class="btn-group">
-            <button id="submit" type="button" class="btn btn-sm btn-menu btn-run" :class="{ loading : disabled }"
+            <button id="submit" type="button" class="btn btn-sm btn-run" :class="{ loading : disabled }"
                     @click="runCode()" :disabled="loading">
               <i class="fa fa-play" aria-hidden="true"></i>
               <span v-if="loading">Running</span>
@@ -22,7 +22,7 @@
             </button>
             <input type="file" ref="fileUpload" style="display:none" @change="uploadCode">
             <button type="button" id="uploadFile" class=" btn btn-sm btn-menu" @click="selectFile">
-              Upload <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+              Upload <span class="fa fa-folder-open" aria-hidden="true"></span>
             </button>
             <input type="file" id="upload" style="display:none;">
             <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
@@ -56,7 +56,7 @@
     components: {language, Settings, Share, Shortcuts},
     data() {
       return {
-        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs'],
+        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],
         fullscreen: false,
         loading: false
       }
@@ -81,7 +81,7 @@
               })
             } else {
               this.$notify({
-                text: 'Code Complied Successfully',
+                text: 'Code Compiled Successfully',
                 type: 'success'
               })
             }
@@ -196,16 +196,12 @@
   .btn-run {
     background: #e31d3b;
     border-radius: 50px !important;
-    outline: none !important;
-    color: white!important;
-  }
-
-  .btn-run:hover, .btn-run:focus, .btn-run:active {
-    background: #e31d3b;
     color: white !important;
   }
 
-
+  .btn-run:hover, .btn-run:focus, .btn-run:active {
+    box-shadow: none !important;
+  }
 
   .modal-mask {
     position: fixed;

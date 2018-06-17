@@ -3,6 +3,7 @@
  */
 'use strict'
 
+//import '@babel-runtime/core-js/json/stringify';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -22,7 +23,7 @@ export default new Vuex.Store({
     code: samples['C++'],
     sampleCode: samples['C++'],
     language: 'C++',
-    theme: 'dark',
+    theme: 'vs-dark',
     font: 'Ubuntu Mono',
     fontSize: 16,
     showInOutBox: false,
@@ -77,7 +78,7 @@ export default new Vuex.Store({
       state.checkData = shajs('sha256').update(val).digest('hex');
     },
     resetEditor(state) {
-      state.theme = 'dark'
+      state.theme = 'vs-dark'
       state.font = 'Ubuntu Mono'
       state.fontSize = 16
     },
@@ -178,6 +179,9 @@ export default new Vuex.Store({
         case 'NodeJs':
           lang = 'js';
           break
+        case 'Ruby':
+          lang = 'ruby';
+          break;
       }
 
       if (lang === 'jsv') {

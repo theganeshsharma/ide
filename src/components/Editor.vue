@@ -3,7 +3,7 @@
     <div class="row">
       <div>
         <menuBar>
-          <ace-editor :language=this.$store.state.language :content=this.$store.state.code></ace-editor>
+          <monaco-editor :language=this.$store.state.language :content=this.$store.state.code></monaco-editor>
         </menuBar>
       </div>
       <inoutbox></inoutbox>
@@ -15,14 +15,13 @@
 <script>
   import inoutbox from './editor/InOutBox.vue'
   import menuBar from './editor/MenuBar.vue'
-  import AceEditor from './editor/AceEditor.vue'
-  //
-  // console.log(editor);
+  import MonacoEditor from './editor/MonacoEditor.vue'
+
   export default {
     name: 'editor',
     components: {
       menuBar,
-      AceEditor,
+      MonacoEditor,
       inoutbox,
     },
     data() {
@@ -46,19 +45,10 @@
 </script>
 
 <style>
-  * {
-    border-radius: 0 !important;
-  }
-
-  .btn-group {
-    margin: 0;
-    padding: 0;
-    vertical-align: text-top;
-  }
-
   .btn-group .btn {
     margin: 0;
     padding: 0 15px;
+    height: 40px;
   }
 
   .headPanel {
@@ -72,17 +62,14 @@
   }
 
   .btn-menu {
-    background: transparent;
-    border: none;
     color: #fff !important;
-    outline: none!important;
+    background-color: transparent;
+    margin: auto 0;
   }
 
   .btn-menu:hover, .btn-menu:active, .btn-menu:focus {
-    background: transparent;
     color: #e31d3b !important;
-    border: none;
-    box-shadow: none;
+    box-shadow: none !important;
   }
 
   .btn i {

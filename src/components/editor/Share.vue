@@ -88,7 +88,11 @@
   }
 </script>
 
-<style>
+<style scoped>
+  i.fa {
+    margin-left: 4px;
+  }
+
   .shortURLBox {
     margin: 10px 0;
   }
