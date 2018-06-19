@@ -20,7 +20,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    code: samples,
+    code: Object.assign({}, samples),
     sampleCodes: samples,
     language: 'C++',
     languageMode: 'cpp',

@@ -1,5 +1,5 @@
 <template>
-  <pre id="editor" @keydown="resetEditorShortcut"></pre>
+  <pre id="editor" @keydown="resetCodeShortcut"></pre>
 </template>
 
 <script>
@@ -83,7 +83,7 @@
       removeEventListener('drop', this.dropHandler, false)
     },
     methods: {
-      resetEditorShortcut(e) {
+      resetCodeShortcut(e) {
         if(e.ctrlKey&&e.keyCode==77) {
           e.preventDefault()
           this.$store.commit('resetCode', this.$store.state.language)
