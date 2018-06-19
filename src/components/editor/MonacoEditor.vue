@@ -38,7 +38,7 @@
         switch (mutation.type) {
           case "resetCode":
           case "uploadCode":
-          case "satCode":
+          case "setCode":
           case "changeLanguage":
             this.editor.setValue(this.$store.state.code[this.$store.state.language])
             monaco.editor.setModelLanguage(this.editor.getModel(), this.$store.state.languageMode)

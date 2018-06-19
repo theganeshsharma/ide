@@ -20,9 +20,6 @@
 <script>
   export default {
     name: 'inoutbox',
-    data() {
-      return {showInOutBox: this.$store.state.showInOutBox}
-    },
     methods: {
       customInputChange(e) {
         this.$store.commit('changeCustomInput', e.target.value)

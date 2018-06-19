@@ -62,7 +62,7 @@ export default new Vuex.Store({
     updateCode(state, val) {
       state.code[state.language] = val
     },
-    satCode(state, val) {
+    setCode(state, val) {
       state.code[state.language] = val
     },
     uploadCode(state, val) {
@@ -151,7 +151,7 @@ export default new Vuex.Store({
         .get(`https://ide.cb.lk/code/${pasteId}`)
         .then(({data}) => {
           commit('changeLanguage', data.language)
-          commit('satCode', data.code)
+          commit('setCode', data.code)
           commit('changeCustomInput', data.customInput)
           commit('fileNameChange', data.fileName)
           commit('setCheckData', data.code)
