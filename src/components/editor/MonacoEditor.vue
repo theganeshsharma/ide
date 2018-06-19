@@ -34,12 +34,10 @@
       })
 
       this.$store.dispatch('loadDataFromServer')
-      console.log(this.$data);
       this.$store.subscribe((mutation, state) => {
         switch (mutation.type) {
           case "resetCode":
           case "uploadCode":
-            alert('upload')
           case "satCode":
           case "changeLanguage":
             this.editor.setValue(this.$store.state.code[this.$store.state.language])

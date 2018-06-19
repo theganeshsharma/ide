@@ -111,7 +111,6 @@
         const code = this.$store.state.code[this.$store.state.language]
         const el = document.createElement('a')
         el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(code))
-        consoole.log('data:text/plain;charset=utf-8'+ encodeURIComponent(code))
         el.setAttribute('download', this.$store.state.fileName)
         el.style.display = 'none'
         document.body.appendChild(el)
