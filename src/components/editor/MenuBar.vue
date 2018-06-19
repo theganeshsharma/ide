@@ -108,9 +108,10 @@
         this.$store.commit('toogleSettings')
       },
       downloadCode() {
-        const code = this.$store.state.code
+        const code = this.$store.state.code[this.$store.state.language]
         const el = document.createElement('a')
         el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(code))
+        consoole.log('data:text/plain;charset=utf-8'+ encodeURIComponent(code))
         el.setAttribute('download', this.$store.state.fileName)
         el.style.display = 'none'
         document.body.appendChild(el)
@@ -129,12 +130,15 @@
 
         const file = files[0]
         const reader = new FileReader()
-        const vm = this
 
-        reader.onload = function (e) {
+        reader.onload = (e) => {
           console.log('Uploaded File: ' + file.name)
-          vm.$store.commit('uploadCode', e.target.result)
-          vm.$store.commit('fileNameChange', file.name)
+          this.$notify({
+            text: 'Code Uploaded Successfully',
+            type: 'success'
+          })
+          this.$store.commit('uploadCode', e.target.result)
+          this.$store.commit('fileNameChange', file.name)
         }
         reader.readAsText(file)
       },

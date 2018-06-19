@@ -1,10 +1,9 @@
 <template>
-  <pre id="editor" @keyup="getDirty()" @keydown="resetEditorShortcut"></pre>
+  <pre id="editor" @keydown="resetEditorShortcut"></pre>
 </template>
 
 <script>
   import * as monaco from 'monaco-editor';
-  import samples from '../../assets/js/sample-source'
 
   export default {
     name: 'monaco-editor',
@@ -14,11 +13,11 @@
 
       this.editor = 
         monaco.editor.create(document.getElementById('editor'), {
-          value: samples[this.language],
+          value: this.$store.state.code[this.$store.state.language],
           minimap: {
             showSlider: false
           },
-          language: this.languageMode,
+          language: this.$store.state.languageMode,
           automaticLayout: true,
           dragAndDrop: true,
           fontFamily: this.$store.state.font,
@@ -35,22 +34,19 @@
       })
 
       this.$store.dispatch('loadDataFromServer')
-
+      console.log(this.$data);
       this.$store.subscribe((mutation, state) => {
         switch (mutation.type) {
           case "resetCode":
-            this.editor.setValue(this.$store.state.code)
-            this.isClean = true
-            break;
           case "uploadCode":
-            this.editor.setValue(this.$store.state.code)
-            break;
+            alert('upload')
           case "satCode":
-            this.editor.setValue(this.$store.state.code)
-            this.getDirty()
+          case "changeLanguage":
+            this.editor.setValue(this.$store.state.code[this.$store.state.language])
+            monaco.editor.setModelLanguage(this.editor.getModel(), this.$store.state.languageMode)
             break;
           case "changeTheme":
-            monaco.editor.setTheme(this.$store.state.theme);
+            monaco.editor.setTheme(this.$store.state.theme)
             break;
           case "changeFont":
             this.editor.updateOptions({
@@ -75,7 +71,7 @@
       this.$store.subscribe((plugin, state) => {
         switch (plugin.type) {
           case "createPersistedState":
-            monaco.editor.setTheme(this.$store.state.theme);
+            monaco.editor.setTheme(this.$store.state.theme)
             this.editor.updateOptions({
               fontFamily: this.$store.state.font,
               fontSize: this.$store.state.fontSize
@@ -88,28 +84,11 @@
       removeEventListener('dragover', this.dragOverHandler, false)
       removeEventListener('drop', this.dropHandler, false)
     },
-    props: {
-      language: {
-        default: 'C++'
-      }
-    },
-    data() {
-      return {
-        isClean: true,
-        resetClean: false
-      }
-    },
     methods: {
-      getDirty() {
-        this.isClean = false
-      },
       resetEditorShortcut(e) {
-        if(e.ctrlKey && e.keyCode==77)
-        {
+        if(e.ctrlKey&&e.keyCode==77) {
           e.preventDefault()
           this.$store.commit('resetCode', this.$store.state.language)
-          this.editor.setValue(this.$store.state.sampleCode)
-          this.resetClean = true
         }
       },
       dragOverHandler(e) {
@@ -128,7 +107,6 @@
              reader.readAsText(file, 'UTF-8')
              reader.onload = (e) => {
                console.log('Uploaded File: ' + file.name)
-               this.isClean = false
                this.$notify({
                 text: 'Code Uploaded Successfully',
                 type: 'success'
@@ -139,41 +117,6 @@
            }
          }
        }
-    },
-    computed: {
-      languageMode() {
-        switch (this.language) {
-          case 'C':
-            return 'c'
-          case 'C++':
-            return 'cpp'
-          case 'C#':
-            return 'csharp'
-          case 'Java':
-            return 'java'
-          case 'Python':
-            return 'python'
-          case 'Javascript':
-            return 'javascript'
-          case 'NodeJs':
-            return 'javascript'
-          case 'Ruby':
-            return 'ruby'
-          default :
-            return 'cpp'
-        }
-      }
-    },
-    watch: {
-      language(newLang) {
-        if (this.isClean || this.resetClean) {
-          this.editor.setValue(samples[newLang])
-          this.resetClean = false
-        }
-      },
-      languageMode(newMode) {
-        monaco.editor.setModelLanguage(this.editor.getModel(), newMode)
-      }
     }
   }
 </script>
