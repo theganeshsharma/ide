@@ -47,7 +47,7 @@ export default new Vuex.Store({
     },
     changeLanguage(state, val) {
       const languageMode = {
-        'C': 'C',
+        'C': 'c',
         'C++': 'cpp',
         'C#': 'csharp',
         'Java': 'java',
