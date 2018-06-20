@@ -1,18 +1,21 @@
 <template>
-  <div id="inoutbox" class="fsHide" v-show="this.$store.state.showInOutBox">
+  <div id="inoutbox" class="fsHide" v-bind:style="{ fontSize: this.$store.state.fontSize + 'px' }" v-show="this.$store.state.showInOutBox">
     <div class="panel-input panel-default">
-      <div class="panel-heading">Input</div>
-      <div class="panel-body">
-        <textarea class="textbox" id="test-input" rows="2"
-                  placeholder="Enter your custom inputs" :value="this.$store.state.customInput"
-                  @change="customInputChange"></textarea>
+      <div class="panel-heading">
+        <span>Input</span>
+        <i class="fa fa-paperclip"/>
       </div>
+      <textarea class="textbox" id="test-input" rows="2"
+                placeholder="Enter your custom inputs" :value="this.$store.state.customInput"
+                @change="customInputChange">
+      </textarea>
     </div>
     <div class="panel-output panel-default">
-      <div class="panel-heading">Output</div>
-      <div class="panel-body">
-       <pre id="output">{{this.$store.state.output}}</pre>
+      <div class="panel-heading">
+        <span>Output</span>
+        <i class="fa fa-paperclip"/>
       </div>
+      <pre id="output">{{this.$store.state.output}}</pre>
     </div>
   </div>
 </template>
@@ -20,6 +23,34 @@
 <script>
   export default {
     name: 'inoutbox',
+    mounted() {
+      interact('#inoutbox')
+        .resizable({
+          edges: { top: true },
+          restrictEdges: {
+          outer: 'parent',
+          endOnly: true,
+        },
+        restrictSize: {
+          min: { height: 220 },
+          max: { height: 520 }
+        },
+        inertia: true,
+      })
+      .on('resizemove', function (event) {
+        const target = event.target,
+          x = (parseFloat(target.getAttribute('data-x')) || 0),
+          y = (parseFloat(target.getAttribute('data-y')) || 0)
+
+        target.style.height = event.rect.height + 'px'
+
+        target.style.webkitTransform = target.style.transform =
+          'translate(' + x + 'px,' + y + 'px)'
+
+        target.setAttribute('data-x', x)
+        target.setAttribute('data-y', y)
+      })
+    },
     methods: {
       customInputChange(e) {
         this.$store.commit('changeCustomInput', e.target.value)
@@ -32,6 +63,7 @@
   #inoutbox {
     position: fixed;
     width: 100vw;
+    height: 220px;
     bottom: 0;
     left: 0;
     z-index: 20;
@@ -41,10 +73,8 @@
     width: calc(50vw - 7px);
     border-radius: 0 !important;
     margin: 0;
-    height: 160px;
-    max-height: 160px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: calc(100% - 60px);
+    overflow: auto;
     background: #202020 !important;
     border: none;
     border-right: 1px solid #272727; 
@@ -56,13 +86,6 @@
     padding: 6px;
   }
 
-  .panel-body {
-    padding: 0;
-    margin: 0;
-    border-radius: 0;
-    height: 160px;
-  }
-
   .panel-heading, .panel-input, .panel-output {
     width: calc(50vw - 7px);
     border-radius: 0;
@@ -70,7 +93,9 @@
   }
 
   .panel-heading {
-    height: 40px !important;
+    display: flex;
+    align-items: center;
+    height: 60px !important;
     padding: 8px 15px;
     background: #272727;
     color: #fff;
@@ -81,8 +106,7 @@
     position: absolute;
     bottom: 0;
     display: inline-block;
-    height: 200px !important;
-    max-height: 200px;
+    height: 100% !important;
     border-color: #202020;
   }
 
@@ -90,9 +114,11 @@
     right: 14px;
   }
 
-  @media (max-width: 767px) {
-    .panel-heading, .panel, #output, #test-input {
-      width: 100vw;
-    }
+  i.fa {
+    margin-left: auto;
+  }
+  
+  i.fa:hover {
+    cursor: pointer;
   }
 </style>
