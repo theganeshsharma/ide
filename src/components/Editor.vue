@@ -3,7 +3,7 @@
     <div class="row">
       <div>
         <menuBar>
-          <monaco-editor :language=this.$store.state.language :content=this.$store.state.code></monaco-editor>
+          <monaco-editor></monaco-editor>
         </menuBar>
       </div>
       <inoutbox></inoutbox>
@@ -23,13 +23,6 @@
       menuBar,
       MonacoEditor,
       inoutbox,
-    },
-    data() {
-      return {
-        showInOutBox: false,
-        code: '',
-        language: 'C++'
-      }
     },
     watch: {
       '$route'(to, from) {

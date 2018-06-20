@@ -20,9 +20,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    code: samples['C++'],
-    sampleCode: samples['C++'],
+    code: Object.assign({}, samples),
+    sampleCodes: samples,
     language: 'C++',
+    languageMode: 'cpp',
     theme: 'vs-dark',
     font: 'Ubuntu Mono',
     fontSize: 16,
@@ -45,16 +46,27 @@ export default new Vuex.Store({
       state.showSettings = !state.showSettings
     },
     changeLanguage(state, val) {
+      const languageMode = {
+        'C': 'c',
+        'C++': 'cpp',
+        'C#': 'csharp',
+        'Java': 'java',
+        'Python': 'python',
+        'Javascript': 'javascript',
+        'NodeJs': 'javascript',
+        'Ruby': 'ruby'
+      }
       state.language = val
+      state.languageMode = languageMode[state.language]
     },
     updateCode(state, val) {
-      state.code = val
+      state.code[state.language] = val
     },
-    satCode(state, val) {
-      state.code = val
+    setCode(state, val) {
+      state.code[state.language] = val
     },
     uploadCode(state, val) {
-      state.code = val
+      state.code[state.language] = val
     },
     updateOutput(state, val) {
       state.output = val
@@ -83,7 +95,7 @@ export default new Vuex.Store({
       state.fontSize = 16
     },
     resetCode(state, lang) {
-      state.sampleCode = samples[lang];
+      state.code[lang] = samples[lang];
     },
     setIsChanged(state, val) {
       state.isChanged = val;
@@ -139,20 +151,20 @@ export default new Vuex.Store({
         .get(`https://ide.cb.lk/code/${pasteId}`)
         .then(({data}) => {
           commit('changeLanguage', data.language)
-          commit('satCode', data.code)
+          commit('setCode', data.code)
           commit('changeCustomInput', data.customInput)
           commit('fileNameChange', data.fileName)
           commit('setCheckData', data.code)
         })
     },
     saveDataToServer({state, commit, dispatch}) {
-      if (state.checkData == shajs('sha256').update(state.code).digest('hex'))
+      if (state.checkData == shajs('sha256').update(state.code[state.language]).digest('hex'))
         return;
       else {
         return axios.post(`https://ide.cb.lk/code/`, {
           id: (void 0),
           language: state.language,
-          code: state.code,
+          code: state.code[state.language],
           customInput: state.customInput,
           fileName: state.fileName
         });
@@ -187,7 +199,7 @@ export default new Vuex.Store({
       if (lang === 'jsv') {
         return dispatch('runJs', {
           state: state,
-          code: state.code,
+          code: state.code[state.language],
           input: state.customInput
         });
       }
@@ -199,7 +211,7 @@ export default new Vuex.Store({
       }
       return axios.post('https://judge.cb.lk/api/submission', {
         lang,
-        source: base64.encode(state.code),
+        source: base64.encode(state.code[state.language]),
         test_count: 1,
         input: [base64.encode(state.customInput)],
         expected_output: [''],

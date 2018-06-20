@@ -9,7 +9,7 @@
 
 const c_sample =
   '#include <stdio.h>\n' +
-  'void main() {\n' +
+  'int main() {\n' +
   '    printf("Hello World!");\n' +
   '}\n';
 
