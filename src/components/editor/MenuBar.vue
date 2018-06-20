@@ -138,7 +138,7 @@
         reader.readAsText(file)
       },
       keyShortCuts(e){
-        if(e.ctrlKey&&e.keyCode==81)
+        if(e.ctrlKey&&e.keyCode==90)
         {
           e.preventDefault()
           this.runCode()

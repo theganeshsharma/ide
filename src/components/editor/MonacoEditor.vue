@@ -84,7 +84,7 @@
     },
     methods: {
       resetCodeShortcut(e) {
-        if(e.ctrlKey&&e.keyCode==77) {
+        if(e.ctrlKey&&e.keyCode==88) {
           e.preventDefault()
           this.$store.commit('resetCode', this.$store.state.language)
         }
