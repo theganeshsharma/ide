@@ -8,7 +8,7 @@
         </a>
       </div>
       <textarea class="textbox" id="test-input" rows="2"
-                placeholder="Enter your custom inputs" :value="this.$store.state.customInput"
+                placeholder="Specify Input" :value="this.$store.state.customInput"
                 @change="customInputChange">
       </textarea>
     </div>
@@ -36,8 +36,8 @@
           endOnly: true,
         },
         restrictSize: {
-          min: { height: 220 },
-          max: { height: 520 }
+          min: { height: 210 },
+          max: { height: 510 }
         },
         inertia: true,
       })
@@ -95,7 +95,7 @@
   #inoutbox {
     position: fixed;
     width: 100vw;
-    height: 220px;
+    height: 210px;
     bottom: 0;
     left: 0;
     z-index: 20;
@@ -105,7 +105,7 @@
     width: calc(50vw - 7px);
     border-radius: 0 !important;
     margin: 0;
-    height: calc(100% - 60px);
+    height: calc(100% - 50px);
     overflow: auto;
     background: #202020 !important;
     border: none;
@@ -127,11 +127,10 @@
   .panel-heading {
     display: flex;
     align-items: center;
-    height: 60px !important;
+    height: 50px !important;
     padding: 8px 15px;
     background: #272727;
     color: #fff;
-    border-color: #272727;
   }
 
   .panel-input, .panel-output {
@@ -144,6 +143,18 @@
 
   .panel-output {
     right: 14px;
+  }
+
+   @media (max-width: 767px) {
+    .panel-heading, .panel-input, .panel-output, #output, #test-input {
+      width: calc(100vw - 14px);
+    }
+
+    .panel-input, .panel-output {
+      position: static;
+      height: 50% !important;
+      border-color: #202020;
+    }
   }
 
   i.fa:hover {
