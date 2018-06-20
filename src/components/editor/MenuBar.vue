@@ -51,6 +51,7 @@
   import Settings from './Settings.vue'
   import Share from './Share.vue'
   import Shortcuts from './Shortcuts.vue'
+  import * as download from 'downloadjs'
   export default {
     name: 'menuBar',
     components: {language, Settings, Share, Shortcuts},
@@ -109,13 +110,7 @@
       },
       downloadCode() {
         const code = this.$store.state.code[this.$store.state.language]
-        const el = document.createElement('a')
-        el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(code))
-        el.setAttribute('download', this.$store.state.fileName)
-        el.style.display = 'none'
-        document.body.appendChild(el)
-        document.body.removeChild(el)
-        el.click()
+        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$store.state.fileName, 'text/plain');
       },
       selectFile() {
         // open file select dialogue
@@ -138,19 +133,25 @@
           })
           this.$store.commit('uploadCode', e.target.result)
           this.$store.commit('fileNameChange', file.name)
+          this.$refs.fileUpload.value = ""
         }
         reader.readAsText(file)
       },
       keyShortCuts(e){
         if(e.ctrlKey&&e.keyCode==81)
         {
-          e.preventDefault();
-          this.runCode();
+          e.preventDefault()
+          this.runCode()
         }
         if(e.ctrlKey&&e.keyCode==66)
         {
-          e.preventDefault();
+          e.preventDefault()
           this.$store.commit('resetEditor')
+        }
+        if(e.ctrlKey&&e.keyCode == 83)
+        {
+          e.preventDefault()
+          this.downloadCode()
         }
       }
     }
