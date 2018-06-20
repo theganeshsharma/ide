@@ -3,7 +3,9 @@
     <div class="panel-input panel-default">
       <div class="panel-heading">
         <span>Input</span>
-        <i class="fa fa-paperclip"/>
+        <a v-on:click="onCopyInput" id="copy-input"> 
+          <i class="fa fa-paperclip" />
+        </a>
       </div>
       <textarea class="textbox" id="test-input" rows="2"
                 placeholder="Enter your custom inputs" :value="this.$store.state.customInput"
@@ -13,7 +15,9 @@
     <div class="panel-output panel-default">
       <div class="panel-heading">
         <span>Output</span>
-        <i class="fa fa-paperclip"/>
+        <a v-on:click="onCopyOutput" id="copy-output"> 
+          <i class="fa fa-paperclip"/>
+        </a>
       </div>
       <pre id="output">{{this.$store.state.output}}</pre>
     </div>
@@ -54,6 +58,34 @@
     methods: {
       customInputChange(e) {
         this.$store.commit('changeCustomInput', e.target.value)
+      },
+      onCopyInput(e) {
+        this.$copyText(this.$store.state.customInput).then((e) => {
+          this.$notify({
+            text: 'Input copied Successfully',
+            type: 'success'
+          })
+        }, (e) => {
+          this.$notify({
+            text: 'Input could not be copied successfully',
+            type: 'failure'
+          })
+          console.error(e)
+        })
+      },
+      onCopyOutput(e) {
+        this.$copyText(this.$store.state.output).then((e) => {
+          this.$notify({
+            text: 'Output copied Successfully',
+            type: 'success'
+          })
+        }, (e) => {
+          this.$notify({
+            text: 'Output could not be copied successfully',
+            type: 'failure'
+          })
+          console.error(e)
+        })
       }
     }
   }
@@ -114,11 +146,11 @@
     right: 14px;
   }
 
-  i.fa {
-    margin-left: auto;
-  }
-  
   i.fa:hover {
     cursor: pointer;
+  }
+
+  #copy-input, #copy-output {
+    margin-left: auto;
   }
 </style>
