@@ -138,7 +138,7 @@
         reader.readAsText(file)
       },
       keyShortCuts(e) {
-        const isMacLike = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false
+        const isMacLike = navigator.platform.match(/(Mac|iPad)/i) ? true : false
         const isMetaOrCtrlDown = ((isMacLike && e.metaKey) || e.ctrlKey)
         if(isMetaOrCtrlDown && e.keyCode === 73) {
           e.preventDefault()
