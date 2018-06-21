@@ -7,7 +7,7 @@
           <i class="fa fa-paperclip" />
         </a>
       </div>
-      <textarea class="textbox" id="test-input" rows="2"
+      <textarea class="textbox" id="test-input" rows="2" wrap="off"
                 placeholder="Specify Input" :value="this.$store.state.customInput"
                 @change="customInputChange">
       </textarea>
