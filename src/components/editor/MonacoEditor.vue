@@ -1,5 +1,5 @@
 <template>
-  <pre id="editor" @keydown="resetCodeShortcut"></pre>
+  <pre id="editor"></pre>
 </template>
 
 <script>
@@ -83,12 +83,6 @@
       removeEventListener('drop', this.dropHandler, false)
     },
     methods: {
-      resetCodeShortcut(e) {
-        if(e.ctrlKey&&e.keyCode==88) {
-          e.preventDefault()
-          this.$store.commit('resetCode', this.$store.state.language)
-        }
-      },
       dragOverHandler(e) {
         e.preventDefault()
         e.stopPropagation()

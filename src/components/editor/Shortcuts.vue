@@ -13,10 +13,10 @@
 
             <div class="modal-body">
               <ul class="list-group">
-                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>Z</kbd>: To Run the program.</li>
-                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>B</kbd> or <kbd>Ctrl</kbd> + <kbd>option</kbd> + <kbd>B</kbd>(MAC): To Reset to defaults.</li>
-                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>X</kbd>: To Reset the Code.</li>
-                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>S</kbd>: To Download the Code.</li>
+                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>I</kbd>: To Run the program.</li>
+                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>U</kbd>: To Reset the settings.</li>
+                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>B</kbd>: To Reset the code.</li>
+                <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>S</kbd>: To Download the code.</li>
               </ul>
             </div>
 

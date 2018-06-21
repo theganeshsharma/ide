@@ -137,21 +137,24 @@
         }
         reader.readAsText(file)
       },
-      keyShortCuts(e){
-        if(e.ctrlKey&&e.keyCode==90)
-        {
+      keyShortCuts(e) {
+        const isMacLike = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false
+        const isMetaOrCtrlDown = ((isMacLike && e.metaKey) || e.ctrlKey)
+        if(isMetaOrCtrlDown && e.keyCode === 73) {
           e.preventDefault()
           this.runCode()
         }
-        if(e.ctrlKey&&e.keyCode==66)
-        {
+        if(isMetaOrCtrlDown && e.keyCode === 85) {
           e.preventDefault()
           this.$store.commit('resetEditor')
         }
-        if(e.ctrlKey&&e.keyCode == 83)
-        {
+        if(isMetaOrCtrlDown && e.keyCode === 83) {
           e.preventDefault()
           this.downloadCode()
+        }
+        if(isMetaOrCtrlDown && e.keyCode === 66) {
+          e.preventDefault()
+          this.$store.commit('resetCode', this.$store.state.language)
         }
       }
     }
