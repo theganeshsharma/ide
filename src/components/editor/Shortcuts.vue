@@ -12,11 +12,19 @@
             </div>
 
             <div class="modal-body">
+              <p>Windows/Linux</p>
               <ul class="list-group">
                 <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>I</kbd>: To Run the program.</li>
                 <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>U</kbd>: To Reset the settings.</li>
                 <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>B</kbd>: To Reset the code.</li>
                 <li class="list-group-item"><kbd>Ctrl</kbd> + <kbd>S</kbd>: To Download the code.</li>
+              </ul>
+              <p>Mac</p>
+              <ul class="list-group">
+                <li class="list-group-item"><kbd>Cmd</kbd> + <kbd>I</kbd>: To Run the program.</li>
+                <li class="list-group-item"><kbd>Cmd</kbd> + <kbd>U</kbd>: To Reset the settings.</li>
+                <li class="list-group-item"><kbd>Cmd</kbd> + <kbd>B</kbd>: To Reset the code.</li>
+                <li class="list-group-item"><kbd>Cmd</kbd> + <kbd>S</kbd>: To Download the code.</li>
               </ul>
             </div>
 
