@@ -99,6 +99,10 @@
       saveToServer() {
         this.$store.dispatch('saveDataToServer')
           .then(({data}) => {
+            this.$notify({
+              text: 'Code saved to server',
+              type: 'success'
+            })
             return this.$router.push({name: 'saved', params: {id: data.id}})
           })
       },
@@ -110,7 +114,7 @@
       },
       downloadCode() {
         const code = this.$store.state.code[this.$store.state.language]
-        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$store.state.fileName, 'text/plain');
+        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$store.state.fileName, 'text/plain')
       },
       selectFile() {
         // open file select dialogue

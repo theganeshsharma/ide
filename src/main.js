@@ -8,13 +8,9 @@ import App from './App'
 import store from './store'
 import Editor from './components/Editor'
 import { sync } from 'vuex-router-sync'
-// import 'bootstrap/dist/css/bootstrap.css'
-
-// import BootstrapVue from 'bootstrap-vue'
 
 Vue.config.productionTip = false
 
-// Vue.use(BootstrapVue)
 Vue.use(Vue2Filters)
 Vue.use(Notifications)
 Vue.use(Router)
