@@ -29,7 +29,9 @@
               Setting <span class="fa fa-cog"></span>
             </button>
             <share></share>
-            <shortcuts></shortcuts>
+            <button id="panelLang" type="button" class="btn btn-sm btn-menu" @click="showShortcutsModal()">
+              Shortcuts<i class="fa fa-reply-all" aria-hidden="true"></i>
+            </button>
           </div>
           <div class="logoMenu">
             Made with <i class="fa fa-heart" aria-hidden="true" style="color: #e31d3b"></i> by
@@ -42,20 +44,62 @@
       <slot></slot>
     </div>
     
-    <modal name="download-modal" transition="pop-out" :width="720" :height="300">
-      <div class="download-modal-title">
+    <modal name="download-modal" transition="pop-out" :width="680" :pivot-y="0.2" :height="auto">
+      <div class="download-modal-title flex-center">
         confirm file name
       </div>
-      <div class="download-modal-content">
+      <div class="download-modal-content flex-center">
+        <span>File Name:</span>
         <input v-on:keyup.enter="downloadCode" v-on:change="updateFileName" 
               ref="fileName" :value="this.$store.state.fileName" placeholder="Enter File name">
       </div>
-      <div class="download-modal-button-set">
+      <div class="download-modal-button-set flex-space-between">
         <button class="modal-button" @click="closeDownloadModal()">close</button>
         <button class="modal-button" @click="resetFileName()">reset file name</button>
         <button class="modal-button" @click="saveFileName()">save file name</button>
         <button class="modal-button" @click="downloadCode()">download code</button>
       </div>
+    </modal>
+
+    <modal name="shortcuts-modal" transition="pop-out" :width="600" :pivot-y="0.3" :height="500">
+      <div class="shortcuts-modal-title flex-center">
+        keyboard shortcuts
+        <span @click="closeShortcutsModal()" class="shortcuts-modal-close">×</span>
+      </div>
+      <ul class="shortcuts-modal-content">
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">Ctrl + I</span>
+          <span class="key-description">To run the program in windows/linux</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">⌘ + I</span>
+          <span class="key-description">To run the program in mac</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">Ctrl + U</span>
+          <span class="key-description">To reset the settings in windows/linux</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">⌘ + U</span>
+          <span class="key-description">To reset the settings in mac</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">Ctrl + B</span>
+          <span class="key-description">To reset the code in windows/linux</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">⌘ + B</span>
+          <span class="key-description">To reset the code in mac</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">Ctrl + S</span>
+          <span class="key-description">To download the code in windows/linux</span>
+        </li>
+        <li class="key-unit flex-space-between">
+          <span class="key-span flex-center">⌘ + S</span>
+          <span class="key-description">To download the code in mac</span>
+        </li>
+      </ul>
     </modal>
   </div>
 </template>
@@ -66,11 +110,10 @@
   import base64 from 'base-64'
   import Settings from './Settings.vue'
   import Share from './Share.vue'
-  import Shortcuts from './Shortcuts.vue'
   import * as download from 'downloadjs'
   export default {
     name: 'menuBar',
-    components: {language, Settings, Share, Shortcuts},
+    components: {language, Settings, Share},
     data() {
       return {
         languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],
@@ -159,7 +202,7 @@
       downloadCode() {
         this.saveFileName()
         const code = this.$store.state.code[this.$store.state.language]
-        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$data.fileName, 'text/plain')
+        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$store.state.fileName, 'text/plain')
       },
       uploadCode(e) {
         const files = e.target.files || e.dataTransfer.files
@@ -181,6 +224,12 @@
           this.$refs.fileUpload.value = ""
         }
         reader.readAsText(file)
+      },
+      showShortcutsModal() {
+        this.$modal.show('shortcuts-modal')
+      },
+      closeShortcutsModal() {
+        this.$modal.hide('shortcuts-modal')
       },
       keyShortCuts(e) {
         const isMacLike = navigator.platform.match(/(Mac|iPad)/i) ? true : false
@@ -326,20 +375,27 @@
     box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px #FFF inset;
   }
 
-
-  .download-modal-title {
+  .flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .download-modal-title {
     height: 60px;    
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .download-modal-content,
   .download-modal-title,
   .download-modal-button-set {
-    font-family: "Open Sans", sans-serif;
     letter-spacing: 1px;
     padding: 8px;
     text-transform: uppercase;
@@ -347,17 +403,16 @@
 
   .download-modal-button-set .modal-button {
     font-size: 16px;
-    font-weight: 400;
     text-transform: uppercase;
     color: #8b8c8d;
     background: white;
     border-radius: 4px;
     box-sizing: border-box;
     padding: 10px;
-    min-width: 140px;
-    margin: 8px;
+    min-width: 100px;
+    margin: 4px;
     cursor: pointer;
-    border: 1px solid #DDDEDF;
+    border: 1px solid #b4b4b4;
     transition: 0.1s all;
     outline: none;
   }
@@ -372,14 +427,13 @@
     bottom: 0;
     width: 100%;
     height: 80px;
-    display: flex;
-    justify-content: space-between;
+  }
+
+  .download-modal-title {
+    border-bottom: 2px solid #ccc;
   }
 
   .download-modal-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: calc(100% - 140px);
   }
 
@@ -388,11 +442,12 @@
     box-sizing: border-box;
     margin-bottom: 4px;
     padding: 8px;
-    width: 380px;
+    margin: 0 8px;
+    width: 280px;
     font-size: 16px;
-    line-height: 2;
     border: 0;
-    border-bottom: 1px solid #dddedf;
+    border-bottom: 1px solid #b4b4b4;
+    color: #b4b4b4;
     font-family: inherit;
     transition: 0.5s all;
     outline: none;
@@ -400,6 +455,62 @@
 
   .download-modal-content input:focus {
     border-bottom: 1px solid #181818;
+    color: #181818;
+  }
+
+  .shortcuts-modal-title,
+  .shortcuts-modal-content {
+    padding: 8px;
+    color: #b4b4b4;
+  }
+
+  .shortcuts-modal-content {
+    height: calc(100% - 60px);
+    overflow-y: auto;
+  }
+
+  .shortcuts-modal-title {
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+    height: 60px;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  .shortcuts-modal-content {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .key-span {
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 0 #fff, 0 1px 0 #ccc;
+    font-size: 20px;
+    padding: 4px 8px;
+    margin: 0 8px;
+  }
+
+  .key-unit {
+    text-transform: uppercase;
+    width: calc(100% - 16px);
+    margin: 8px;
+  }
+
+  .shortcuts-modal-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .shortcuts-modal-close:hover {
     color: #181818;
   }
 </style>

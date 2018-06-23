@@ -13,12 +13,10 @@ import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
 import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing';
-import VModal from 'vue-js-modal'
 
 Vue.use(VueClipboard)
-Vue.use(SocialSharing);
+Vue.use(SocialSharing)
 Vue.use(Vuex)
-Vue.use(VModal)
 
 export default new Vuex.Store({
   state: {
