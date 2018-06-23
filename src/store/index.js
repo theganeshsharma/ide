@@ -15,7 +15,7 @@ import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing';
 
 Vue.use(VueClipboard)
-Vue.use(SocialSharing);
+Vue.use(SocialSharing)
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -32,7 +32,7 @@ export default new Vuex.Store({
     customInput: '',
     customInputBuf: '', //input buffer to store customInput when toggled OFF
     output: '',
-    fileName: '',
+    fileName: 'download.cpp',
     isChanged: false,
     autoSave: true,
     autoSaveIntervalId: null,
@@ -56,8 +56,19 @@ export default new Vuex.Store({
         'NodeJs': 'javascript',
         'Ruby': 'ruby'
       }
+      const extension = {
+        'C': '.c',
+        'C++': '.cpp',
+        'C#': '.cs',
+        'Java': '.java',
+        'Python': '.py',
+        'Javascript': '.js',
+        'NodeJs': '.js',
+        'Ruby': '.rb'
+      }
       state.language = val
       state.languageMode = languageMode[state.language]
+      state.fileName = `download${extension[state.language]}`
     },
     updateCode(state, val) {
       state.code[state.language] = val
