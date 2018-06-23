@@ -8,12 +8,13 @@ import App from './App'
 import store from './store'
 import Editor from './components/Editor'
 import { sync } from 'vuex-router-sync'
-
+import VModal from 'vue-js-modal'
 Vue.config.productionTip = false
 
 Vue.use(Vue2Filters)
 Vue.use(Notifications)
 Vue.use(Router)
+Vue.use(VModal)
 
 const router = new Router({
   routes: [

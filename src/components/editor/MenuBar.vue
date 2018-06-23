@@ -16,7 +16,7 @@
             </button>
             <button type="button" id="save" class="btn btn-sm btn-menu" @click="saveToServer()">Save <i
               class="fa fa-floppy-o" aria-hidden="true"></i></button>
-            <button type="button" id="downlaod" class="btn btn-sm btn-menu" @click="downloadCode()">
+            <button type="button" id="download" class="btn btn-sm btn-menu" @click="showDownloadModal()">
               Download
               <i class="fa fa-download" aria-hidden="true"></i>
             </button>
@@ -41,6 +41,22 @@
       <!-- Editor Goes into the slot -->
       <slot></slot>
     </div>
+    
+    <modal name="download-modal" transition="pop-out" :width="720" :height="300">
+      <div class="download-modal-title">
+        confirm file name
+      </div>
+      <div class="download-modal-content">
+        <input v-on:keyup.enter="downloadCode" v-on:change="updateFileName" 
+              ref="fileName" :value="this.$store.state.fileName" placeholder="Enter File name">
+      </div>
+      <div class="download-modal-button-set">
+        <button class="modal-button" @click="closeDownloadModal()">close</button>
+        <button class="modal-button" @click="resetFileName()">reset file name</button>
+        <button class="modal-button" @click="saveFileName()">save file name</button>
+        <button class="modal-button" @click="downloadCode()">download code</button>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -59,11 +75,12 @@
       return {
         languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],
         fullscreen: false,
-        loading: false
+        loading: false,
+        fileName: this.$store.state.fileName
       }
     },
     methods: {
-      runCode() {
+      runCode() {        
         this.loading = !this.loading
         this.$store.dispatch('runCode').then((data) => {
           if (!this.$store.state.showInOutBox)
@@ -112,13 +129,37 @@
       settingsToggle() {
         this.$store.commit('toogleSettings')
       },
-      downloadCode() {
-        const code = this.$store.state.code[this.$store.state.language]
-        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$store.state.fileName, 'text/plain')
-      },
       selectFile() {
         // open file select dialogue
         this.$refs.fileUpload.click()
+      },
+      showDownloadModal() {
+        this.$modal.show('download-modal')
+        setTimeout(() => {
+          this.$refs.fileName.select()
+        }, 200)
+      },
+      closeDownloadModal() {
+        this.$modal.hide('download-modal')
+        this.$data.fileName = this.$store.state.fileName
+      },
+      updateFileName(e) {
+        e.preventDefault()
+        this.$data.fileName = e.target.value
+      },
+      resetFileName() {
+        this.$store.commit('changeLanguage', this.$store.state.language)
+        this.$refs.fileName.value = this.$data.fileName = this.$store.state.fileName
+        this.$refs.fileName.select()
+      },
+      saveFileName() {
+        this.$store.commit('fileNameChange', this.$data.fileName)
+        this.$modal.hide('download-modal')
+      },
+      downloadCode() {
+        this.saveFileName()
+        const code = this.$store.state.code[this.$store.state.language]
+        download(`data:text/plain;charset=utf-8,${encodeURIComponent(code)}`, this.$data.fileName, 'text/plain')
       },
       uploadCode(e) {
         const files = e.target.files || e.dataTransfer.files
@@ -154,7 +195,7 @@
         }
         if(isMetaOrCtrlDown && e.keyCode === 83) {
           e.preventDefault()
-          this.downloadCode()
+          this.showDownloadModal()
         }
         if(isMetaOrCtrlDown && e.keyCode === 66) {
           e.preventDefault()
@@ -283,5 +324,82 @@
     border: 1px solid #adb3b9;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px #FFF inset;
+  }
+
+
+  .download-modal-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;    
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .download-modal-content,
+  .download-modal-title,
+  .download-modal-button-set {
+    font-family: "Open Sans", sans-serif;
+    letter-spacing: 1px;
+    padding: 8px;
+    text-transform: uppercase;
+  }
+
+  .download-modal-button-set .modal-button {
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #8b8c8d;
+    background: white;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px;
+    min-width: 140px;
+    margin: 8px;
+    cursor: pointer;
+    border: 1px solid #DDDEDF;
+    transition: 0.1s all;
+    outline: none;
+  }
+
+  .download-modal-button-set .modal-button:hover {
+    border: 1px solid #181818;
+    color: #181818;
+  }
+
+  .download-modal-button-set {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .download-modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 140px);
+  }
+
+  .download-modal-content input {
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 4px;
+    padding: 8px;
+    width: 380px;
+    font-size: 16px;
+    line-height: 2;
+    border: 0;
+    border-bottom: 1px solid #dddedf;
+    font-family: inherit;
+    transition: 0.5s all;
+    outline: none;
+  }
+
+  .download-modal-content input:focus {
+    border-bottom: 1px solid #181818;
+    color: #181818;
   }
 </style>
