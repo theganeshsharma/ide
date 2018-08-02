@@ -26,7 +26,7 @@
           renderIndentGuides: true,
           lineNumbersMinChars: 3,
           theme: this.$store.state.theme,
-          scrollBeyondLastLine: false
+          scrollBeyondLastLine: true
         })
 
       this.editor.onDidChangeModelContent(() => {
