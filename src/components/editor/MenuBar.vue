@@ -34,14 +34,13 @@
             </button>
           </div>
           <div class="logoMenu">
+            <login-button></login-button>
             Made with <i class="fa fa-heart" aria-hidden="true" style="color: #e31d3b"></i> by
             <img src="../../assets/cb_logo_light.png">
           </div>
         </div>
       </div>
       <settings v-show="this.$store.state.showSettings"></settings>
-      <!-- Editor Goes into the slot -->
-      <slot></slot>
     </div>
     
     <modal name="download-modal" transition="pop-out" :width="680" :pivot-y="0.2" :height="auto">
@@ -110,10 +109,11 @@
   import base64 from 'base-64'
   import Settings from './Settings.vue'
   import Share from './Share.vue'
+  import LoginButton from '../auth/LoginButton.vue'
   import * as download from 'downloadjs'
   export default {
     name: 'menuBar',
-    components: {language, Settings, Share},
+    components: {language, Settings, Share, LoginButton},
     data() {
       return {
         languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],

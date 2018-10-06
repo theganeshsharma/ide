@@ -3,8 +3,8 @@
     <div class="row">
       <div>
         <menuBar>
-          <monaco-editor></monaco-editor>
         </menuBar>
+        <monaco-editor></monaco-editor>
       </div>
       <inoutbox></inoutbox>
     </div>

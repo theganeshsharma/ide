@@ -3,7 +3,6 @@
  */
 'use strict'
 
-//import '@babel-runtime/core-js/json/stringify';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -13,6 +12,8 @@ import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
 import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing';
+
+import userModule from './user'
 
 Vue.use(VueClipboard)
 Vue.use(SocialSharing)
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     autoSave: true,
     autoSaveIntervalId: null,
     checkData: '',
+  },
+  modules: {
+    user: userModule
   },
   mutations: {
     toggleInOutBox(state) {
@@ -118,9 +122,10 @@ export default new Vuex.Store({
       reducer: (state) => ({
         theme: state.theme,
         font: state.font,
-        fontSize: state.fontSize
+        fontSize: state.fontSize,
+        user: state.user
       }),
-      filter: (mutation) => (mutation.type.startsWith("changeFont"))
+      // filter: (mutation) => (mutation.type.startsWith("changeFont"))
     })).plugin
   ],
   actions: {

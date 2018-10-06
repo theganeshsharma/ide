@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <editor></editor>
+    <router-view></router-view>
     <notifications/>
   </div>
 </template>
