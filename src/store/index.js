@@ -12,6 +12,7 @@ import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
 import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing';
+import { httpGet, httpPost } from '../utils/api'
 
 import userModule from './user'
 
@@ -101,7 +102,7 @@ export default new Vuex.Store({
     changeFontSize(state, val) {
       state.fontSize = val
     },
-    setCheckData(state, val) {
+    setCheckData(state, val = '') {
       state.checkData = shajs('sha256').update(val).digest('hex');
     },
     resetEditor(state) {
@@ -119,14 +120,7 @@ export default new Vuex.Store({
   plugins: [
     (new VuexPersistence({
       storage: window.localStorage,
-      reducer: (state) => ({
-        theme: state.theme,
-        font: state.font,
-        fontSize: state.fontSize,
-        user: state.user
-      }),
-      // filter: (mutation) => (mutation.type.startsWith("changeFont"))
-    })).plugin
+      })).plugin
   ],
   actions: {
     runJs(context, {state, code, input}) {
@@ -163,8 +157,7 @@ export default new Vuex.Store({
       if (state.route.name !== 'saved') {
         return
       }
-      axios
-        .get(`https://ide.cb.lk/code/${pasteId}`)
+      return httpGet(`/code/${pasteId}`)
         .then(({data}) => {
           commit('changeLanguage', data.language)
           commit('setCode', data.code)
@@ -177,7 +170,7 @@ export default new Vuex.Store({
       if (state.checkData == shajs('sha256').update(state.code[state.language]).digest('hex'))
         return;
       else {
-        return axios.post(`https://ide.cb.lk/code/`, {
+        return httpPost(`/code`, {
           id: (void 0),
           language: state.language,
           code: state.code[state.language],

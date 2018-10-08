@@ -41,7 +41,7 @@
           case "setCode":
           case "changeLanguage":
             monaco.editor.setModelLanguage(this.editor.getModel(), this.$store.state.languageMode)
-            this.editor.setValue(this.$store.state.code[this.$store.state.language])
+            this.editor.setValue(this.$store.state.code[this.$store.state.language] || '')
             break;
           case "changeTheme":
             monaco.editor.setTheme(this.$store.state.theme)

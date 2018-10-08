@@ -21,6 +21,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { setToken } from '@/utils/api'
 
 export default {
   computed: mapState({
@@ -33,6 +34,7 @@ export default {
     },
     logout () {
       this.$store.commit('user/logout')
+      setToken(null)
       this.$notify({
         text: 'Logged you out. You may still keep the fiddling with code and use the ide in anonymous mode.',
         type: 'success'

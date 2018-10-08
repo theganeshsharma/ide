@@ -1,11 +1,11 @@
 import axios from 'axios'
-import store from '../store/index'
 
 class API {
   constructor () {
     this.axi = axios.create({
       baseURL: process.env.api,
       timeout: 5000,
+      withCredentials: true
     })
   }
 
@@ -18,9 +18,12 @@ class API {
       params
     })
   }
+
+  httpPost = (uri, data) => this.axi.post(uri, data)
 }
 
 const api = new API()
 
 export const httpGet = api.httpGet
 export const setToken = api.setToken
+export const httpPost = api.httpPost
