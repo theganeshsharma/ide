@@ -7,6 +7,7 @@
 
 <script>
   import Editor from './components/Editor'
+  import { setToken } from './utils/api'
 
   export default {
     name: 'app',
@@ -26,6 +27,10 @@
           this.$store.commit('setIsChanged', true)
         }
       })
+
+      if (this.$store.state.user.isAuthenticated) {
+        setToken(this.$store.state.user.token)
+      }
     }
   }
 
