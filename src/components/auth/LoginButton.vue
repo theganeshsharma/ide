@@ -1,14 +1,14 @@
 <template>
   <span v-if="userStore.isAuthenticated">
-      <button class="btn btn-sm btn-menu">
+    <router-link class="btn btn-sm btn-menu" tag="button" to="/profile">
         Welcome {{userStore.currentUser.firstname}}
-      </button>
+    </router-link>
       <button 
         type="button" 
         class="btn btn-sm btn-menu"
         @click="logout"
         >
-       Logout <i class="fas fa-sign-in-alt"></i>
+       Logout <span class="fas fa-sign-in-alt"></span>
     </button>
   </span>
   <button id="panelLang" type="button" class="btn btn-sm btn-menu"

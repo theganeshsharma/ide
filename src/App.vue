@@ -14,6 +14,11 @@
     components: {
       Editor
     },
+    created() {
+      if (this.$store.state.user.isAuthenticated) {
+        setToken(this.$store.state.user.token)
+      }
+    },
     mounted() {
       let mutationsToSubscribe = [
         'changeTheme',
@@ -27,10 +32,6 @@
           this.$store.commit('setIsChanged', true)
         }
       })
-
-      if (this.$store.state.user.isAuthenticated) {
-        setToken(this.$store.state.user.token)
-      }
     }
   }
 

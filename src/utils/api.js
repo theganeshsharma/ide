@@ -5,7 +5,7 @@ class API {
     this.axi = axios.create({
       baseURL: process.env.api,
       timeout: 5000,
-      withCredentials: true
+      json: true
     })
   }
 
