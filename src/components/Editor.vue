@@ -40,7 +40,7 @@
 <style>
   .btn-group .btn {
     margin: 0;
-    padding: 0 15px;
+    padding: 0 12px;
     height: 40px;
   }
 

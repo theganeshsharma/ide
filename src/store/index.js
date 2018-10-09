@@ -39,6 +39,7 @@ export default new Vuex.Store({
     autoSave: true,
     autoSaveIntervalId: null,
     checkData: '',
+    codeId: null,
   },
   modules: {
     user: userModule
@@ -116,6 +117,9 @@ export default new Vuex.Store({
     setIsChanged(state, val) {
       state.isChanged = val;
     },
+    setCodeId(state, val) {
+      state.codeId = val
+    }
   },
   plugins: [
     (new VuexPersistence({
@@ -159,6 +163,7 @@ export default new Vuex.Store({
       }
       return httpGet(`/code/${pasteId}`)
         .then(({data}) => {
+          commit('setCodeId', data.id)
           commit('changeLanguage', data.language)
           commit('setCode', data.code)
           commit('changeCustomInput', data.customInput)
@@ -171,7 +176,7 @@ export default new Vuex.Store({
         return;
       else {
         return httpPost(`/code`, {
-          id: (void 0),
+          id: state.codeId || (void 0),
           language: state.language,
           code: state.code[state.language],
           customInput: state.customInput,

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1> 
-      <router-link tag="i" class="fa fa-arrow-left" to="/"> </router-link>
+      <router-link tag="i" class="fa fa-arrow-left" to="/"></router-link>
       Welcome {{userStore.currentUser.firstname}} 
     </h1>
     <div class="searchUtil">
