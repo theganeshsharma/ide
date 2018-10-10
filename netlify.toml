@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/#/*"
+  to = "/:splat"
+  status = 301
+
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
