@@ -7,6 +7,8 @@ import Router from 'vue-router'
 import App from './App'
 import store from './store'
 import Editor from './components/Editor'
+import Login from './components/Login.vue'
+import Profile from './components/Profile/Index.vue'
 import { sync } from 'vuex-router-sync'
 import VModal from 'vue-js-modal'
 Vue.config.productionTip = false
@@ -17,9 +19,12 @@ Vue.use(Router)
 Vue.use(VModal)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     { name: 'root', path: '/', component: Editor },
-    { name: 'saved', path: '/s/:id', component: Editor }
+    { name: 'saved', path: '/s/:id', component: Editor },
+    { name: 'login', path: '/callback', component: Login },
+    { name: 'profile', path: '/profile', component: Profile }
   ]
 })
 

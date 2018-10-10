@@ -3,8 +3,8 @@
     <div class="row">
       <div>
         <menuBar>
-          <monaco-editor></monaco-editor>
         </menuBar>
+        <monaco-editor></monaco-editor>
       </div>
       <inoutbox></inoutbox>
     </div>
@@ -24,15 +24,8 @@
       MonacoEditor,
       inoutbox,
     },
-    watch: {
-      '$route'(to, from) {
-        if (to.name === 'root') {
-          this.$store.commit('resetCode')
-          return
-        }
-
-        this.$store.dispatch('loadDataFromServer')
-      }
+    created () {
+      this.$store.dispatch('loadDataFromServer')
     }
   }
 </script>
@@ -40,7 +33,7 @@
 <style>
   .btn-group .btn {
     margin: 0;
-    padding: 0 15px;
+    padding: 0 12px;
     height: 40px;
   }
 

@@ -33,7 +33,6 @@
         this.$store.commit('updateCode', this.editor.getValue())
       })
 
-      this.$store.dispatch('loadDataFromServer')
       this.$store.subscribe((mutation, state) => {
         switch (mutation.type) {
           case "resetCode":
@@ -41,7 +40,7 @@
           case "setCode":
           case "changeLanguage":
             monaco.editor.setModelLanguage(this.editor.getModel(), this.$store.state.languageMode)
-            this.editor.setValue(this.$store.state.code[this.$store.state.language])
+            this.editor.setValue(this.$store.state.code[this.$store.state.language] || '')
             break;
           case "changeTheme":
             monaco.editor.setTheme(this.$store.state.theme)
@@ -123,6 +122,7 @@
     z-index: 10;
     margin: 0;
     border-radius: 0;
+    padding-top: 35px;
   }
   .inputarea {
     opacity: 0;

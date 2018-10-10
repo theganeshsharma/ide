@@ -3,7 +3,6 @@
  */
 'use strict'
 
-//import '@babel-runtime/core-js/json/stringify';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -13,6 +12,9 @@ import VuexPersistence from 'vuex-persist'
 import samples from '../assets/js/sample-source'
 import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing';
+import { httpGet, httpPost } from '../utils/api'
+
+import userModule from './user'
 
 Vue.use(VueClipboard)
 Vue.use(SocialSharing)
@@ -37,6 +39,11 @@ export default new Vuex.Store({
     autoSave: true,
     autoSaveIntervalId: null,
     checkData: '',
+    codeId: null,
+    codeTitle: ''
+  },
+  modules: {
+    user: userModule
   },
   mutations: {
     toggleInOutBox(state) {
@@ -97,7 +104,7 @@ export default new Vuex.Store({
     changeFontSize(state, val) {
       state.fontSize = val
     },
-    setCheckData(state, val) {
+    setCheckData(state, val = '') {
       state.checkData = shajs('sha256').update(val).digest('hex');
     },
     resetEditor(state) {
@@ -105,23 +112,24 @@ export default new Vuex.Store({
       state.font = 'Ubuntu Mono'
       state.fontSize = 16
     },
-    resetCode(state, lang) {
-      state.code[lang] = samples[lang];
+    resetCode(state) {
+      state.code[state.language] = samples[state.language];
+      state.codeId = null
     },
     setIsChanged(state, val) {
       state.isChanged = val;
     },
+    setCodeId(state, val) {
+      state.codeId = val
+    },
+    setCodeTitle(state, val) {
+      state.codeTitle = val
+    }
   },
   plugins: [
     (new VuexPersistence({
-      storage: window.localStorage,
-      reducer: (state) => ({
-        theme: state.theme,
-        font: state.font,
-        fontSize: state.fontSize
-      }),
-      filter: (mutation) => (mutation.type.startsWith("changeFont"))
-    })).plugin
+      storage: window.localStorage
+      })).plugin
   ],
   actions: {
     runJs(context, {state, code, input}) {
@@ -158,27 +166,38 @@ export default new Vuex.Store({
       if (state.route.name !== 'saved') {
         return
       }
-      axios
-        .get(`https://ide.cb.lk/code/${pasteId}`)
+      return httpGet(`/code/${pasteId}`)
         .then(({data}) => {
+          commit('setCodeId', data.id)
           commit('changeLanguage', data.language)
           commit('setCode', data.code)
           commit('changeCustomInput', data.customInput)
           commit('fileNameChange', data.fileName)
-          commit('setCheckData', data.code)
+          commit('setCheckData', data.code),
+          commit('setCodeTitle', data.title)
         })
     },
     saveDataToServer({state, commit, dispatch}) {
       if (state.checkData == shajs('sha256').update(state.code[state.language]).digest('hex'))
-        return;
+        return Promise.resolve({
+          data: {
+            id: state.codeId
+          }
+        });
       else {
-        return axios.post(`https://ide.cb.lk/code/`, {
-          id: (void 0),
+        return httpPost(`/code`, {
+          id: state.codeId || (void 0),
           language: state.language,
           code: state.code[state.language],
           customInput: state.customInput,
-          fileName: state.fileName
-        });
+          fileName: state.fileName,
+          title: state.codeTitle
+        }).then(response => {
+          const { data } = response
+          commit('setCodeId', data.id)
+          commit('setCheckData', data.code)
+          return response
+        })
       }
     },
     runCode({state, commit, dispatch}) {

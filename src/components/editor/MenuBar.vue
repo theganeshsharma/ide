@@ -11,6 +11,13 @@
               <span v-else> Run </span>
             </button>
             <language :options=languages :selected=this.$store.state.language></language>
+
+            <button class="btn btn-sm btn-menu">
+            <router-link class="decoration-none" to="/" target="_blank" active-class="" exact-active-class="">
+              New <i class="fa fa-file-code-o" aria-hidden="true"></i>
+            </router-link>
+            </button>
+
             <button type="button" id="custInp" class="btn btn-sm btn-menu" @click="InOutBoxToggle()">
               Input <i class="fa fa-keyboard-o" aria-hidden="true"></i>
             </button>
@@ -34,14 +41,16 @@
             </button>
           </div>
           <div class="logoMenu">
+            <login-button></login-button>
             Made with <i class="fa fa-heart" aria-hidden="true" style="color: #e31d3b"></i> by
             <img src="../../assets/cb_logo_light.png">
           </div>
         </div>
+        <div class="panel-heading second-row">
+          Title: <input class="black" type="text" placeholder="Untitled" :value=this.$store.state.codeTitle @change=changeTitle>
+        </div>
       </div>
       <settings v-show="this.$store.state.showSettings"></settings>
-      <!-- Editor Goes into the slot -->
-      <slot></slot>
     </div>
     
     <modal name="download-modal" transition="pop-out" :width="680" :pivot-y="0.2" :height="auto">
@@ -110,10 +119,11 @@
   import base64 from 'base-64'
   import Settings from './Settings.vue'
   import Share from './Share.vue'
+  import LoginButton from '../auth/LoginButton.vue'
   import * as download from 'downloadjs'
   export default {
     name: 'menuBar',
-    components: {language, Settings, Share},
+    components: {language, Settings, Share, LoginButton},
     data() {
       return {
         languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],
@@ -250,6 +260,9 @@
           e.preventDefault()
           this.$store.commit('resetCode', this.$store.state.language)
         }
+      },
+      changeTitle (e) {
+        this.$store.commit('setCodeTitle', e.target.value)
       }
     }
   }
@@ -512,5 +525,21 @@
 
   .shortcuts-modal-close:hover {
     color: #181818;
+  }
+
+  .decoration-none {
+    color: unset
+  }
+  .decoration-none:hover {
+    color: #fc4f4f
+  }
+  .second-row {
+    padding: 0px 25px !important;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .second-row input {
+    margin-bottom: 5px;
   }
 </style>

@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <editor></editor>
+    <router-view></router-view>
     <notifications/>
   </div>
 </template>
 
 <script>
   import Editor from './components/Editor'
+  import { setToken } from './utils/api'
 
   export default {
     name: 'app',
     components: {
       Editor
+    },
+    created() {
+      if (this.$store.state.user.isAuthenticated) {
+        setToken(this.$store.state.user.token)
+      }
+      if (this.$route.name != 'saved') {
+        this.$store.commit('resetCode')
+      }
     },
     mounted() {
       let mutationsToSubscribe = [
