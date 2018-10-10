@@ -111,8 +111,9 @@ export default new Vuex.Store({
       state.font = 'Ubuntu Mono'
       state.fontSize = 16
     },
-    resetCode(state, lang) {
-      state.code[lang] = samples[lang];
+    resetCode(state) {
+      state.code[state.language] = samples[state.language];
+      state.codeId = null
     },
     setIsChanged(state, val) {
       state.isChanged = val;
@@ -123,7 +124,7 @@ export default new Vuex.Store({
   },
   plugins: [
     (new VuexPersistence({
-      storage: window.localStorage,
+      storage: window.localStorage
       })).plugin
   ],
   actions: {
@@ -173,7 +174,11 @@ export default new Vuex.Store({
     },
     saveDataToServer({state, commit, dispatch}) {
       if (state.checkData == shajs('sha256').update(state.code[state.language]).digest('hex'))
-        return;
+        return Promise.resolve({
+          data: {
+            id: state.codeId
+          }
+        });
       else {
         return httpPost(`/code`, {
           id: state.codeId || (void 0),
@@ -181,7 +186,12 @@ export default new Vuex.Store({
           code: state.code[state.language],
           customInput: state.customInput,
           fileName: state.fileName
-        });
+        }).then(response => {
+          const { data } = response
+          commit('setCodeId', data.id)
+          commit('setCheckData', data.code)
+          return response
+        })
       }
     },
     runCode({state, commit, dispatch}) {

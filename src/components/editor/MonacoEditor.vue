@@ -33,7 +33,6 @@
         this.$store.commit('updateCode', this.editor.getValue())
       })
 
-      this.$store.dispatch('loadDataFromServer')
       this.$store.subscribe((mutation, state) => {
         switch (mutation.type) {
           case "resetCode":

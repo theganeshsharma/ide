@@ -18,6 +18,9 @@
       if (this.$store.state.user.isAuthenticated) {
         setToken(this.$store.state.user.token)
       }
+      if (this.$route.name != 'saved') {
+        this.$store.commit('resetCode')
+      }
     },
     mounted() {
       let mutationsToSubscribe = [

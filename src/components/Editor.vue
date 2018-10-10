@@ -24,15 +24,8 @@
       MonacoEditor,
       inoutbox,
     },
-    watch: {
-      '$route'(to, from) {
-        if (to.name === 'root') {
-          this.$store.commit('resetCode')
-          return
-        }
-
-        this.$store.dispatch('loadDataFromServer')
-      }
+    created () {
+      this.$store.dispatch('loadDataFromServer')
     }
   }
 </script>

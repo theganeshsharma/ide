@@ -11,6 +11,13 @@
               <span v-else> Run </span>
             </button>
             <language :options=languages :selected=this.$store.state.language></language>
+
+            <button class="btn btn-sm btn-menu">
+            <router-link class="decoration-none" to="/" target="_blank" active-class="" exact-active-class="">
+              New <i class="fa fa-file-code-o" aria-hidden="true"></i>
+            </router-link>
+            </button>
+
             <button type="button" id="custInp" class="btn btn-sm btn-menu" @click="InOutBoxToggle()">
               Input <i class="fa fa-keyboard-o" aria-hidden="true"></i>
             </button>
@@ -512,5 +519,12 @@
 
   .shortcuts-modal-close:hover {
     color: #181818;
+  }
+
+  .decoration-none {
+    color: unset
+  }
+  .decoration-none:hover {
+    color: #fc4f4f
   }
 </style>
