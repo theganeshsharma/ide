@@ -5,7 +5,7 @@ module.exports = {
   api: '"https://ide.cb.lk/"',
   ONEAUTH: {
     url: '"https://account.codingblocks.com/"',
-    clientId: '"999999999"',
+    clientId: '"760890190"',
     clientSecret: '"willnotwork"',
   }
 }
