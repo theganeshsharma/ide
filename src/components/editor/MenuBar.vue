@@ -46,6 +46,9 @@
             <img src="../../assets/cb_logo_light.png">
           </div>
         </div>
+        <div class="panel-heading second-row">
+          Title: <input class="black" type="text" placeholder="Untitled" :value=this.$store.state.codeTitle @change=changeTitle>
+        </div>
       </div>
       <settings v-show="this.$store.state.showSettings"></settings>
     </div>
@@ -257,6 +260,9 @@
           e.preventDefault()
           this.$store.commit('resetCode', this.$store.state.language)
         }
+      },
+      changeTitle (e) {
+        this.$store.commit('setCodeTitle', e.target.value)
       }
     }
   }
@@ -526,5 +532,14 @@
   }
   .decoration-none:hover {
     color: #fc4f4f
+  }
+  .second-row {
+    padding: 0px 25px !important;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .second-row input {
+    margin-bottom: 5px;
   }
 </style>

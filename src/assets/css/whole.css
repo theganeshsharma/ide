@@ -1606,7 +1606,7 @@ footer.bg-dark a {
 }
 
 .headPanel{
-  height: 55px !important;
+  height: 45px !important;
 }
 
 @media (max-width: 970px){
@@ -1695,4 +1695,12 @@ input:focus, button:focus, textarea:focus, select:focus {
   outline: none;
 }
 
-
+input.black {
+  border: none;
+  color:whitesmoke;
+  border-bottom: 1px solid white;
+  background: #202020;
+  font-family: sans-serif;
+  font-weight: 100;
+  
+}

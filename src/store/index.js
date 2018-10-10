@@ -40,6 +40,7 @@ export default new Vuex.Store({
     autoSaveIntervalId: null,
     checkData: '',
     codeId: null,
+    codeTitle: ''
   },
   modules: {
     user: userModule
@@ -120,6 +121,9 @@ export default new Vuex.Store({
     },
     setCodeId(state, val) {
       state.codeId = val
+    },
+    setCodeTitle(state, val) {
+      state.codeTitle = val
     }
   },
   plugins: [
@@ -169,7 +173,8 @@ export default new Vuex.Store({
           commit('setCode', data.code)
           commit('changeCustomInput', data.customInput)
           commit('fileNameChange', data.fileName)
-          commit('setCheckData', data.code)
+          commit('setCheckData', data.code),
+          commit('setCodeTitle', data.title)
         })
     },
     saveDataToServer({state, commit, dispatch}) {
@@ -185,7 +190,8 @@ export default new Vuex.Store({
           language: state.language,
           code: state.code[state.language],
           customInput: state.customInput,
-          fileName: state.fileName
+          fileName: state.fileName,
+          title: state.codeTitle
         }).then(response => {
           const { data } = response
           commit('setCodeId', data.id)

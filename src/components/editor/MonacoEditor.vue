@@ -122,7 +122,7 @@
     z-index: 10;
     margin: 0;
     border-radius: 0;
-    padding-top: 10px;
+    padding-top: 35px;
   }
   .inputarea {
     opacity: 0;

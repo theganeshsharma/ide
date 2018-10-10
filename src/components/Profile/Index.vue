@@ -5,7 +5,7 @@
       Welcome {{userStore.currentUser.firstname}} 
     </h1>
     <div class="searchUtil">
-    <input class="search" type="text" placeholder="🔍 Search by title..." v-model=searchStr @change=searchTextChanged>
+    <input class="black search" type="text" placeholder="🔍 Search by title..." v-model=searchStr @change=searchTextChanged>
     </div>
     <CodeList :codes=codes></CodeList>
   </div>
@@ -75,12 +75,6 @@ export default {
     font-size: 35px;
   }
   input.search {
-    border: none;
-    color:whitesmoke;
-    border-bottom: 1px solid white;
-    background: #202020;
-    font-family: sans-serif;
-    font-weight: 100;
     width: 50%;
   }
   i {
