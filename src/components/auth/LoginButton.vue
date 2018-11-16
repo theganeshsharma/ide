@@ -1,6 +1,6 @@
 <template>
   <span v-if="userStore.isAuthenticated">
-    <a class="btn btn-sm btn-menu" href="https://account.codingblocks.com/users/me">
+    <a class="btn btn-sm btn-menu" target="_blank" href="https://account.codingblocks.com/users/me">
       <i class="fa fa-user"></i>
       {{userStore.currentUser.firstname}}
     </a>
