@@ -16,7 +16,7 @@
        Logout <span class="fas fa-sign-in-alt"></span>
     </button>
   </span>
-  <button id="panelLang" type="button" class="btn btn-sm btn-outline-danger"
+  <button id="panelLang" type="button" class="btn btn-sm btn-danger"
     @click="login"
     v-else >
     Login <i class="fas fa-sign-in-alt"></i>
