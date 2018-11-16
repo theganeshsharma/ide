@@ -1,7 +1,12 @@
 <template>
   <span v-if="userStore.isAuthenticated">
+    <a class="btn btn-sm btn-menu" href="https://account.codingblocks.com/users/me">
+      <i class="fa fa-user"></i>
+      {{userStore.currentUser.firstname}}
+    </a>
     <router-link class="btn btn-sm btn-menu" tag="button" to="/profile">
-        Welcome {{userStore.currentUser.firstname}}
+        <i class="fa fa-list"></i>
+        Saved Codes 
     </router-link>
       <button 
         type="button" 
