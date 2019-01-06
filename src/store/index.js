@@ -133,8 +133,7 @@ export default new Vuex.Store({
   ],
   actions: {
     runJs(context, {state, code, input}) {
-      let jsWorker = null
-        jsWorker = new Worker('../../static/jsWorker.js')
+      let jsWorker = new Worker('../../static/jsWorker.js')
       input = JSON.stringify(input)
       jsWorker.postMessage({code, input})
       return new Promise((resolve, reject) => {
