@@ -134,9 +134,6 @@ export default new Vuex.Store({
   actions: {
     runJs(context, {state, code, input}) {
       let jsWorker = null
-      if (process.env.NODE_ENV === 'production')
-        jsWorker = new Worker('../../ide/static/jsWorker.js')
-      else
         jsWorker = new Worker('../../static/jsWorker.js')
       input = JSON.stringify(input)
       jsWorker.postMessage({code, input})
