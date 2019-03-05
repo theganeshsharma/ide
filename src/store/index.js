@@ -15,6 +15,7 @@ import SocialSharing from 'vue-social-sharing';
 import { httpGet, httpPost } from '../utils/api'
 
 import userModule from './user'
+import firebaseModule from './firebase'
 
 Vue.use(VueClipboard)
 Vue.use(SocialSharing)
@@ -40,10 +41,12 @@ export default new Vuex.Store({
     autoSaveIntervalId: null,
     checkData: '',
     codeId: null,
-    codeTitle: ''
+    codeTitle: '',
+    isPairing: false
   },
   modules: {
-    user: userModule
+    user: userModule,
+    firebase: firebaseModule
   },
   mutations: {
     toggleInOutBox(state) {
@@ -124,11 +127,20 @@ export default new Vuex.Store({
     },
     setCodeTitle(state, val) {
       state.codeTitle = val
+    },
+    enablePairMode (state) {
+      state.isPairing = true
     }
   },
   plugins: [
     (new VuexPersistence({
-      storage: window.localStorage
+      storage: window.localStorage,
+      reducer: function (state) {
+        const excluded = ['firebase']
+        return Object.keys(state)
+          .filter(key => !excluded.includes(key))
+          .reduce((acc, key) => ({key: state[key], ...acc}), {})        
+      },
       })).plugin
   ],
   actions: {

@@ -68,15 +68,21 @@
     methods: {
       getURL() {
         this.showShareModal = true;
-        if (window.location.href !== this.longURL)
-          axios.post('https://cb.lk/api/v1/shorten', {
-            url: window.location.href,
-            code: '',
-            secret: ''
-          }).then((response) => {
-            this.longURL = window.location.href;
-            this.shortURL = 'https://cb.lk/' + response.data.shortcode;
-          })
+        // if (window.location.href !== this.longURL)
+        //   axios.post('https://cb.lk/api/v1/shorten', {
+        //     url: window.location.href,
+        //     code: '',
+        //     secret: ''
+        //   }).then((response) => {
+        //     this.longURL = window.location.href;
+        //     this.shortURL = 'https://cb.lk/' + response.data.shortcode;
+        //   })
+
+        // only enablePairMode if not already pairing
+        if (!this.$store.state.isPairing)
+          this.$store.commit('enablePairMode', {keepText: true})
+
+        this.shortURL = process.env.url + 'j/' + this.$store.state.firebase.ref
       },
       onCopy() {
         this.$notify({

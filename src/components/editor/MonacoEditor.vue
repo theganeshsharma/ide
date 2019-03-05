@@ -4,6 +4,8 @@
 
 <script>
   import * as monaco from 'monaco-editor';
+  import firepad from 'firepad';
+  import { getRef } from '@/utils/firepad'
 
   export default {
     name: 'monaco-editor',
@@ -13,7 +15,7 @@
 
       this.editor = 
         monaco.editor.create(document.getElementById('editor'), {
-          value: this.$store.state.code[this.$store.state.language],
+          // value: this.$store.state.code[this.$store.state.language],
           minimap: {
             showSlider: false
           },
@@ -62,6 +64,18 @@
               fontSize: this.$store.state.fontSize
             })
             break;
+          case "enablePairMode": 
+            
+            const value = this.editor.getValue()
+            // need to clear editor before initializing firepad
+            this.editor.setValue('')
+            // setup firepad to track the editor now
+            firepad.fromMonaco(getRef(), this.editor)
+            
+            if (mutation.payload && mutation.payload.keepText) {
+              this.editor.setValue(value)
+            }
+            break;
         }
       })
 
@@ -76,6 +90,10 @@
             break;
         }
       })
+
+      if (!this.$store.state.isPairing) {
+        this.editor.setValue(this.$store.state.code[this.$store.state.language])
+      }
     },
     destroyed() {
       removeEventListener('dragover', this.dragOverHandler, false)

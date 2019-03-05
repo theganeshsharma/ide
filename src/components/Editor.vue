@@ -26,6 +26,13 @@
     },
     created () {
       this.$store.dispatch('loadDataFromServer')
+
+    },
+    mounted () {
+      if (this.$attrs.ref) {
+        this.$store.commit('firebase/setFirebaseRef', this.$attrs.ref)
+        this.$store.commit('enablePairMode')
+      }
     }
   }
 </script>
