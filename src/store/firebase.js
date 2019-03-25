@@ -1,4 +1,4 @@
-import { getRef } from "@/utils/firepad";
+import { getRef } from "@/utils/firebase";
 
 export default {
   namespaced: true,

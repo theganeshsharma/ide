@@ -1,11 +1,6 @@
 import firebase from 'firebase'
 
-const config = {
-  apiKey: 'AIzaSyD1bGr7kMHEWxK0X-oIKWfsZ29QNhjJA5U',
-  databaseURL: "https://cb-ide.firebaseio.com/",
-  projectId: "cb-ide",
-}
-
+const config = process.env.firebase
 firebase.initializeApp(config);
 
 export const getRef = async function (key) {

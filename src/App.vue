@@ -8,7 +8,6 @@
 <script>
   import Editor from './components/Editor'
   import { setToken } from './utils/api'
-  import firepad from './utils/firepad'
 
   export default {
     name: 'app',
