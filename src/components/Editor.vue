@@ -29,9 +29,9 @@
 
     },
     mounted () {
-      if (this.$attrs.ref) {
-        this.$store.commit('firebase/setFirebaseRef', this.$attrs.ref)
-        this.$store.commit('enablePairMode')
+      const ref = this.$route.query.ref || this.$attrs.ref
+      if (ref) {
+        this.$store.dispatch('firebase/startCodeSharing', ref)
       }
     }
   }

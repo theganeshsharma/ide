@@ -1,5 +1,4 @@
 import firebase from 'firebase'
-import store from '../store/index'
 
 const config = {
   apiKey: 'AIzaSyD1bGr7kMHEWxK0X-oIKWfsZ29QNhjJA5U',
@@ -9,17 +8,14 @@ const config = {
 
 firebase.initializeApp(config);
 
-export const getRef = function () {
+export const getRef = async function (key) {
   let ref = firebase.database().ref();
-  let key = store.state.firebase.ref
 
-  if (key) 
+  if (key)
     ref = ref.child(key)
-  else {
-    ref = ref.push()
-    console.log("here", ref.key)
-    store.commit('firebase/setFirebaseRef', ref.key)
-  }
+  else 
+    throw new Error('Must specify a key to get reference')
 
+  await ref.once('value')
   return ref
 }

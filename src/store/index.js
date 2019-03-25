@@ -41,8 +41,7 @@ export default new Vuex.Store({
     autoSaveIntervalId: null,
     checkData: '',
     codeId: null,
-    codeTitle: '',
-    isPairing: false
+    codeTitle: ''
   },
   modules: {
     user: userModule,
@@ -127,9 +126,6 @@ export default new Vuex.Store({
     },
     setCodeTitle(state, val) {
       state.codeTitle = val
-    },
-    enablePairMode (state) {
-      state.isPairing = true
     }
   },
   plugins: [

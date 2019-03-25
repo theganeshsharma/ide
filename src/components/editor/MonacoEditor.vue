@@ -5,7 +5,6 @@
 <script>
   import * as monaco from 'monaco-editor';
   import firepad from 'firepad';
-  import { getRef } from '@/utils/firepad'
 
   export default {
     name: 'monaco-editor',
@@ -64,17 +63,18 @@
               fontSize: this.$store.state.fontSize
             })
             break;
-          case "enablePairMode": 
-            
+          case "firebase/enablePairMode": 
             const value = this.editor.getValue()
             // need to clear editor before initializing firepad
             this.editor.setValue('')
             // setup firepad to track the editor now
-            firepad.fromMonaco(getRef(), this.editor)
+            firepad.fromMonaco(this.$store.state.firebase.ref, this.editor)
             
             if (mutation.payload && mutation.payload.keepText) {
               this.editor.setValue(value)
             }
+
+            this.$store.commit('setCodeTitle', `CodePairing: #${this.$store.state.firebase.ref.key}`)
             break;
         }
       })
