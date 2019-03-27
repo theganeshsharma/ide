@@ -9,8 +9,8 @@ module.exports = {
     clientSecret: '"willnotwork"',
   },
   firebase: {
-    apiKey: '"AIzaSyD1bGr7kMHEWxK0X-oIKWfsZ29QNhjJA5U"',
-    databaseURL: '"https://cb-ide.firebaseio.com/"',
-    projectId: '"cb-ide"'
+    apiKey: '"AIzaSyBmhZWgSNL32DCYIouM_iPs4rbtq-NPugo"',
+    databaseURL: '"https://cb-ide-79a73.firebaseio.com/"',
+    projectId: '"cb-ide-79a73"'
   }
 }
