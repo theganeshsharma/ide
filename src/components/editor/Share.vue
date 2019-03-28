@@ -77,6 +77,14 @@
             this.longURL = window.location.href;
             this.shortURL = 'https://cb.lk/' + response.data.shortcode;
           })
+
+        // // only enablePairMode if not already pairing
+        // const state = this.$store.state
+        // if (!state.isPairing)
+        //   this.$store.commit('enablePairMode', {keepText: true})
+
+        // const middle = state.codeId ? '/s/' + state.codeId + '?ref=' : '/j/'
+        // this.shortURL = window.location.host + middle + state.firebase.ref
       },
       onCopy() {
         this.$notify({

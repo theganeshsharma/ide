@@ -10,6 +10,10 @@ module.exports = merge(prodEnv, {
     url: '"https://account.codingblocks.com/"',
     clientId: '"9157831146"',
     clientSecret: '"PLmcYBDa169KQamXgNCqLoad0pVGTWdyEuc8xOrEZCSIQMWEgul9r6LveSirT7GX"',
+  },
+  firebase: {
+    apiKey: '"AIzaSyD1bGr7kMHEWxK0X-oIKWfsZ29QNhjJA5U"',
+    databaseURL: '"https://cb-ide.firebaseio.com/"',
+    projectId: '"cb-ide"'
   }
-  
 })

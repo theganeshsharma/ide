@@ -26,6 +26,13 @@
     },
     created () {
       this.$store.dispatch('loadDataFromServer')
+
+    },
+    mounted () {
+      const ref = this.$route.query.ref || this.$attrs.ref
+      if (ref) {
+        this.$store.dispatch('firebase/startCodeSharing', ref)
+      }
     }
   }
 </script>
