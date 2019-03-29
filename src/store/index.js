@@ -132,10 +132,11 @@ export default new Vuex.Store({
     (new VuexPersistence({
       storage: window.localStorage,
       reducer: function (state) {
-        const excluded = ['firebase']
+        const included = ['user', 'showInOutBox', 'showSettings', 'font', 'fontSize']
+        console.log(state)
         return Object.keys(state)
-          .filter(key => !excluded.includes(key))
-          .reduce((acc, key) => ({key: state[key], ...acc}), {})        
+          .filter(key => included.includes(key))
+          .reduce((acc, key) => ({[key]: state[key], ...acc}), {})        
       },
       })).plugin
   ],
