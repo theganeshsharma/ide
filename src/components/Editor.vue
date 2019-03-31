@@ -31,7 +31,10 @@
     mounted () {
       const ref = this.$route.query.ref || this.$attrs.ref
       if (ref) {
-        this.$store.dispatch('firebase/startCodeSharing', ref)
+        this.$store.dispatch('firebase/startCodeSharing', ref).catch(() => {
+          alert('This live code link is no longer valid')
+          this.$router.push('/')
+        })
       }
     }
   }
