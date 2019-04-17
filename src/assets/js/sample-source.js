@@ -43,6 +43,9 @@ const java_sample =
 const py2_sample =
   'print("Hello World!")';
 
+const py3_sample =
+  'print("Hello World!")';
+
 const js_sample =
   `/* 
     Use INPUT variable to get stdin.
@@ -58,6 +61,7 @@ const lang_samples = {
   'C#': csharp_sample,
   'Java': java_sample,
   'Python': py2_sample,
+  'Python3': py3_sample,
   'Javascript': js_sample,
   'NodeJs': js_sample,
   'Ruby': ruby_sample

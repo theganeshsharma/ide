@@ -61,6 +61,7 @@ export default new Vuex.Store({
         'C#': 'csharp',
         'Java': 'java',
         'Python': 'python',
+        'Python3': 'python',
         'Javascript': 'javascript',
         'NodeJs': 'javascript',
         'Ruby': 'ruby'
@@ -71,6 +72,7 @@ export default new Vuex.Store({
         'C#': '.cs',
         'Java': '.java',
         'Python': '.py',
+        'Python3': '.py',
         'Javascript': '.js',
         'NodeJs': '.js',
         'Ruby': '.rb'
@@ -222,6 +224,9 @@ export default new Vuex.Store({
           break
         case 'Python':
           lang = 'py2';
+          break
+        case 'Python3':
+          lang = 'py3';
           break
         case 'NodeJs':
           lang = 'js';
