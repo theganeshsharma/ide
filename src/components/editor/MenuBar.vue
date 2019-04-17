@@ -126,7 +126,7 @@
     components: {language, Settings, Share, LoginButton},
     data() {
       return {
-        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Javascript', 'NodeJs', 'Ruby'],
+        languages: ['C', 'C++', 'C#', 'Java', 'Python', 'Python3', 'Javascript', 'NodeJs', 'Ruby'],
         fullscreen: false,
         loading: false,
         fileName: this.$store.state.fileName
