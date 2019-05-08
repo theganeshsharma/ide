@@ -249,7 +249,7 @@ export default new Vuex.Store({
           'Access-Token': '79f3c2f8301fc60565de003f4ac76a1d4e5242cb0836995ec2bd28fd083ce86f'
         }
       }
-      return axios.post('https://judge.cb.lk/api/submission', {
+      return axios.post('https://judge.codingblocks.com/api/submission', {
         lang,
         source: base64.encode(state.code[state.language]),
         test_count: 1,
