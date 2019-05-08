@@ -2,7 +2,7 @@
 module.exports = {
   NODE_ENV: '"production"',
   url: '"https://ide.codingblocks.com/"',
-  api: '"https://ide.cb.lk/"',
+  api: '"https://ide-api.codingblocks.com/"',
   ONEAUTH: {
     url: '"https://account.codingblocks.com/"',
     clientId: '"760890190"',
