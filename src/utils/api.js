@@ -4,7 +4,7 @@ class API {
   constructor () {
     this.axi = axios.create({
       baseURL: process.env.api,
-      timeout: 5000,
+      timeout: 25000,
       json: true
     })
   }
