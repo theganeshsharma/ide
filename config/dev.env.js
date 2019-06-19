@@ -8,8 +8,7 @@ module.exports = merge(prodEnv, {
   api: '"http://localhost:3000/"',
   ONEAUTH: {
     url: '"https://account.codingblocks.com/"',
-    clientId: '"9157831146"',
-    clientSecret: '"PLmcYBDa169KQamXgNCqLoad0pVGTWdyEuc8xOrEZCSIQMWEgul9r6LveSirT7GX"',
+    clientId: '"7319994330"'
   },
   firebase: {
     apiKey: '"AIzaSyD1bGr7kMHEWxK0X-oIKWfsZ29QNhjJA5U"',

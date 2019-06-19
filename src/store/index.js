@@ -244,20 +244,11 @@ export default new Vuex.Store({
         });
       }
 
-      const config = {
-        headers: {
-          'Access-Token': '79f3c2f8301fc60565de003f4ac76a1d4e5242cb0836995ec2bd28fd083ce86f'
-        }
-      }
-      return axios.post('https://judge.codingblocks.com/api/submission', {
+      return httpPost('/run/run', {
         lang,
         source: base64.encode(state.code[state.language]),
-        test_count: 1,
-        input: [base64.encode(state.customInput)],
-        expected_output: [''],
-        get_output: true,
-        wait: true
-      }, config)
+        input: [base64.encode(state.customInput)]
+      })
         .then(({data}) => {
           const output = data.result == 'compile_error' ? data.error : data.data.testcases[0].output
           commit('updateOutput', base64.decode(output))
