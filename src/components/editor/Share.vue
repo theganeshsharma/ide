@@ -1,7 +1,7 @@
 <template>
   <div id="shareId" class="btn-group">
     <button id="shareButton" type="button" class="btn btn-sm btn-menu" @click="getURL">
-      Share<i class="fa fa-reply-all" aria-hidden="true"></i>
+      Share<i class="fa fa-share-alt" aria-hidden="true"></i>
     </button>
     <div name="shareModal" v-show="showShareModal">
       <div class="modal-mask">
