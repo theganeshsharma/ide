@@ -1572,6 +1572,12 @@ footer.bg-dark a {
   }
 }
 
+/* The settings blocks editor window's first line. Thus changing the padding*/
+#editor{
+
+  padding-top:45px !important;
+}
+
 #editor.change_height {
   height: 92.5%!important;
 }
