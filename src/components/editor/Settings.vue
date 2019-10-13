@@ -1,5 +1,5 @@
 <template>
-  <div class="panel panel-default">
+  <div v-if="!isHidden" class="panel panel-default">
     <div class="headPanel panel-heading" style=" border-bottom-width:0px; ">
       <div class="btn-group">
         <b>Font:</b>
@@ -22,6 +22,13 @@
       <ul class="list-inline panel-actions">
         <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
       </ul>
+      <div class="btn-group>
+          <button v-on:click="isHidden = true" class="btn btn-sm">
+           Close
+        <i class="fa fa-close"> <i>
+      
+        </button>
+      </div>
     </div>
   </div>
 </template>
